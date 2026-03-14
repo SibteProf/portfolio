@@ -1,19 +1,8 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App';
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { getRouter } from './router'
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />
-  }
-]);
+const router = getRouter()
 
-function App() {
-  return (
-    <div>
-      <h1>Hello, Sibte!</h1>
-    </div>
-  );
+export default function App() {
+  return <RouterProvider router={router} />
 }
-
-export default App;

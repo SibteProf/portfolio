@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Sun, Moon, Monitor } from 'lucide-react'
 
 type ThemeMode = 'light' | 'dark' | 'auto'
 
@@ -32,7 +34,7 @@ function applyThemeMode(mode: ThemeMode) {
 }
 
 export default function ThemeToggle() {
-  const [mode, setMode] = useState<ThemeMode>('auto')
+  const [mode, setMode] = useState<ThemeMode>('dark')
 
   useEffect(() => {
     const initialMode = getInitialMode()
@@ -62,20 +64,80 @@ export default function ThemeToggle() {
     window.localStorage.setItem('theme', nextMode)
   }
 
-  const label =
-    mode === 'auto'
-      ? 'Theme mode: auto (system). Click to switch to light mode.'
-      : `Theme mode: ${mode}. Click to switch mode.`
+  const nextMode = mode === 'light' ? 'dark' : mode === 'dark' ? 'auto' : 'light'
+  const label = `Theme: ${mode}. Click to switch to ${nextMode}`
+
+  // Determine text color based on resolved theme
+  const resolvedTheme = mode === 'auto'
+    ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    : mode
+  const iconColor = resolvedTheme === 'dark' ? '#0a0a0f' : '#0a0a0f'
 
   return (
-    <button
+    <motion.button
       type="button"
       onClick={toggleMode}
       aria-label={label}
       title={label}
-      className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm font-semibold text-[var(--sea-ink)] shadow-[0_8px_22px_rgba(30,90,72,0.08)] transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
+className="relative flex items-center justify-center w-10 h-10 rounded-full bg-[var(--accent-primary)] border border-[var(--accent-primary)] overflow-hidden"
+      whileTap={{ scale: 0.9 }}
     >
-      {mode === 'auto' ? 'Auto' : mode === 'dark' ? 'Dark' : 'Light'}
-    </button>
+      {/* Sliding background indicator */}
+      <motion.div
+        className="absolute inset-1 rounded-full bg-white"
+        layout
+        transition={{
+          type: 'spring',
+          stiffness: 250,
+          damping: 20,
+        }}
+        style={{
+          left: mode === 'dark' ? '4px' : 'auto',
+          right: mode === 'light' ? '4px' : 'auto',
+          transform: mode === 'auto' ? 'translateX(-50%)' : undefined,
+        }}
+      />
+      <AnimatePresence mode="wait">
+        {mode === 'light' && (
+          <motion.div
+            key="sun"
+            initial={{ scale: 0, rotate: -90, opacity: 0 }}
+            animate={{ scale: 1, rotate: 0, opacity: 1 }}
+            exit={{ scale: 0, rotate: 90, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="relative z-10 flex items-center justify-center"
+            style={{ width: '16px', height: '16px' }}
+          >
+            <Sun size={16} color={iconColor} />
+          </motion.div>
+        )}
+        {mode === 'dark' && (
+          <motion.div
+            key="moon"
+            initial={{ scale: 0, rotate: 90, opacity: 0 }}
+            animate={{ scale: 1, rotate: 0, opacity: 1 }}
+            exit={{ scale: 0, rotate: -90, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="relative z-10 flex items-center justify-center"
+            style={{ width: '16px', height: '16px' }}
+          >
+            <Moon size={16} color={iconColor} />
+          </motion.div>
+        )}
+        {mode === 'auto' && (
+          <motion.div
+            key="auto"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="relative z-10 flex items-center justify-center"
+            style={{ width: '16px', height: '16px' }}
+          >
+            <Monitor size={16} color={iconColor} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.button>
   )
 }

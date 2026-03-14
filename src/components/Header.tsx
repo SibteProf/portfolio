@@ -1,7 +1,9 @@
 import { Link, useLocation } from '@tanstack/react-router'
 import ThemeToggle from './ThemeToggle'
 import { useState, useEffect } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Github } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ScrollReveal, Magnetic } from './ui/ScrollReveal'
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -18,9 +20,9 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
+      setScrolled(window.scrollY > 20)
     }
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -29,71 +31,159 @@ export default function Header() {
   }, [location.pathname])
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b border-[var(--line)] backdrop-blur-lg transition-all duration-300 ${
-        scrolled ? 'bg-[var(--header-bg)] shadow-sm' : 'bg-[var(--header-bg)]'
-      }`}
-    >
-      <nav className="page-wrap flex flex-wrap items-center gap-x-3 gap-y-2 py-3 sm:py-4" aria-label="Main navigation">
-        {/* Logo */}
-        <h2 className="m-0 flex-shrink-0 text-base font-semibold tracking-tight">
-          <Link
-            to="/"
-            className="group inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] transition-all sm:px-4 sm:py-2 hover:-translate-y-0.5 hover:border-[var(--lagoon)]"
-          >
-            {/* <span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,#56c6be,#7ed3bf)] transition-transform group-hover:scale-125" /> */}
-            <img src='/favicon.png' alt='Brand Image' />
-          </Link>
-        </h2>
-
-        {/* Desktop Navigation */}
-        <div className="hidden flex-1 items-center justify-center gap-1 sm:flex">
-          {navLinks.map((link) => (
+    <>
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-[var(--bg-secondary)]/80 backdrop-blur-xl border-b border-[var(--border-color)]'
+            : 'bg-transparent'
+        }`}
+      >
+        <nav className="page-container flex items-center justify-between py-4" aria-label="Main navigation">
+          {/* Logo */}
+          <ScrollReveal delay={0}>
             <Link
-              key={link.to}
-              to={link.to}
-              className="nav-link relative px-4 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors"
-              activeProps={{ className: 'nav-link is-active' }}
+              to="/"
+              className="group inline-flex items-center gap-2 no-underline"
             >
-              {link.label}
+              <motion.div
+                className="relative flex items-center justify-center"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div className="h-10 w-10 rounded-xl  flex items-center justify-center text-[var(--text-inverse)] font-bold text-lg shadow-lg shadow-[var(--accent-glow)]">
+                  <img src='/favicon.png' alt='Brand Image' />
+                </div>
+                <motion.div
+                  className="absolute inset-0 rounded-xl  opacity-0 blur-xl"
+                  whileHover={{ opacity: 0.5 }}
+                />
+              </motion.div>
+              {/* <span className="hidden sm:block font-display font-semibold text-[var(--text-primary)] text-lg">
+                Sibte Hussain
+              </span> */}
             </Link>
-          ))}
-        </div>
+          </ScrollReveal>
 
-        {/* Right Actions */}
-        <div className="ml-auto flex items-center gap-2 sm:ml-0 sm:gap-3">
-          <ThemeToggle />
-
-          {/* Mobile Menu Button */}
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="sm:hidden rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] p-2 text-[var(--sea-ink)] transition hover:border-[var(--lagoon)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
-            aria-label="Toggle menu"
-            aria-expanded={mobileMenuOpen}
-          >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="border-t border-[var(--line)] bg-[var(--header-bg)] px-4 py-4 sm:hidden">
-          <nav className="flex flex-col gap-2" aria-label="Mobile navigation">
+          {/* Desktop Navigation */}
+          <ScrollReveal delay={0.1} className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                className="nav-link rounded-full px-4 py-3 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:bg-[var(--link-bg-hover)]"
-                activeProps={{ className: 'nav-link is-active bg-[rgba(79,184,178,0.1)]' }}
+                className={`nav-link no-underline px-4 py-2 rounded-full transition-all ${
+                  location.pathname === link.to
+                    ? 'bg-[var(--bg-glass)] text-[var(--text-primary)]'
+                    : 'hover:bg-[var(--bg-glass)]'
+                }`}
+                activeProps={{ className: 'nav-link active bg-[var(--bg-glass)]' }}
               >
                 {link.label}
               </Link>
             ))}
-          </nav>
-        </div>
-      )}
-    </header>
+          </ScrollReveal>
+
+          {/* Right Actions */}
+          <ScrollReveal delay={0.2} className="flex items-center gap-3">
+            <motion.a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-glass-hover)] transition-all"
+              aria-label="GitHub"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Github size={18} />
+            </motion.a>
+            <ThemeToggle />
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)]"
+              aria-label="Toggle menu"
+              aria-expanded={mobileMenuOpen}
+              whileTap={{ scale: 0.95 }}
+            >
+              <AnimatePresence mode="wait">
+                {mobileMenuOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X size={20} />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Menu size={20} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          </ScrollReveal>
+        </nav>
+      </motion.header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
+            className="md:hidden border-b border-[var(--border-color)] bg-[var(--bg-secondary)]"
+          >
+            <nav className="page-container py-4 flex flex-col gap-2" aria-label="Mobile navigation">
+              {navLinks.map((link, index) => (
+                <motion.div
+                  key={link.to}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  <Link
+                    to={link.to}
+                    className={`nav-link no-underline px-4 py-3 rounded-xl text-base font-medium ${
+                      location.pathname === link.to
+                        ? 'bg-[var(--accent-glow)] text-[var(--accent-primary)]'
+                        : 'hover:bg-[var(--bg-glass)]'
+                    }`}
+                    activeProps={{ className: 'nav-link active bg-[var(--accent-glow)] text-[var(--accent-primary)]' }}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
+              <div className="flex items-center gap-3 pt-4 mt-2 border-t border-[var(--border-color)]">
+                <motion.a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)]"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Github size={18} />
+                </motion.a>
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }

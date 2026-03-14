@@ -1,172 +1,262 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { GraduationCap, Code2, Target, Heart } from 'lucide-react'
+import { Code2, Smartphone, Target, Award, Zap, Heart, TrendingUp, ArrowRight } from 'lucide-react'
+import {
+  ScrollReveal,
+  HoverCard,
+} from '../components/ui/ScrollReveal'
 
 export const Route = createFileRoute('/about')({
   component: About,
 })
 
-function About() {
+const journeyTimeline = [
+  {
+    year: '2023 - Present',
+    title: 'Senior React Developer',
+    company: 'TechMosaic Solutions',
+    description: 'Leading development teams for web and mobile applications.',
+    align: 'left',
+  },
+  {
+    year: '2021 - 2023',
+    title: 'React Developer',
+    company: 'Nexus Digital',
+    description: 'Developed scalable web and mobile applications.',
+    align: 'right',
+  },
+  {
+    year: '2020 - 2021',
+    title: 'Junior Frontend Developer',
+    company: 'ByteCraft Solutions',
+    description: 'Started professional journey building React applications.',
+    align: 'left',
+  },
+]
+
+const highlights = [
+  {
+    icon: Code2,
+    title: 'Web Development',
+    description: 'Building modern, responsive web applications using React, TypeScript, and Next.js. Experience with component libraries, state management, and performance optimization.',
+  },
+  {
+    icon: Smartphone,
+    title: 'Mobile Development',
+    description: 'Creating cross-platform mobile applications for iOS and Android. Specialized in smooth animations, offline capabilities, and seamless API integrations.',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Performance Optimization',
+    description: 'Improving application performance by up to 40%. Expert in code splitting, lazy loading, and bundle size optimization.',
+  },
+  {
+    icon: Target,
+    title: 'Team Leadership',
+    description: 'Leading teams of 4-5 developers, mentoring juniors, and conducting code reviews. Built design systems improving team productivity by 35%.',
+  },
+]
+
+const stats = [
+  { value: 5, suffix: '+', label: 'Years Experience' },
+  { value: 30, suffix: '+', label: 'Projects Delivered' },
+  { value: 15, suffix: '+', label: 'Team Members Led' },
+  { value: 40, suffix: '%', label: 'Performance Boost' },
+]
+
+function TimelineItem({ item, index }: { item: typeof journeyTimeline[0]; index: number }) {
   return (
-    <main className="page-wrap px-4 py-12" id="main-content" aria-label="About">
-      {/* Hero Section */}
-      <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        <div className="pointer-events-none absolute -left-20 -top-20 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.3),transparent_66%)]" />
-        <div className="pointer-events-none absolute -bottom-16 -right-16 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
+    <ScrollReveal
+      delay={index * 0.15}
+      className={`relative flex gap-6 md:gap-0 ${
+        item.align === 'left' ? 'md:flex-row' : 'md:flex-row-reverse'
+      }`}
+    >
+      {/* Timeline dot */}
+      <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[var(--accent-primary)] border-4 border-[var(--bg-secondary)] shadow-lg shadow-[var(--accent-glow)] z-10" />
 
-        <div className="relative z-10">
-          <p className="island-kicker mb-3">About Me</p>
-          <h1 className="display-title mb-5 max-w-3xl text-4xl leading-[1.02] font-bold tracking-tight text-[var(--sea-ink)] sm:text-6xl">
-            Crafting Digital Experiences
-          </h1>
-          <p className="mb-4 max-w-2xl text-lg text-[var(--sea-ink-soft)]">
-            Hello! I'm Sibte Hussain, a passionate developer with a dual expertise in React
-            web applications and React Native mobile development.
+      {/* Content */}
+      <div className="ml-12 md:ml-0 md:w-1/2 md:px-10">
+        <HoverCard className="p-5">
+          <div className="flex items-center gap-2 text-[var(--accent-primary)] text-sm font-medium mb-2">
+            <Award size={16} />
+            {item.year}
+          </div>
+          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-1">
+            {item.title}
+          </h3>
+          <p className="text-[var(--accent-secondary)] text-sm mb-2">
+            {item.company}
           </p>
-          <p className="max-w-2xl text-base text-[var(--sea-ink-soft)]">
-            With 3+ years of professional experience, I specialize in building scalable,
-            performant applications that delight users. I love turning complex problems into
-            simple, beautiful, and intuitive solutions.
+          <p className="text-[var(--text-secondary)] text-sm">
+            {item.description}
           </p>
-        </div>
-      </section>
-
-      {/* Bio Section */}
-      <section className="mt-8 grid gap-6 sm:grid-cols-2">
-        <div className="island-shell rise-in rounded-2xl p-6">
-          <div className="mb-4 flex items-center gap-3">
-            <div className="rounded-full bg-[rgba(79,184,178,0.15)] p-3">
-              <Code2 className="text-[var(--lagoon)]" size={24} />
-            </div>
-            <h2 className="text-xl font-semibold text-[var(--sea-ink)]">
-              Web Development
-            </h2>
-          </div>
-          <p className="text-base text-[var(--sea-ink-soft)] leading-relaxed">
-            As a React Developer, I build modern, responsive web applications using
-            React.js, TypeScript, and Next.js. I have experience creating component libraries,
-            implementing state management with Redux, and optimizing application performance.
-            My work includes building micro-frontends and integrating complex APIs.
-          </p>
-        </div>
-
-        <div className="island-shell rise-in rounded-2xl p-6" style={{ animationDelay: '100ms' }}>
-          <div className="mb-4 flex items-center gap-3">
-            <div className="rounded-full bg-[rgba(79,184,178,0.15)] p-3">
-              <Code2 className="text-[var(--lagoon)]" size={24} />
-            </div>
-            <h2 className="text-xl font-semibold text-[var(--sea-ink)]">
-              Mobile Development
-            </h2>
-          </div>
-          <p className="text-base text-[var(--sea-ink-soft)] leading-relaxed">
-            As a React Native Developer, I create cross-platform mobile applications for both
-            iOS and Android. I specialize in building native-like experiences with smooth
-            animations, offline capabilities, and seamless API integrations. I've achieved
-            4.8+ App Store ratings and improved app performance by up to 40%.
-          </p>
-        </div>
-
-        <div className="island-shell rise-in rounded-2xl p-6" style={{ animationDelay: '200ms' }}>
-          <div className="mb-4 flex items-center gap-3">
-            <div className="rounded-full bg-[rgba(79,184,178,0.15)] p-3">
-              <Target className="text-[var(--lagoon)]" size={24} />
-            </div>
-            <h2 className="text-xl font-semibold text-[var(--sea-ink)]">
-              Leadership & Mentorship
-            </h2>
-          </div>
-          <p className="text-base text-[var(--sea-ink-soft)] leading-relaxed">
-            I've led teams of 4-5 developers on multiple projects, mentoring junior developers
-            and conducting code reviews. I believe in collaborative development and creating
-            environments where everyone can grow. I've built design systems that improved team
-            productivity by 35% and established CI/CD pipelines.
-          </p>
-        </div>
-
-        <div className="island-shell rise-in rounded-2xl p-6" style={{ animationDelay: '300ms' }}>
-          <div className="mb-4 flex items-center gap-3">
-            <div className="rounded-full bg-[rgba(79,184,178,0.15)] p-3">
-              <Heart className="text-[var(--lagoon)]" size={24} />
-            </div>
-            <h2 className="text-xl font-semibold text-[var(--sea-ink)]">
-              Continuous Learning
-            </h2>
-          </div>
-          <p className="text-base text-[var(--sea-ink-soft)] leading-relaxed">
-            I'm passionate about staying current with the latest technologies and best practices.
-            I actively contribute to open-source projects, write technical blogs, and participate
-            in developer communities. I believe that learning is a lifelong journey and I'm always
-            excited to take on new challenges.
-          </p>
-        </div>
-      </section>
-
-      {/* Education Section */}
-      <section className="island-shell mt-8 rounded-2xl p-8">
-        <div className="mb-6 flex items-center gap-3">
-          <div className="rounded-full bg-[rgba(79,184,178,0.15)] p-3">
-            <GraduationCap className="text-[var(--lagoon)]" size={24} />
-          </div>
-          <div>
-            <p className="island-kicker mb-1">Education</p>
-            <h2 className="text-2xl font-semibold text-[var(--sea-ink)]">
-              Academic Background
-            </h2>
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          <div className="flex flex-col gap-2 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-5 transition-all hover:border-[var(--lagoon)]">
-            <div>
-              <h3 className="text-lg font-semibold text-[var(--sea-ink)]">
-                Bachelor of Science in Computer Science
-              </h3>
-              <p className="text-[var(--lagoon)]">University of Management and Technology</p>
-            </div>
-            <p className="text-sm text-[var(--sea-ink-soft)]">
-              Lahore, Pakistan
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="island-shell mt-8 rounded-2xl p-8">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            { value: '3+', label: 'Years of Experience' },
-            { value: '20+', label: 'Projects Delivered' },
-            { value: '4.8', label: 'App Store Rating' },
-            { value: '35%', label: 'Team Productivity Boost' },
-          ].map((stat, index) => (
-            <div key={stat.label} className="text-center rise-in" style={{ animationDelay: `${index * 100}ms` }}>
-              <div className="display-title text-4xl font-bold text-[var(--lagoon)] sm:text-5xl">
-                {stat.value}
-              </div>
-              <p className="mt-2 text-sm font-medium text-[var(--sea-ink-soft)]">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="island-shell mt-8 rounded-2xl p-8 text-center">
-        <h2 className="display-title mb-4 text-2xl font-bold text-[var(--sea-ink)] sm:text-3xl">
-          Let's Work Together
-        </h2>
-        <p className="mb-6 max-w-xl mx-auto text-base text-[var(--sea-ink-soft)]">
-          I'm always open to discussing new projects, creative ideas, or opportunities
-          to be part of your vision. Feel free to reach out!
-        </p>
-        <Link
-          to="/contact"
-          className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-8 py-4 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
-        >
-          Get In Touch
-        </Link>
-      </section>
-    </main>
+        </HoverCard>
+      </div>
+    </ScrollReveal>
   )
 }
+
+function About() {
+  return (
+    <div className="page-container py-12">
+      {/* Hero Section */}
+      <ScrollReveal>
+        <section className="relative py-16 md:py-24">
+          <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-[var(--accent-primary)]/10 blur-[100px] pointer-events-none" />
+
+          <ScrollReveal delay={0}>
+            <p className="text-sm font-medium uppercase tracking-wider text-[var(--accent-primary)] mb-4">
+              About Me
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.1}>
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-[var(--text-primary)] mb-6">
+              Crafting Digital Experiences with <span className="text-gradient">Passion</span>
+            </h1>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <p className="max-w-2xl text-lg text-[var(--text-secondary)] leading-relaxed mb-8">
+              Hello! I'm Sibte Hussain, a passionate developer with dual expertise in React
+              web applications and React Native mobile development. With over 5 years of
+              professional experience, I specialize in building scalable, performant
+              applications that delight users and drive business growth.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.3}>
+            <p className="max-w-2xl text-lg text-[var(--text-secondary)] leading-relaxed">
+              I love turning complex problems into simple, beautiful, and intuitive solutions.
+              My approach combines technical excellence with a deep understanding of user needs,
+              resulting in products that are both powerful and pleasurable to use.
+            </p>
+          </ScrollReveal>
+        </section>
+      </ScrollReveal>
+
+      {/* Stats */}
+      <ScrollReveal>
+        <section className="py-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {stats.map((stat, i) => (
+              <ScrollReveal key={stat.label} delay={i * 0.1}>
+                <HoverCard className="p-6 text-center">
+                  <div className="font-display text-4xl font-bold text-gradient mb-2">
+                    <Counter value={stat.value} duration={2} suffix={stat.suffix} />
+                  </div>
+                  <p className="text-sm text-[var(--text-secondary)]">{stat.label}</p>
+                </HoverCard>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* My Journey */}
+      <ScrollReveal>
+        <section className="py-16">
+          <h2 className="section-title text-[var(--text-primary)] mb-10">
+            My Journey
+          </h2>
+
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--accent-primary)] via-[var(--accent-tertiary)] to-transparent" />
+
+            <div className="space-y-8">
+              {journeyTimeline.map((item, i) => (
+                <TimelineItem key={item.year} item={item} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* What I Do */}
+      <ScrollReveal>
+        <section className="py-16">
+          <h2 className="section-title text-[var(--text-primary)] mb-4">
+            What I Do
+          </h2>
+          <p className="section-subtitle text-[var(--text-secondary)] mb-10">
+            Specialized areas where I deliver exceptional results
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {highlights.map((item, i) => (
+              <ScrollReveal key={item.title} delay={i * 0.1}>
+                <HoverCard className="p-6 h-full">
+                  <div className="flex items-start gap-4">
+                    <div
+                      className="p-3 rounded-xl bg-[var(--accent-glow)]"
+                      style={{ color: 'var(--accent-primary)' }}
+                    >
+                      <item.icon size={26} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </HoverCard>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* Philosophy */}
+      <ScrollReveal>
+        <section className="py-16">
+          <div className="card rounded-3xl p-8 md:p-12 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-[var(--accent-primary)]/5 blur-[100px]" />
+
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--accent-glow)] mb-6">
+                <Heart size={16} className="text-[var(--accent-primary)]" />
+                <span className="text-sm text-[var(--accent-primary)]">My Philosophy</span>
+              </div>
+
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-6">
+                Code is not just about functionality—it's about{' '}
+                <span className="text-gradient">experience</span>
+              </h2>
+
+              <p className="max-w-2xl text-lg text-[var(--text-secondary)] leading-relaxed mb-8">
+                I believe in writing clean, maintainable code that serves both current needs
+                and future scalability. Every line should have purpose, every component
+                should be reusable, and every interaction should delight users.
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <Link to="/contact" className="btn btn-primary">
+                  Let's Collaborate
+                  <ArrowRight size={16} />
+                </Link>
+                <Link to="/skills" className="btn btn-secondary">
+                  View My Skills
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+    </div>
+  )
+}
+
+// Simple counter component to avoid import issues
+function Counter({ value, duration, suffix }: { value: number; duration: number; suffix: string }) {
+  return (
+    <span>
+      {value}{suffix}
+    </span>
+  )
+}
+
+export default About

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import type {ReactNode} from 'react';
 
 interface AnimateInProps {
   children: ReactNode
@@ -13,50 +13,23 @@ interface AnimateInProps {
 }
 
 /**
- * Wraps content and adds an animation class when the element enters the viewport.
- * Respects prefers-reduced-motion by skipping the animation.
+ * Legacy component - now uses ScrollReveal internally
+ * @deprecated Use ScrollReveal from components/ui/ScrollReveal.tsx instead
  */
 export default function AnimateIn({
   children,
   className = '',
   style,
-  rootMargin = '0px 0px -40px 0px',
+  rootMargin = '0px 0px -60px 0px',
   threshold = 0.1,
 }: AnimateInProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [isInView, setIsInView] = useState(false)
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mq.matches)
-    const handler = () => setPrefersReducedMotion(mq.matches)
-    mq.addEventListener('change', handler)
-    return () => mq.removeEventListener('change', handler)
-  }, [])
-
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      setIsInView(true)
-      return
-    }
-    const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsInView(true)
-      },
-      { rootMargin, threshold }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [rootMargin, threshold, prefersReducedMotion])
-
   return (
     <div
-      ref={ref}
-      className={isInView ? `${className} scroll-in`.trim() : 'opacity-0'}
+      className={className}
       style={style}
+      data-animate-in
+      data-root-margin={rootMargin}
+      data-threshold={threshold}
     >
       {children}
     </div>

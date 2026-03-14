@@ -1,6 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { Mail, MapPin, Github, Linkedin, Twitter, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  ScrollReveal,
+  StaggerContainer,
+  StaggerItem,
+  HoverCard,
+  Magnetic,
+} from '../components/ui/ScrollReveal'
 
 export const Route = createFileRoute('/contact')({
   component: Contact,
@@ -12,12 +20,14 @@ const contactInfo = [
     label: 'Email',
     value: 'sibte566@gmail.com',
     link: 'mailto:sibte566@gmail.com',
+    color: '#00d4aa',
   },
   {
     icon: MapPin,
     label: 'Location',
     value: 'Lahore, Pakistan',
     link: null,
+    color: '#00a080',
   },
 ]
 
@@ -85,9 +95,7 @@ function Contact() {
 
     setStatus('submitting')
 
-    // Simulate form submission
     try {
-      // In a real app, you would send this to your backend
       await new Promise(resolve => setTimeout(resolve, 1500))
       setStatus('success')
       setFormData({ name: '', email: '', subject: '', message: '' })
@@ -96,14 +104,12 @@ function Contact() {
       setStatus('error')
     }
 
-    // Reset status after 5 seconds
     setTimeout(() => setStatus('idle'), 5000)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-    // Clear error for this field when user starts typing
     if (errors[name]) {
       setErrors(prev => {
         const newErrors = { ...prev }
@@ -113,273 +119,316 @@ function Contact() {
     }
   }
 
+  const inputClasses = (hasError: boolean) => `
+    w-full rounded-xl bg-[var(--bg-glass)] border px-4 py-3.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] transition-all focus:outline-none focus:ring-2
+    ${hasError
+      ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
+      : 'border-[var(--border-color)] focus:border-[var(--accent-primary)] focus:ring-[var(--accent-primary)]/20 hover:border-[var(--border-hover)]'
+    }
+  `
+
   return (
-    <main className="page-wrap px-4 py-12" id="main-content" aria-label="Contact">
-      {/* Header */}
-      <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        <div className="pointer-events-none absolute -left-20 -top-20 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.3),transparent_66%)]" />
-        <div className="pointer-events-none absolute -bottom-16 -right-16 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
+    <div className="page-container py-12">
+      {/* Hero Section */}
+      <ScrollReveal>
+        <section className="relative py-16 md:py-24">
+          <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-[var(--accent-primary)]/10 blur-[100px] pointer-events-none" />
 
-        <div className="relative z-10">
-          <p className="island-kicker mb-3">Contact</p>
-          <h1 className="display-title mb-5 max-w-3xl text-4xl leading-[1.02] font-bold tracking-tight text-[var(--sea-ink)] sm:text-6xl">
-            Let's Connect
-          </h1>
-          <p className="max-w-2xl text-lg text-[var(--sea-ink-soft)]">
-            Have a project in mind or just want to say hi? Feel free to reach out.
-            I'm always excited to discuss new opportunities and ideas.
-          </p>
-        </div>
-      </section>
+          <ScrollReveal delay={0}>
+            <p className="text-sm font-medium uppercase tracking-wider text-[var(--accent-primary)] mb-4">
+              Contact
+            </p>
+          </ScrollReveal>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-3 min-w-0">
+          <ScrollReveal delay={0.1}>
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-[var(--text-primary)] mb-6">
+              Let's <span className="text-gradient">Connect</span>
+            </h1>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <p className="max-w-2xl text-lg text-[var(--text-secondary)] leading-relaxed">
+              Have a project in mind or just want to say hi? Feel free to reach out.
+              I'm always excited to discuss new opportunities and ideas.
+            </p>
+          </ScrollReveal>
+        </section>
+      </ScrollReveal>
+
+      <div className="grid gap-8 lg:grid-cols-3 min-w-0">
         {/* Contact Info */}
         <div className="space-y-6">
-          {/* Contact Details */}
-          <div className="island-shell rise-in rounded-2xl p-6" style={{ animationDelay: '100ms' }}>
-            <h2 className="mb-4 text-lg font-semibold text-[var(--sea-ink)]">
-              Get in Touch
-            </h2>
-            <div className="space-y-4">
-              {contactInfo.map((item) => {
-                const Icon = item.icon
-                return (
-                  <div key={item.label} className="flex items-start gap-3">
-                    <div className="rounded-full bg-[rgba(79,184,178,0.15)] p-2">
-                      <Icon size={18} className="text-[var(--lagoon)]" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium uppercase text-[var(--sea-ink-soft)]">
-                        {item.label}
-                      </p>
-                      {item.link ? (
-                        <a
-                          href={item.link}
-                          className="text-sm font-medium text-[var(--sea-ink)] transition-colors hover:text-[var(--lagoon)]"
+          <StaggerContainer delay={0.1}>
+            {/* Contact Details */}
+            <StaggerItem>
+              <HoverCard className="p-6">
+                <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
+                  Get in Touch
+                </h2>
+                <div className="space-y-4">
+                  {contactInfo.map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <div key={item.label} className="flex items-start gap-3">
+                        <div
+                          className="p-2.5 rounded-lg bg-[var(--accent-glow)]"
+                          style={{ color: item.color }}
                         >
-                          {item.value}
+                          <Icon size={18} />
+                        </div>
+                        <div>
+                          <p className="text-xs font-medium uppercase tracking-wide text-[var(--text-muted)]">
+                            {item.label}
+                          </p>
+                          {item.link ? (
+                            <a
+                              href={item.link}
+                              className="text-sm font-medium text-[var(--text-primary)] hover:text-[var(--accent-primary)] transition-colors"
+                            >
+                              {item.value}
+                            </a>
+                          ) : (
+                            <p className="text-sm font-medium text-[var(--text-primary)]">
+                              {item.value}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </HoverCard>
+            </StaggerItem>
+
+            {/* Social Links */}
+            <StaggerItem>
+              <HoverCard className="p-6">
+                <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
+                  Follow Me
+                </h2>
+                <div className="flex gap-3">
+                  {socialLinks.map((link) => {
+                    const Icon = link.icon
+                    return (
+                      <Magnetic key={link.name} strength={0.1}>
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)] transition-all"
+                          aria-label={link.name}
+                        >
+                          <Icon size={20} />
                         </a>
-                      ) : (
-                        <p className="text-sm font-medium text-[var(--sea-ink)]">
-                          {item.value}
-                        </p>
-                      )}
-                    </div>
+                      </Magnetic>
+                    )
+                  })}
+                </div>
+              </HoverCard>
+            </StaggerItem>
+
+            {/* Response Time */}
+            <StaggerItem>
+              <HoverCard className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="p-2 rounded-lg bg-[var(--accent-glow)]">
+                    <Send size={16} className="text-[var(--accent-primary)]" />
                   </div>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* Social Links */}
-          <div className="island-shell rise-in rounded-2xl p-6" style={{ animationDelay: '200ms' }}>
-            <h2 className="mb-4 text-lg font-semibold text-[var(--sea-ink)]">
-              Follow Me
-            </h2>
-            <div className="flex gap-3">
-              {socialLinks.map((link) => {
-                const Icon = link.icon
-                return (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-1 items-center justify-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] p-3 text-[var(--sea-ink-soft)] transition-all hover:-translate-y-0.5 hover:border-[var(--lagoon)] hover:text-[var(--lagoon)]"
-                    aria-label={link.name}
-                  >
-                    <Icon size={20} />
-                  </a>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* Response Time */}
-          <div className="island-shell rise-in rounded-2xl p-6" style={{ animationDelay: '300ms' }}>
-            <h2 className="mb-3 text-lg font-semibold text-[var(--sea-ink)]">
-              Response Time
-            </h2>
-            <p className="text-sm text-[var(--sea-ink-soft)]">
-              I typically respond to messages within 24-48 hours. For urgent matters,
-              please mention it in your message subject.
-            </p>
-          </div>
+                  <h2 className="text-lg font-semibold text-[var(--text-primary)]">
+                    Response Time
+                  </h2>
+                </div>
+                <p className="text-sm text-[var(--text-secondary)]">
+                  I typically respond to messages within 24-48 hours.
+                  For urgent matters, please mention it in your message subject.
+                </p>
+              </HoverCard>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
 
         {/* Contact Form */}
         <div className="lg:col-span-2 min-w-0">
-          <div className="island-shell rise-in rounded-2xl p-6 sm:p-8" style={{ animationDelay: '200ms' }}>
-            <h2 className="mb-6 text-xl font-semibold text-[var(--sea-ink)]">
-              Send a Message
-            </h2>
+          <ScrollReveal delay={0.2}>
+            <motion.div
+              className="card rounded-2xl p-6 sm:p-8"
+              whileHover={{ y: -2 }}
+            >
+              <h2 className="text-xl font-semibold text-[var(--text-primary)] mb-6">
+                Send a Message
+              </h2>
 
-            {/* Success Message */}
-            {status === 'success' && (
-              <div
-                role="alert"
-                aria-live="polite"
-                className="mb-6 flex items-center gap-3 rounded-xl border border-green-200 bg-green-50 px-4 py-3 dark:border-green-800 dark:bg-green-900/20"
-              >
-                <CheckCircle className="text-green-600 dark:text-green-400" size={20} aria-hidden />
-                <p className="text-sm font-medium text-green-800 dark:text-green-200">
-                  Message sent successfully! I'll get back to you soon.
-                </p>
-              </div>
-            )}
+              {/* Success Message */}
+              <AnimatePresence>
+                {status === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    role="alert"
+                    aria-live="polite"
+                    className="mb-6 flex items-center gap-3 rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-3"
+                  >
+                    <CheckCircle className="text-green-500" size={20} aria-hidden />
+                    <p className="text-sm font-medium text-green-400">
+                      Message sent successfully! I'll get back to you soon.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-            {/* Error Message */}
-            {status === 'error' && (
-              <div
-                role="alert"
-                aria-live="assertive"
-                className="mb-6 flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 dark:border-red-800 dark:bg-red-900/20"
-              >
-                <AlertCircle className="text-red-600 dark:text-red-400" size={20} aria-hidden />
-                <p className="text-sm font-medium text-red-800 dark:text-red-200">
-                  Oops! Something went wrong. Please try again.
-                </p>
-              </div>
-            )}
+              {/* Error Message */}
+              <AnimatePresence>
+                {status === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    role="alert"
+                    aria-live="assertive"
+                    className="mb-6 flex items-center gap-3 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3"
+                  >
+                    <AlertCircle className="text-red-500" size={20} aria-hidden />
+                    <p className="text-sm font-medium text-red-400">
+                      Oops! Something went wrong. Please try again.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-              {/* Name */}
-              <div>
-                <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-[var(--sea-ink)]">
-                  Name <span className="text-red-500" aria-hidden="true">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="John Doe"
-                  autoComplete="name"
-                  aria-required="true"
-                  aria-invalid={!!errors.name}
-                  aria-describedby={errors.name ? 'name-error' : undefined}
-                  className={`w-full rounded-xl border bg-[var(--surface)] px-4 py-3 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)]/50 transition-all focus:border-[var(--lagoon)] focus:outline-none focus:ring-2 focus:ring-[var(--lagoon)]/20 focus-visible:ring-2 ${
-                    errors.name ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : 'border-[var(--line)]'
-                  }`}
+              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                {/* Name */}
+                <div>
+                  <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-[var(--text-primary)]">
+                    Name <span className="text-red-500" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="John Doe"
+                    autoComplete="name"
+                    aria-required="true"
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? 'name-error' : undefined}
+                    className={inputClasses(!!errors.name)}
+                    disabled={status === 'submitting'}
+                  />
+                  {errors.name && (
+                    <p id="name-error" className="mt-1 text-xs text-red-500" role="alert">
+                      {errors.name}
+                    </p>
+                  )}
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-[var(--text-primary)]">
+                    Email <span className="text-red-500" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="john@example.com"
+                    autoComplete="email"
+                    aria-required="true"
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? 'email-error' : undefined}
+                    className={inputClasses(!!errors.email)}
+                    disabled={status === 'submitting'}
+                  />
+                  {errors.email && (
+                    <p id="email-error" className="mt-1 text-xs text-red-500" role="alert">
+                      {errors.email}
+                    </p>
+                  )}
+                </div>
+
+                {/* Subject */}
+                <div>
+                  <label htmlFor="subject" className="mb-1.5 block text-sm font-medium text-[var(--text-primary)]">
+                    Subject <span className="text-red-500" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    placeholder="Project Inquiry"
+                    autoComplete="off"
+                    aria-required="true"
+                    aria-invalid={!!errors.subject}
+                    aria-describedby={errors.subject ? 'subject-error' : undefined}
+                    className={inputClasses(!!errors.subject)}
+                    disabled={status === 'submitting'}
+                  />
+                  {errors.subject && (
+                    <p id="subject-error" className="mt-1 text-xs text-red-500" role="alert">
+                      {errors.subject}
+                    </p>
+                  )}
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-[var(--text-primary)]">
+                    Message <span className="text-red-500" aria-hidden="true">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Tell me about your project..."
+                    rows={5}
+                    aria-required="true"
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? 'message-error' : undefined}
+                    className={`${inputClasses(!!errors.message)} resize-none`}
+                    disabled={status === 'submitting'}
+                  />
+                  {errors.message && (
+                    <p id="message-error" className="mt-1 text-xs text-red-500" role="alert">
+                      {errors.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Submit Button */}
+                <motion.button
+                  type="submit"
                   disabled={status === 'submitting'}
-                />
-                {errors.name && (
-                  <p id="name-error" className="mt-1 text-xs text-red-500" role="alert">
-                    {errors.name}
-                  </p>
-                )}
-              </div>
-
-              {/* Email */}
-              <div>
-                <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-[var(--sea-ink)]">
-                  Email <span className="text-red-500" aria-hidden="true">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="john@example.com"
-                  autoComplete="email"
-                  aria-required="true"
-                  aria-invalid={!!errors.email}
-                  aria-describedby={errors.email ? 'email-error' : undefined}
-                  className={`w-full rounded-xl border bg-[var(--surface)] px-4 py-3 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)]/50 transition-all focus:border-[var(--lagoon)] focus:outline-none focus:ring-2 focus:ring-[var(--lagoon)]/20 focus-visible:ring-2 ${
-                    errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : 'border-[var(--line)]'
-                  }`}
-                  disabled={status === 'submitting'}
-                />
-                {errors.email && (
-                  <p id="email-error" className="mt-1 text-xs text-red-500" role="alert">
-                    {errors.email}
-                  </p>
-                )}
-              </div>
-
-              {/* Subject */}
-              <div>
-                <label htmlFor="subject" className="mb-1.5 block text-sm font-medium text-[var(--sea-ink)]">
-                  Subject <span className="text-red-500" aria-hidden="true">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  placeholder="Project Inquiry"
-                  autoComplete="off"
-                  aria-required="true"
-                  aria-invalid={!!errors.subject}
-                  aria-describedby={errors.subject ? 'subject-error' : undefined}
-                  className={`w-full rounded-xl border bg-[var(--surface)] px-4 py-3 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)]/50 transition-all focus:border-[var(--lagoon)] focus:outline-none focus:ring-2 focus:ring-[var(--lagoon)]/20 focus-visible:ring-2 ${
-                    errors.subject ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : 'border-[var(--line)]'
-                  }`}
-                  disabled={status === 'submitting'}
-                />
-                {errors.subject && (
-                  <p id="subject-error" className="mt-1 text-xs text-red-500" role="alert">
-                    {errors.subject}
-                  </p>
-                )}
-              </div>
-
-              {/* Message */}
-              <div>
-                <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-[var(--sea-ink)]">
-                  Message <span className="text-red-500" aria-hidden="true">*</span>
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Tell me about your project..."
-                  rows={5}
-                  aria-required="true"
-                  aria-invalid={!!errors.message}
-                  aria-describedby={errors.message ? 'message-error' : undefined}
-                  className={`w-full rounded-xl border bg-[var(--surface)] px-4 py-3 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)]/50 transition-all focus:border-[var(--lagoon)] focus:outline-none focus:ring-2 focus:ring-[var(--lagoon)]/20 focus-visible:ring-2 resize-none ${
-                    errors.message ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : 'border-[var(--line)]'
-                  }`}
-                  disabled={status === 'submitting'}
-                />
-                {errors.message && (
-                  <p id="message-error" className="mt-1 text-xs text-red-500" role="alert">
-                    {errors.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={status === 'submitting'}
-                aria-busy={status === 'submitting'}
-                className="w-full flex items-center justify-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-8 py-4 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none"
-              >
-                {status === 'submitting' ? (
-                  <>
-                    <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <Send size={18} />
-                    Send Message
-                  </>
-                )}
-              </button>
-            </form>
-          </div>
+                  aria-busy={status === 'submitting'}
+                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] px-8 py-4 text-sm font-semibold text-[var(--text-inverse)] shadow-lg shadow-[var(--accent-glow)] transition-all hover:shadow-xl hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-lg"
+                  whileHover={{ scale: status === 'submitting' ? 1 : 1.02 }}
+                  whileTap={{ scale: status === 'submitting' ? 1 : 0.98 }}
+                >
+                  {status === 'submitting' ? (
+                    <>
+                      <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      Send Message
+                    </>
+                  )}
+                </motion.button>
+              </form>
+            </motion.div>
+          </ScrollReveal>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

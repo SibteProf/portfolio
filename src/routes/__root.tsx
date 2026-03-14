@@ -3,6 +3,8 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatedBackground } from '../components/ui/ScrollReveal'
 
 import appCss from '../styles.css?url'
 
@@ -54,20 +56,54 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const location = useLocation()
+
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      y: 20,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+    },
+  }
+
+  const pageTransition = {
+    type: 'tween',
+    ease: [0.25, 0.4, 0.25, 1],
+    duration: 0.4,
+  }
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
-      <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+      <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[var(--accent-primary)] selection:text-[var(--text-inverse)]">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
+        <AnimatedBackground />
         <Header />
-        <div key={location.pathname} className="page-enter">
-          {children}
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.main
+            key={location.pathname}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={pageVariants}
+            transition={pageTransition}
+            id="main-content"
+            className="min-h-screen"
+          >
+            {children}
+          </motion.main>
+        </AnimatePresence>
         <Footer />
         <TanStackDevtools
           config={{

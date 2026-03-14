@@ -1,5 +1,19 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { Briefcase, Building2, Calendar, MapPin, Award, TrendingUp } from 'lucide-react'
+import {
+  Briefcase,
+  Building2,
+  Calendar,
+  MapPin,
+  Award,
+  TrendingUp,
+  ArrowRight,
+  CheckCircle2,
+} from 'lucide-react'
+import { motion } from 'framer-motion'
+import {
+  ScrollReveal,
+  HoverCard,
+} from '../components/ui/ScrollReveal'
 
 export const Route = createFileRoute('/experience')({
   component: Experience,
@@ -66,143 +80,178 @@ const experiences = [
   },
 ]
 
-function Experience() {
+function ExperienceCard({ exp, index }: { exp: typeof experiences[0]; index: number }) {
   return (
-    <main className="page-wrap px-4 py-12" id="main-content" aria-label="Experience">
-      {/* Header */}
-      <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        <div className="pointer-events-none absolute -left-20 -top-20 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.3),transparent_66%)]" />
-        <div className="pointer-events-none absolute -bottom-16 -right-16 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
+    <ScrollReveal delay={index * 0.15} className="relative pl-14 md:pl-20">
+      {/* Timeline Dot */}
+      <div className="absolute left-3 md:left-6 top-6 h-4 w-4 rounded-full border-4 border-[var(--bg-secondary)] bg-[var(--accent-primary)] shadow-lg shadow-[var(--accent-glow)] z-10" />
 
-        <div className="relative z-10">
-          <p className="island-kicker mb-3">Experience</p>
-          <h1 className="display-title mb-5 max-w-3xl text-4xl leading-[1.02] font-bold tracking-tight text-[var(--sea-ink)] sm:text-6xl">
-            My Professional Journey
-          </h1>
-          <p className="max-w-2xl text-lg text-[var(--sea-ink-soft)]">
-            Over 5 years of experience building exceptional web and mobile applications,
-            leading teams, and delivering impactful solutions.
-          </p>
-        </div>
-      </section>
-
-      {/* Experience Timeline */}
-      <section className="mt-8 space-y-8">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="rounded-full bg-[rgba(79,184,178,0.15)] p-3">
-            <Briefcase className="text-[var(--lagoon)]" size={24} />
+      <HoverCard className="p-6 md:p-8">
+        {/* Header */}
+        <div className="mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-3">
+            <h3 className="text-xl md:text-2xl font-semibold text-[var(--text-primary)]">
+              {exp.role}
+            </h3>
+            <span className="px-3 py-1 text-xs font-medium rounded-full bg-[var(--accent-glow)] text-[var(--accent-primary)] border border-[var(--accent-primary)]/30 w-fit">
+              {exp.type}
+            </span>
           </div>
-          <h2 className="text-2xl font-semibold text-[var(--sea-ink)]">
-            Work History
-          </h2>
-        </div>
 
-        <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--lagoon)] to-transparent sm:left-8" />
-
-          {/* Experience Cards */}
-          {experiences.map((exp, index) => (
-            <div
-              key={exp.id}
-              className="rise-in relative mb-8 pl-16 sm:pl-20"
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
-              {/* Timeline Dot */}
-              <div className="absolute left-4 top-6 h-4 w-4 rounded-full border-4 border-[var(--bg-base)] bg-[var(--lagoon)] shadow-lg sm:left-6" />
-
-              <div className="island-shell feature-card rounded-2xl p-6 transition-all hover:border-[var(--lagoon)]">
-                {/* Header */}
-                <div className="mb-4">
-                  <h3 className="text-xl font-semibold text-[var(--sea-ink)] sm:text-2xl">
-                    {exp.role}
-                  </h3>
-                  <div className="mt-2 flex flex-wrap items-center gap-4 text-sm text-[var(--sea-ink-soft)]">
-                    <div className="flex items-center gap-1.5">
-                      <Building2 size={16} className="text-[var(--lagoon)]" />
-                      <span className="font-medium">{exp.company}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Calendar size={16} className="text-[var(--lagoon)]" />
-                      <span>{exp.period}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <MapPin size={16} className="text-[var(--lagoon)]" />
-                      <span>{exp.location}</span>
-                    </div>
-                  </div>
-                  <span className="mt-2 inline-block rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1 text-xs font-medium text-[var(--lagoon)]">
-                    {exp.type}
-                  </span>
-                </div>
-
-                {/* Description */}
-                <p className="mb-4 text-base text-[var(--sea-ink-soft)] leading-relaxed">
-                  {exp.description}
-                </p>
-
-                {/* Achievements */}
-                <div className="mb-4">
-                  <div className="mb-3 flex items-center gap-2">
-                    <Award size={18} className="text-[var(--lagoon)]" />
-                    <h4 className="text-sm font-semibold text-[var(--sea-ink)] uppercase tracking-wide">
-                      Key Achievements
-                    </h4>
-                  </div>
-                  <ul className="space-y-2">
-                    {exp.achievements.map((achievement, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-2 text-sm text-[var(--sea-ink-soft)]"
-                      >
-                        <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--lagoon)]" />
-                        <span>{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Technologies */}
-                <div>
-                  <div className="mb-3 flex items-center gap-2">
-                    <TrendingUp size={18} className="text-[var(--lagoon)]" />
-                    <h4 className="text-sm font-semibold text-[var(--sea-ink)] uppercase tracking-wide">
-                      Technologies Used
-                    </h4>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {exp.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-full border border-[var(--line)] bg-[var(--surface)] px-3 py-1.5 text-xs font-medium text-[var(--sea-ink-soft)] transition-colors hover:border-[var(--lagoon)] hover:text-[var(--lagoon)]"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+          <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--text-secondary)]">
+            <div className="flex items-center gap-1.5">
+              <Building2 size={16} className="text-[var(--accent-primary)]" />
+              <span className="font-medium text-[var(--text-primary)]">{exp.company}</span>
             </div>
-          ))}
+            <div className="flex items-center gap-1.5">
+              <Calendar size={16} className="text-[var(--accent-primary)]" />
+              <span>{exp.period}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <MapPin size={16} className="text-[var(--accent-primary)]" />
+              <span>{exp.location}</span>
+            </div>
+          </div>
         </div>
-      </section>
 
-      {/* CTA */}
-      <section className="island-shell mt-12 rounded-2xl p-8 text-center">
-        <h2 className="display-title mb-4 text-2xl font-bold text-[var(--sea-ink)] sm:text-3xl">
-          Interested in Working Together?
-        </h2>
-        <p className="mb-6 max-w-xl mx-auto text-base text-[var(--sea-ink-soft)]">
-          I'm always open to discussing new opportunities and projects.
-          Let's connect and create something amazing!
+        {/* Description */}
+        <p className="text-[var(--text-secondary)] mb-6 leading-relaxed">
+          {exp.description}
         </p>
-        <Link
-          to="/contact"
-          className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-8 py-4 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
-        >
-          Get In Touch
-        </Link>
-      </section>
-    </main>
+
+        {/* Achievements */}
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <Award size={18} className="text-[var(--accent-primary)]" />
+            <h4 className="text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wide">
+              Key Achievements
+            </h4>
+          </div>
+          <ul className="grid sm:grid-cols-2 gap-2">
+            {exp.achievements.map((achievement, i) => (
+              <li
+                key={i}
+                className="flex items-start gap-2 text-sm text-[var(--text-secondary)]"
+              >
+                <CheckCircle2 size={16} className="flex-shrink-0 mt-0.5 text-[var(--accent-primary)]" />
+                <span>{achievement}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Technologies */}
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <TrendingUp size={18} className="text-[var(--accent-primary)]" />
+            <h4 className="text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wide">
+              Technologies Used
+            </h4>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {exp.technologies.map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1.5 text-xs font-medium rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)] transition-all"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </HoverCard>
+    </ScrollReveal>
   )
 }
+
+function Experience() {
+  return (
+    <div className="page-container py-12">
+      {/* Hero Section */}
+      <ScrollReveal>
+        <section className="relative py-16 md:py-24">
+          <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-[var(--accent-primary)]/10 blur-[100px] pointer-events-none" />
+
+          <ScrollReveal delay={0}>
+            <p className="text-sm font-medium uppercase tracking-wider text-[var(--accent-primary)] mb-4">
+              Experience
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.1}>
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-[var(--text-primary)] mb-6">
+              My Professional <span className="text-gradient">Journey</span>
+            </h1>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <p className="max-w-2xl text-lg text-[var(--text-secondary)] leading-relaxed">
+              Over 5 years of experience building exceptional web and mobile applications,
+              leading teams, and delivering impactful solutions that drive business growth.
+            </p>
+          </ScrollReveal>
+        </section>
+      </ScrollReveal>
+
+      {/* Experience Timeline */}
+      <ScrollReveal>
+        <section className="py-10">
+          <div className="flex items-center gap-3 mb-8">
+            <motion.div
+              className="p-3 rounded-xl bg-[var(--accent-glow)]"
+              style={{ color: 'var(--accent-primary)' }}
+              whileHover={{ rotate: 10, scale: 1.05 }}
+            >
+              <Briefcase size={24} />
+            </motion.div>
+            <h2 className="text-2xl font-semibold text-[var(--text-primary)]">
+              Work History
+            </h2>
+          </div>
+
+          <div className="relative">
+            {/* Timeline Line */}
+            <div className="absolute left-5 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--accent-primary)] via-[var(--accent-tertiary)] to-transparent" />
+
+            {/* Experience Cards */}
+            <div className="space-y-8">
+              {experiences.map((exp, index) => (
+                <ExperienceCard key={exp.id} exp={exp} index={index} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* CTA Section */}
+      <ScrollReveal>
+        <section className="py-16">
+          <motion.div
+            className="relative overflow-hidden rounded-3xl card p-8 md:p-12 text-center"
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-primary)]/10 to-transparent" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[var(--accent-primary)]/5 blur-[80px]" />
+
+            <div className="relative z-10">
+              <h2 className="font-display text-3xl font-bold text-[var(--text-primary)] mb-4">
+                Interested in Working Together?
+              </h2>
+              <p className="max-w-xl mx-auto text-[var(--text-secondary)] mb-8">
+                I'm always open to discussing new opportunities and projects.
+                Let's connect and create something amazing!
+              </p>
+              <Link to="/contact" className="btn btn-primary">
+                Get In Touch
+                <ArrowRight size={18} />
+              </Link>
+            </div>
+          </motion.div>
+        </section>
+      </ScrollReveal>
+    </div>
+  )
+}
+
+export default Experience

@@ -1,163 +1,330 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { Code2, Smartphone, ArrowRight, Github, Linkedin, Twitter } from 'lucide-react'
-import AnimateIn from '#/components/AnimateIn'
+import { ArrowRight, Github, Linkedin, Twitter, Code2, Smartphone, Zap, Target, Layers } from 'lucide-react'
+import { motion } from 'framer-motion'
+import {
+  ScrollReveal,
+  StaggerContainer,
+  StaggerItem,
+  Counter,
+  Magnetic,
+  HoverCard,
+} from '../components/ui/ScrollReveal'
 
 export const Route = createFileRoute('/')({ component: Home })
 
+const stats = [
+  { value: 5, suffix: '+', label: 'Years Experience' },
+  { value: 30, suffix: '+', label: 'Projects Completed' },
+  { value: 40, suffix: '%', label: 'Performance Boost' },
+  { value: 4.8, suffix: '', label: 'App Store Rating', decimals: 1 },
+]
+
+const featuredSkills = [
+  {
+    icon: Code2,
+    title: 'React Development',
+    description: 'Building modern, interactive UIs with React, TypeScript, and Next.js',
+    color: '#00d4aa',
+  },
+  {
+    icon: Smartphone,
+    title: 'React Native',
+    description: 'Cross-platform mobile apps with smooth animations and native performance',
+    color: '#00a080',
+  },
+  {
+    icon: Zap,
+    title: 'Performance',
+    description: 'Optimizing applications for maximum speed and user experience',
+    color: '#00f5c4',
+  },
+  {
+    icon: Layers,
+    title: 'Architecture',
+    description: 'Scalable architecture patterns and best practices',
+    color: '#00c4aa',
+  },
+]
+
+const projects = [
+  {
+    title: 'E-Commerce Platform',
+    description: 'Full-featured e-commerce web application with React, Next.js, and Stripe integration.',
+    tech: ['React', 'Next.js', 'TypeScript', 'Stripe'],
+    github: '#',
+    demo: '#',
+  },
+  {
+    title: 'Fitness Tracking App',
+    description: 'Cross-platform mobile app for tracking workouts and nutrition with AI insights.',
+    tech: ['React Native', 'GraphQL', 'Firebase'],
+    github: '#',
+    demo: '#',
+  },
+  {
+    title: 'Dashboard System',
+    description: 'Analytics dashboard with real-time data visualization and reporting.',
+    tech: ['React', 'D3.js', 'Node.js'],
+    github: '#',
+    demo: '#',
+  },
+]
+
 function Home() {
   return (
-    <main className="page-wrap px-4 pb-8 pt-14" id="main-content" aria-label="Home">
+    <div className="page-container py-12">
       {/* Hero Section */}
-      <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-16 sm:px-12 sm:py-20">
-        {/* Animated Background Elements */}
-        <div className="pointer-events-none absolute -left-32 -top-32 h-64 w-64 animate-pulse rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.4),transparent_70%)]" />
-        <div className="pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 animate-pulse rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.25),transparent_70%)]" style={{ animationDelay: '1s' }} />
-        <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 animate-pulse rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.15),transparent_75%)]" style={{ animationDelay: '2s' }} />
+      <ScrollReveal>
+        <section className="relative min-h-[80vh] flex flex-col justify-center py-20">
+          {/* Background glow */}
+          <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-[var(--accent-primary)]/10 blur-[120px] pointer-events-none" />
+          <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-[var(--accent-tertiary)]/10 blur-[100px] pointer-events-none" />
 
-        <div className="relative z-10">
-          {/* Greeting */}
-          <p className="island-kicker mb-4 rise-in" style={{ animationDelay: '100ms' }}>
-            Hello, I'm
-          </p>
+          <div className="relative z-10">
+            {/* Greeting */}
+            <ScrollReveal delay={0}>
+              <motion.div
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] mb-6"
+                whileHover={{ scale: 1.05 }}
+              >
+                <motion.span
+                  className="h-2 w-2 rounded-full bg-[var(--accent-primary)]"
+                  animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+                <span className="text-sm text-[var(--text-secondary)]">Available for freelance work</span>
+              </motion.div>
+            </ScrollReveal>
 
-          {/* Name */}
-          <h1 className="display-title mb-4 rise-in text-5xl font-bold tracking-tight text-[var(--sea-ink)] sm:text-7xl lg:text-8xl" style={{ animationDelay: '200ms' }}>
-            Sibte Hussain
-          </h1>
+            {/* Name & Role */}
+            <ScrollReveal delay={0.1}>
+              <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-[var(--text-primary)] leading-tight mb-4">
+                Hi, I'm{' '}
+                <span className="text-gradient">Sibte Hussain</span>
+              </h1>
+            </ScrollReveal>
 
-          {/* Role badges */}
-          <div className="mb-6 flex flex-wrap gap-3 rise-in" style={{ animationDelay: '300ms' }}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.15)] px-4 py-2 text-sm font-semibold text-[var(--lagoon-deep)]">
-              <Code2 size={16} />
-              React Developer
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.15)] px-4 py-2 text-sm font-semibold text-[var(--lagoon-deep)]">
-              <Smartphone size={16} />
-              React Native Developer
-            </span>
-          </div>
-
-          {/* Description */}
-          <p className="mb-8 max-w-2xl rise-in text-lg text-[var(--sea-ink-soft)] sm:text-xl" style={{ animationDelay: '400ms' }}>
-            Frontend Developer with 3+ years of experience building scalable web and mobile
-            applications. Passionate about creating exceptional user experiences with modern technologies.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4 rise-in" style={{ animationDelay: '500ms' }}>
-            <Link
-              to="/experience"
-              className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-6 py-3 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
-            >
-              View My Work
-              <ArrowRight size={16} />
-            </Link>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 rounded-full border border-[rgba(23,58,64,0.25)] bg-white/60 px-6 py-3 text-sm font-semibold text-[var(--sea-ink)] transition-all hover:-translate-y-0.5 hover:border-[rgba(23,58,64,0.4)] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
-            >
-              Get In Touch
-            </Link>
-          </div>
-
-          {/* Social Links */}
-          <div className="mt-8 flex flex-wrap gap-4 rise-in" style={{ animationDelay: '600ms' }}>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] p-3 text-[var(--sea-ink-soft)] transition-all hover:-translate-y-0.5 hover:border-[var(--lagoon)] hover:text-[var(--lagoon)]"
-              aria-label="GitHub"
-            >
-              <Github size={20} />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] p-3 text-[var(--sea-ink-soft)] transition-all hover:-translate-y-0.5 hover:border-[var(--lagoon)] hover:text-[var(--lagoon)]"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={20} />
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] p-3 text-[var(--sea-ink-soft)] transition-all hover:-translate-y-0.5 hover:border-[var(--lagoon)] hover:text-[var(--lagoon)]"
-              aria-label="Twitter"
-            >
-              <Twitter size={20} />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Skills */}
-      <section className="mt-12">
-        <p className="island-kicker mb-6 rise-in">Core Technologies</p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            { icon: '⚛️', name: 'React.js', desc: 'Building modern, interactive UIs' },
-            { icon: '📱', name: 'React Native', desc: 'Cross-platform mobile apps' },
-            { icon: '📘', name: 'TypeScript', desc: 'Type-safe development' },
-            { icon: '🎨', name: 'Tailwind CSS', desc: 'Utility-first styling' },
-          ].map((skill, index) => (
-            <article
-              key={skill.name}
-              className="island-shell feature-card rise-in rounded-2xl p-6"
-              style={{ animationDelay: `${index * 100 + 200}ms` }}
-            >
-              <div className="mb-3 text-4xl">{skill.icon}</div>
-              <h2 className="mb-2 text-lg font-semibold text-[var(--sea-ink)]">
-                {skill.name}
+            <ScrollReveal delay={0.2}>
+              <h2 className="text-2xl md:text-3xl text-[var(--text-secondary)] font-medium mb-6">
+                React & React Native Developer
               </h2>
-              <p className="m-0 text-sm text-[var(--sea-ink-soft)]">{skill.desc}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.3}>
+              <p className="max-w-2xl text-lg text-[var(--text-secondary)] leading-relaxed mb-8">
+                I craft exceptional digital experiences with modern technologies.
+                Specializing in building scalable web applications and performant
+                cross-platform mobile apps that delight users.
+              </p>
+            </ScrollReveal>
+
+            {/* CTA Buttons */}
+            <ScrollReveal delay={0.4} className="flex flex-wrap gap-4 mb-10">
+              <Link to="/contact" className="btn btn-primary">
+                Let's Work Together
+                <ArrowRight size={18} />
+              </Link>
+              <Link to="/experience" className="btn btn-secondary">
+                View My Work
+              </Link>
+            </ScrollReveal>
+
+            {/* Social Links */}
+            <ScrollReveal delay={0.5}>
+              <div className="flex items-center gap-3">
+                {[
+                  { icon: Github, href: 'https://github.com', label: 'GitHub' },
+                  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+                  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
+                ].map((social, i) => (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-primary)] hover:bg-[var(--bg-glass-hover)] transition-all"
+                    aria-label={social.label}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 + i * 0.1 }}
+                  >
+                    <social.icon size={20} />
+                  </motion.a>
+                ))}
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+      </ScrollReveal>
 
       {/* Stats Section */}
-      <AnimateIn className="scroll-in">
-        <section className="island-shell mt-12 rounded-2xl p-8">
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            { value: '3+', label: 'Years Experience' },
-            { value: '20+', label: 'Projects Completed' },
-            { value: '40%', label: 'Performance Boost' },
-            { value: '4.8', label: 'App Store Rating' },
-          ].map((stat, index) => (
-            <div key={stat.label} className="text-center rise-in" style={{ animationDelay: `${index * 100 + 400}ms` }}>
-              <div className="display-title text-4xl font-bold text-[var(--lagoon)] sm:text-5xl">
-                {stat.value}
-              </div>
-              <p className="mt-2 text-sm font-medium text-[var(--sea-ink-soft)]">
-                {stat.label}
+      <ScrollReveal>
+        <section className="py-16">
+          <StaggerContainer delay={0.2} className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map((stat, i) => (
+              <StaggerItem key={stat.label}>
+                <motion.div
+                  className="card rounded-2xl p-6 text-center"
+                  whileHover={{ y: -4 }}
+                >
+                  <div className="font-display text-4xl md:text-5xl font-bold text-gradient mb-2">
+                    <Counter value={stat.value} duration={2} suffix={stat.suffix} />
+                  </div>
+                  <p className="text-sm text-[var(--text-secondary)]">{stat.label}</p>
+                </motion.div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </section>
+      </ScrollReveal>
+
+      {/* Featured Skills */}
+      <ScrollReveal>
+        <section className="py-16">
+          <div className="mb-10">
+            <h2 className="section-title text-[var(--text-primary)] mb-3">
+              What I Do
+            </h2>
+            <p className="section-subtitle text-[var(--text-secondary)]">
+              Specialized services to help bring your digital vision to life
+            </p>
+          </div>
+
+          <StaggerContainer delay={0.1} stagger={0.1} className="grid md:grid-cols-2 gap-6">
+            {featuredSkills.map((skill, i) => (
+              <StaggerItem key={skill.title}>
+                <HoverCard glowColor={skill.color} className="p-6 h-full">
+                  <div className="flex items-start gap-4">
+                    <motion.div
+                      className="p-3 rounded-xl bg-gradient-to-br from-[var(--bg-glass)] to-[var(--bg-tertiary)]"
+                      style={{ color: skill.color }}
+                      whileHover={{ rotate: 10, scale: 1.1 }}
+                    >
+                      <skill.icon size={28} />
+                    </motion.div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-2">
+                        {skill.title}
+                      </h3>
+                      <p className="text-[var(--text-secondary)]">
+                        {skill.description}
+                      </p>
+                    </div>
+                  </div>
+                </HoverCard>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </section>
+      </ScrollReveal>
+
+      {/* Featured Projects */}
+      <ScrollReveal>
+        <section className="py-16">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+            <div>
+              <h2 className="section-title text-[var(--text-primary)] mb-3">
+                Featured Projects
+              </h2>
+              <p className="section-subtitle text-[var(--text-secondary)]">
+                A selection of my recent work and side projects
               </p>
             </div>
-          ))}
-        </div>
-      </section>
+            <Link
+              to="/experience"
+              className="btn btn-secondary"
+            >
+              View All Projects
+              <ArrowRight size={16} />
+            </Link>
+          </div>
 
-      {/* Call to Action */}
-      <section className="island-shell mt-12 rounded-2xl p-8 text-center">
-        <h2 className="display-title mb-4 text-3xl font-bold text-[var(--sea-ink)] sm:text-4xl">
-          Let's Build Something Amazing Together
-        </h2>
-        <p className="mb-6 max-w-2xl mx-auto text-base text-[var(--sea-ink-soft)]">
-          I'm always interested in hearing about new projects and opportunities.
-          Whether you have a question or just want to say hi, feel free to reach out!
-        </p>
-        <Link
-          to="/contact"
-          className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-8 py-4 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
-        >
-          Contact Me
-          <ArrowRight size={16} />
-        </Link>
-      </section>
-      </AnimateIn>
-    </main>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((project, i) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <HoverCard className="p-6 h-full flex flex-col">
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-3">
+                      {project.title}
+                    </h3>
+                    <p className="text-[var(--text-secondary)] text-sm mb-4">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 text-xs rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-muted)]"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 pt-4 border-t border-[var(--border-color)]">
+                    <motion.a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent-primary)] flex items-center gap-1"
+                      whileHover={{ x: 2 }}
+                    >
+                      <Github size={16} />
+                      Code
+                    </motion.a>
+                    <motion.a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent-primary)] flex items-center gap-1"
+                      whileHover={{ x: 2 }}
+                    >
+                      <Target size={16} />
+                      Demo
+                    </motion.a>
+                  </div>
+                </HoverCard>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* CTA Section */}
+      <ScrollReveal>
+        <section className="py-16">
+          <motion.div
+            className="relative overflow-hidden rounded-3xl"
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-primary)]/20 via-[var(--accent-tertiary)]/10 to-[var(--bg-secondary)]" />
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-[var(--accent-primary)]/10 blur-[100px]" />
+
+            <div className="relative p-10 md:p-16 text-center">
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4">
+                Let's Build Something Amazing
+              </h2>
+              <p className="max-w-xl mx-auto text-[var(--text-secondary)] mb-8">
+                I'm always excited to discuss new projects and opportunities.
+                Whether you have a question or just want to say hi, feel free to reach out!
+              </p>
+              <Link to="/contact" className="btn btn-primary">
+                Get In Touch
+                <ArrowRight size={18} />
+              </Link>
+            </div>
+          </motion.div>
+        </section>
+      </ScrollReveal>
+    </div>
   )
 }

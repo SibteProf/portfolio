@@ -1,4 +1,6 @@
 import { Github, Linkedin, Twitter, Mail, MapPin } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { ScrollReveal } from './ui/ScrollReveal'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -26,107 +28,136 @@ export default function Footer() {
     },
   ]
 
+  const footerLinks = [
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    { label: 'Experience', href: '/experience' },
+    { label: 'Skills', href: '/skills' },
+    { label: 'Contact', href: '/contact' },
+  ]
+
   return (
-    <footer className="mt-20 border-t border-[var(--line)] bg-[var(--header-bg)] px-4 pb-14 pt-10 text-[var(--sea-ink-soft)]">
-      <div className="page-wrap">
+    <footer className="relative border-t border-[var(--border-color)] bg-[var(--bg-secondary)]">
+      {/* Gradient accent */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)] to-[var(--bg-secondary)] opacity-50" />
+
+      <div className="relative page-container px-4 py-12">
         {/* Top Section */}
-        <div className="grid gap-8 pb-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-10 pb-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Branding */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="h-8 w-8 rounded-full bg-[linear-gradient(90deg,#56c6be,#7ed3bf)] flex items-center justify-center text-sm font-bold text-white">
-                SH
-              </span>
-              <span className="text-lg font-semibold text-[var(--sea-ink)]">
+          <ScrollReveal delay={0} className="space-y-4">
+            <motion.div
+              className="flex items-center gap-3"
+              whileHover={{ scale: 1.02 }}
+            >
+              <div className="h-12 w-12 rounded-xl  flex items-center justify-center text-[var(--text-inverse)] font-bold text-lg shadow-lg shadow-[var(--accent-glow)]">
+                <img src='/favicon.png' alt='Brand Image' />
+              </div>
+              <span className="font-display font-semibold text-[var(--text-primary)] text-xl">
                 Sibte Hussain
               </span>
-            </div>
-            <p className="max-w-xs text-sm leading-relaxed">
+            </motion.div>
+            <p className="text-[var(--text-secondary)] text-sm leading-relaxed max-w-xs">
               Senior React & React Native Developer passionate about building
               exceptional web and mobile experiences.
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* Quick Links */}
-          <div className="space-y-3">
-            <h3 className="island-kicker text-xs uppercase">Quick Links</h3>
+          <ScrollReveal delay={0.1} className="space-y-4">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+              Quick Links
+            </h3>
             <nav className="flex flex-col gap-2">
-              <a
-                href="/"
-                className="text-sm transition-colors hover:text-[var(--lagoon)]"
-              >
-                Home
-              </a>
-              <a
-                href="/about"
-                className="text-sm transition-colors hover:text-[var(--lagoon)]"
-              >
-                About
-              </a>
-              <a
-                href="/experience"
-                className="text-sm transition-colors hover:text-[var(--lagoon)]"
-              >
-                Experience
-              </a>
-              <a
-                href="/skills"
-                className="text-sm transition-colors hover:text-[var(--lagoon)]"
-              >
-                Skills
-              </a>
-              <a
-                href="/contact"
-                className="text-sm transition-colors hover:text-[var(--lagoon)]"
-              >
-                Contact
-              </a>
+              {footerLinks.map((link) => (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors inline-flex items-center gap-1.5 w-fit"
+                  whileHover={{ x: 4 }}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
             </nav>
-          </div>
+          </ScrollReveal>
+
+          {/* Social Links */}
+          <ScrollReveal delay={0.2} className="space-y-4">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+              Connect
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {socialLinks.map((link) => {
+                const Icon = link.icon
+                return (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    target={link.name !== 'Email' ? '_blank' : undefined}
+                    rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all"
+                    aria-label={link.name}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Icon size={16} />
+                    <span className="text-sm">{link.name}</span>
+                  </motion.a>
+                )
+              })}
+            </div>
+          </ScrollReveal>
 
           {/* Contact Info */}
-          <div className="space-y-3">
-            <h3 className="island-kicker text-xs uppercase">Contact</h3>
-            <div className="flex items-center gap-2 text-sm">
-              <Mail size={16} className="text-[var(--lagoon)]" />
-              <a
+          <ScrollReveal delay={0.3} className="space-y-4">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+              Contact
+            </h3>
+            <div className="space-y-3">
+              <motion.a
                 href="mailto:sibte566@gmail.com"
-                className="transition-colors hover:text-[var(--lagoon)]"
+                className="flex items-center gap-3 text-sm text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors"
+                whileHover={{ x: 4 }}
               >
+                <div className="p-2 rounded-lg bg-[var(--accent-glow)]">
+                  <Mail size={16} className="text-[var(--accent-primary)]" />
+                </div>
                 sibte566@gmail.com
-              </a>
+              </motion.a>
+              <div className="flex items-center gap-3 text-sm text-[var(--text-secondary)]">
+                <div className="p-2 rounded-lg bg-[var(--accent-glow)]">
+                  <MapPin size={16} className="text-[var(--accent-primary)]" />
+                </div>
+                Lahore, Pakistan
+              </div>
             </div>
-            <div className="flex items-center gap-2 text-sm">
-              <MapPin size={16} className="text-[var(--lagoon)]" />
-              <span>Lahore, Pakistan</span>
-            </div>
-          </div>
+          </ScrollReveal>
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col items-center gap-4 border-t border-[var(--line)] pt-6 sm:flex-row sm:justify-between">
-          <p className="m-0 text-sm">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-[var(--border-color)] pt-6 md:flex-row">
+          <p className="text-sm text-[var(--text-muted)]">
             &copy; {year} Sibte Hussain. All rights reserved.
           </p>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-2">
-            {socialLinks.map((link) => {
-              const Icon = link.icon
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  target={link.name !== 'Email' ? '_blank' : undefined}
-                  rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
-                  className="rounded-xl border border-[var(--chip-line)] bg-[var(--chip-bg)] p-2 text-[var(--sea-ink-soft)] transition-all hover:-translate-y-0.5 hover:border-[var(--lagoon)] hover:text-[var(--lagoon)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
-                  aria-label={link.name}
-                >
-                  <Icon size={18} />
-                </a>
-              )
-            })}
-          </div>
+          {/* Decorative accent */}
+          <motion.div
+            className="flex items-center gap-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            <span className="text-sm text-[var(--text-muted)]">Built with</span>
+            <motion.span
+              className="text-[var(--accent-primary)]"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            >
+              ❤️
+            </motion.span>
+            <span className="text-sm text-[var(--text-muted)]">using React</span>
+          </motion.div>
         </div>
       </div>
     </footer>
