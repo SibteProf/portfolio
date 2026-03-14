@@ -1,4 +1,4 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+import { HeadContent, Scripts, createRootRoute, useLocation } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import Footer from '../components/Footer'
@@ -23,7 +23,7 @@ export const Route = createRootRoute({
       },
       {
         name: 'description',
-        content: 'Portfolio of Sibte Hussain - Senior React and React Native Developer with 5+ years of experience building scalable web and mobile applications.',
+        content: 'Portfolio of Sibte Hussain - Senior React and React Native Developer with 3+ years of experience building scalable web and mobile applications.',
       },
       {
         name: 'keywords',
@@ -35,7 +35,7 @@ export const Route = createRootRoute({
       },
       {
         property: 'og:description',
-        content: 'Portfolio of Sibte Hussain - Senior React and React Native Developer with 5+ years of experience building scalable web and mobile applications.',
+        content: 'Portfolio of Sibte Hussain - Senior React and React Native Developer with 3+ years of experience building scalable web and mobile applications.',
       },
       {
         property: 'og:type',
@@ -53,6 +53,7 @@ export const Route = createRootRoute({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const location = useLocation()
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -60,8 +61,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <Header />
-        {children}
+        <div key={location.pathname} className="page-enter">
+          {children}
+        </div>
         <Footer />
         <TanStackDevtools
           config={{

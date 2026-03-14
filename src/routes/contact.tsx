@@ -10,13 +10,13 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'sibtehussain@example.com',
-    link: 'mailto:sibtehussain@example.com',
+    value: 'sibte566@gmail.com',
+    link: 'mailto:sibte566@gmail.com',
   },
   {
     icon: MapPin,
     label: 'Location',
-    value: 'Karachi, Pakistan',
+    value: 'Lahore, Pakistan',
     link: null,
   },
 ]
@@ -114,7 +114,7 @@ function Contact() {
   }
 
   return (
-    <main className="page-wrap px-4 py-12">
+    <main className="page-wrap px-4 py-12" id="main-content" aria-label="Contact">
       {/* Header */}
       <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
         <div className="pointer-events-none absolute -left-20 -top-20 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.3),transparent_66%)]" />
@@ -132,7 +132,7 @@ function Contact() {
         </div>
       </section>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-3">
+      <div className="mt-8 grid gap-8 lg:grid-cols-3 min-w-0">
         {/* Contact Info */}
         <div className="space-y-6">
           {/* Contact Details */}
@@ -208,7 +208,7 @@ function Contact() {
         </div>
 
         {/* Contact Form */}
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 min-w-0">
           <div className="island-shell rise-in rounded-2xl p-6 sm:p-8" style={{ animationDelay: '200ms' }}>
             <h2 className="mb-6 text-xl font-semibold text-[var(--sea-ink)]">
               Send a Message
@@ -216,8 +216,12 @@ function Contact() {
 
             {/* Success Message */}
             {status === 'success' && (
-              <div className="mb-6 flex items-center gap-3 rounded-xl border border-green-200 bg-green-50 px-4 py-3 dark:border-green-800 dark:bg-green-900/20">
-                <CheckCircle className="text-green-600 dark:text-green-400" size={20} />
+              <div
+                role="alert"
+                aria-live="polite"
+                className="mb-6 flex items-center gap-3 rounded-xl border border-green-200 bg-green-50 px-4 py-3 dark:border-green-800 dark:bg-green-900/20"
+              >
+                <CheckCircle className="text-green-600 dark:text-green-400" size={20} aria-hidden />
                 <p className="text-sm font-medium text-green-800 dark:text-green-200">
                   Message sent successfully! I'll get back to you soon.
                 </p>
@@ -226,19 +230,23 @@ function Contact() {
 
             {/* Error Message */}
             {status === 'error' && (
-              <div className="mb-6 flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 dark:border-red-800 dark:bg-red-900/20">
-                <AlertCircle className="text-red-600 dark:text-red-400" size={20} />
+              <div
+                role="alert"
+                aria-live="assertive"
+                className="mb-6 flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 dark:border-red-800 dark:bg-red-900/20"
+              >
+                <AlertCircle className="text-red-600 dark:text-red-400" size={20} aria-hidden />
                 <p className="text-sm font-medium text-red-800 dark:text-red-200">
                   Oops! Something went wrong. Please try again.
                 </p>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               {/* Name */}
               <div>
                 <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-[var(--sea-ink)]">
-                  Name <span className="text-red-500">*</span>
+                  Name <span className="text-red-500" aria-hidden="true">*</span>
                 </label>
                 <input
                   type="text"
@@ -247,20 +255,26 @@ function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="John Doe"
-                  className={`w-full rounded-xl border bg-[var(--surface)] px-4 py-3 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)]/50 transition-all focus:border-[var(--lagoon)] focus:outline-none focus:ring-2 focus:ring-[var(--lagoon)]/20 ${
+                  autoComplete="name"
+                  aria-required="true"
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? 'name-error' : undefined}
+                  className={`w-full rounded-xl border bg-[var(--surface)] px-4 py-3 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)]/50 transition-all focus:border-[var(--lagoon)] focus:outline-none focus:ring-2 focus:ring-[var(--lagoon)]/20 focus-visible:ring-2 ${
                     errors.name ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : 'border-[var(--line)]'
                   }`}
                   disabled={status === 'submitting'}
                 />
                 {errors.name && (
-                  <p className="mt-1 text-xs text-red-500">{errors.name}</p>
+                  <p id="name-error" className="mt-1 text-xs text-red-500" role="alert">
+                    {errors.name}
+                  </p>
                 )}
               </div>
 
               {/* Email */}
               <div>
                 <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-[var(--sea-ink)]">
-                  Email <span className="text-red-500">*</span>
+                  Email <span className="text-red-500" aria-hidden="true">*</span>
                 </label>
                 <input
                   type="email"
@@ -269,20 +283,26 @@ function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="john@example.com"
-                  className={`w-full rounded-xl border bg-[var(--surface)] px-4 py-3 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)]/50 transition-all focus:border-[var(--lagoon)] focus:outline-none focus:ring-2 focus:ring-[var(--lagoon)]/20 ${
+                  autoComplete="email"
+                  aria-required="true"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? 'email-error' : undefined}
+                  className={`w-full rounded-xl border bg-[var(--surface)] px-4 py-3 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)]/50 transition-all focus:border-[var(--lagoon)] focus:outline-none focus:ring-2 focus:ring-[var(--lagoon)]/20 focus-visible:ring-2 ${
                     errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : 'border-[var(--line)]'
                   }`}
                   disabled={status === 'submitting'}
                 />
                 {errors.email && (
-                  <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+                  <p id="email-error" className="mt-1 text-xs text-red-500" role="alert">
+                    {errors.email}
+                  </p>
                 )}
               </div>
 
               {/* Subject */}
               <div>
                 <label htmlFor="subject" className="mb-1.5 block text-sm font-medium text-[var(--sea-ink)]">
-                  Subject <span className="text-red-500">*</span>
+                  Subject <span className="text-red-500" aria-hidden="true">*</span>
                 </label>
                 <input
                   type="text"
@@ -291,20 +311,26 @@ function Contact() {
                   value={formData.subject}
                   onChange={handleChange}
                   placeholder="Project Inquiry"
-                  className={`w-full rounded-xl border bg-[var(--surface)] px-4 py-3 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)]/50 transition-all focus:border-[var(--lagoon)] focus:outline-none focus:ring-2 focus:ring-[var(--lagoon)]/20 ${
+                  autoComplete="off"
+                  aria-required="true"
+                  aria-invalid={!!errors.subject}
+                  aria-describedby={errors.subject ? 'subject-error' : undefined}
+                  className={`w-full rounded-xl border bg-[var(--surface)] px-4 py-3 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)]/50 transition-all focus:border-[var(--lagoon)] focus:outline-none focus:ring-2 focus:ring-[var(--lagoon)]/20 focus-visible:ring-2 ${
                     errors.subject ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : 'border-[var(--line)]'
                   }`}
                   disabled={status === 'submitting'}
                 />
                 {errors.subject && (
-                  <p className="mt-1 text-xs text-red-500">{errors.subject}</p>
+                  <p id="subject-error" className="mt-1 text-xs text-red-500" role="alert">
+                    {errors.subject}
+                  </p>
                 )}
               </div>
 
               {/* Message */}
               <div>
                 <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-[var(--sea-ink)]">
-                  Message <span className="text-red-500">*</span>
+                  Message <span className="text-red-500" aria-hidden="true">*</span>
                 </label>
                 <textarea
                   id="message"
@@ -313,13 +339,18 @@ function Contact() {
                   onChange={handleChange}
                   placeholder="Tell me about your project..."
                   rows={5}
-                  className={`w-full rounded-xl border bg-[var(--surface)] px-4 py-3 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)]/50 transition-all focus:border-[var(--lagoon)] focus:outline-none focus:ring-2 focus:ring-[var(--lagoon)]/20 resize-none ${
+                  aria-required="true"
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? 'message-error' : undefined}
+                  className={`w-full rounded-xl border bg-[var(--surface)] px-4 py-3 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)]/50 transition-all focus:border-[var(--lagoon)] focus:outline-none focus:ring-2 focus:ring-[var(--lagoon)]/20 focus-visible:ring-2 resize-none ${
                     errors.message ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : 'border-[var(--line)]'
                   }`}
                   disabled={status === 'submitting'}
                 />
                 {errors.message && (
-                  <p className="mt-1 text-xs text-red-500">{errors.message}</p>
+                  <p id="message-error" className="mt-1 text-xs text-red-500" role="alert">
+                    {errors.message}
+                  </p>
                 )}
               </div>
 
@@ -327,7 +358,8 @@ function Contact() {
               <button
                 type="submit"
                 disabled={status === 'submitting'}
-                className="w-full flex items-center justify-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-8 py-4 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none"
+                aria-busy={status === 'submitting'}
+                className="w-full flex items-center justify-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-8 py-4 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none"
               >
                 {status === 'submitting' ? (
                   <>

@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { Briefcase, Building2, Calendar, MapPin, Award, TrendingUp } from 'lucide-react'
 
 export const Route = createFileRoute('/experience')({
@@ -10,7 +10,7 @@ const experiences = [
     id: 1,
     role: 'Senior React Developer & React Native Developer',
     company: 'TechMosaic Solutions',
-    location: 'Karachi, Pakistan',
+    location: 'Lahore, Pakistan',
     period: 'Jan 2023 - Present',
     type: 'Full-time',
     description: 'Leading development teams for both web and mobile applications, delivering high-quality solutions with modern technologies.',
@@ -29,7 +29,7 @@ const experiences = [
     id: 2,
     role: 'React Developer & React Native Developer',
     company: 'Nexus Digital',
-    location: 'Karachi, Pakistan',
+    location: 'Lahore, Pakistan',
     period: 'Aug 2021 - Dec 2022',
     type: 'Full-time',
     description: 'Developed scalable web and mobile applications with focus on performance and user experience.',
@@ -49,7 +49,7 @@ const experiences = [
     id: 3,
     role: 'Junior Frontend Developer & Junior Mobile Developer',
     company: 'ByteCraft Solutions',
-    location: 'Karachi, Pakistan',
+    location: 'Lahore, Pakistan',
     period: 'Mar 2020 - Jul 2021',
     type: 'Full-time',
     description: 'Started my professional journey building React web applications and React Native mobile apps.',
@@ -68,7 +68,7 @@ const experiences = [
 
 function Experience() {
   return (
-    <main className="page-wrap px-4 py-12">
+    <main className="page-wrap px-4 py-12" id="main-content" aria-label="Experience">
       {/* Header */}
       <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
         <div className="pointer-events-none absolute -left-20 -top-20 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.3),transparent_66%)]" />
@@ -196,12 +196,12 @@ function Experience() {
           I'm always open to discussing new opportunities and projects.
           Let's connect and create something amazing!
         </p>
-        <a
-          href="/contact"
-          className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-8 py-4 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg"
+        <Link
+          to="/contact"
+          className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-8 py-4 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
         >
           Get In Touch
-        </a>
+        </Link>
       </section>
     </main>
   )

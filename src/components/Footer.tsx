@@ -21,7 +21,7 @@ export default function Footer() {
     },
     {
       name: 'Email',
-      href: 'mailto:sibtehussain@example.com',
+      href: 'mailto:sibte566@gmail.com',
       icon: Mail,
     },
   ]
@@ -90,15 +90,15 @@ export default function Footer() {
             <div className="flex items-center gap-2 text-sm">
               <Mail size={16} className="text-[var(--lagoon)]" />
               <a
-                href="mailto:sibtehussain@example.com"
+                href="mailto:sibte566@gmail.com"
                 className="transition-colors hover:text-[var(--lagoon)]"
               >
-                sibtehussain@example.com
+                sibte566@gmail.com
               </a>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <MapPin size={16} className="text-[var(--lagoon)]" />
-              <span>Karachi, Pakistan</span>
+              <span>Lahore, Pakistan</span>
             </div>
           </div>
         </div>
@@ -118,8 +118,8 @@ export default function Footer() {
                   key={link.name}
                   href={link.href}
                   target={link.name !== 'Email' ? '_blank' : undefined}
-                  rel={link.name !== 'Email' ? 'noreferrer' : undefined}
-                  className="rounded-xl border border-[var(--chip-line)] bg-[var(--chip-bg)] p-2 text-[var(--sea-ink-soft)] transition-all hover:-translate-y-0.5 hover:border-[var(--lagoon)] hover:text-[var(--lagoon)]"
+                  rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}
+                  className="rounded-xl border border-[var(--chip-line)] bg-[var(--chip-bg)] p-2 text-[var(--sea-ink-soft)] transition-all hover:-translate-y-0.5 hover:border-[var(--lagoon)] hover:text-[var(--lagoon)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
                   aria-label={link.name}
                 >
                   <Icon size={18} />

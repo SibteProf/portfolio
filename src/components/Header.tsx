@@ -34,15 +34,15 @@ export default function Header() {
         scrolled ? 'bg-[var(--header-bg)] shadow-sm' : 'bg-[var(--header-bg)]'
       }`}
     >
-      <nav className="page-wrap flex flex-wrap items-center gap-x-3 gap-y-2 py-3 sm:py-4">
+      <nav className="page-wrap flex flex-wrap items-center gap-x-3 gap-y-2 py-3 sm:py-4" aria-label="Main navigation">
         {/* Logo */}
         <h2 className="m-0 flex-shrink-0 text-base font-semibold tracking-tight">
           <Link
             to="/"
             className="group inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] transition-all sm:px-4 sm:py-2 hover:-translate-y-0.5 hover:border-[var(--lagoon)]"
           >
-            <span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,#56c6be,#7ed3bf)] transition-transform group-hover:scale-125" />
-            SH
+            {/* <span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,#56c6be,#7ed3bf)] transition-transform group-hover:scale-125" /> */}
+            <img src='/favicon.png' alt='Brand Image' />
           </Link>
         </h2>
 
@@ -68,7 +68,7 @@ export default function Header() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="sm:hidden rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] p-2 text-[var(--sea-ink)] transition hover:border-[var(--lagoon)]"
+            className="sm:hidden rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] p-2 text-[var(--sea-ink)] transition hover:border-[var(--lagoon)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
             aria-label="Toggle menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -80,7 +80,7 @@ export default function Header() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="border-t border-[var(--line)] bg-[var(--header-bg)] px-4 py-4 sm:hidden">
-          <nav className="flex flex-col gap-2">
+          <nav className="flex flex-col gap-2" aria-label="Mobile navigation">
             {navLinks.map((link) => (
               <Link
                 key={link.to}

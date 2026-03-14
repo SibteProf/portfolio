@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { GraduationCap, Code2, Target, Heart } from 'lucide-react'
 
 export const Route = createFileRoute('/about')({
@@ -7,7 +7,7 @@ export const Route = createFileRoute('/about')({
 
 function About() {
   return (
-    <main className="page-wrap px-4 py-12">
+    <main className="page-wrap px-4 py-12" id="main-content" aria-label="About">
       {/* Hero Section */}
       <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
         <div className="pointer-events-none absolute -left-20 -top-20 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.3),transparent_66%)]" />
@@ -23,7 +23,7 @@ function About() {
             web applications and React Native mobile development.
           </p>
           <p className="max-w-2xl text-base text-[var(--sea-ink-soft)]">
-            With 5+ years of professional experience, I specialize in building scalable,
+            With 3+ years of professional experience, I specialize in building scalable,
             performant applications that delight users. I love turning complex problems into
             simple, beautiful, and intuitive solutions.
           </p>
@@ -121,10 +121,10 @@ function About() {
               <h3 className="text-lg font-semibold text-[var(--sea-ink)]">
                 Bachelor of Science in Computer Science
               </h3>
-              <p className="text-[var(--lagoon)]">University of Karachi</p>
+              <p className="text-[var(--lagoon)]">University of Management and Technology</p>
             </div>
             <p className="text-sm text-[var(--sea-ink-soft)]">
-              Karachi, Pakistan
+              Lahore, Pakistan
             </p>
           </div>
         </div>
@@ -134,7 +134,7 @@ function About() {
       <section className="island-shell mt-8 rounded-2xl p-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { value: '5+', label: 'Years of Experience' },
+            { value: '3+', label: 'Years of Experience' },
             { value: '20+', label: 'Projects Delivered' },
             { value: '4.8', label: 'App Store Rating' },
             { value: '35%', label: 'Team Productivity Boost' },
@@ -160,12 +160,12 @@ function About() {
           I'm always open to discussing new projects, creative ideas, or opportunities
           to be part of your vision. Feel free to reach out!
         </p>
-        <a
-          href="/contact"
-          className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-8 py-4 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg"
+        <Link
+          to="/contact"
+          className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-8 py-4 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
         >
           Get In Touch
-        </a>
+        </Link>
       </section>
     </main>
   )

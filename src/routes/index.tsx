@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { Code2, Smartphone, ArrowRight, Github, Linkedin, Twitter } from 'lucide-react'
+import AnimateIn from '#/components/AnimateIn'
 
 export const Route = createFileRoute('/')({ component: Home })
 
 function Home() {
   return (
-    <main className="page-wrap px-4 pb-8 pt-14">
+    <main className="page-wrap px-4 pb-8 pt-14" id="main-content" aria-label="Home">
       {/* Hero Section */}
       <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-16 sm:px-12 sm:py-20">
         {/* Animated Background Elements */}
@@ -38,7 +39,7 @@ function Home() {
 
           {/* Description */}
           <p className="mb-8 max-w-2xl rise-in text-lg text-[var(--sea-ink-soft)] sm:text-xl" style={{ animationDelay: '400ms' }}>
-            Senior Frontend Developer with 5+ years of experience building scalable web and mobile
+            Frontend Developer with 3+ years of experience building scalable web and mobile
             applications. Passionate about creating exceptional user experiences with modern technologies.
           </p>
 
@@ -46,14 +47,14 @@ function Home() {
           <div className="flex flex-wrap gap-4 rise-in" style={{ animationDelay: '500ms' }}>
             <Link
               to="/experience"
-              className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-6 py-3 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg"
+              className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-6 py-3 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
             >
               View My Work
               <ArrowRight size={16} />
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 rounded-full border border-[rgba(23,58,64,0.25)] bg-white/60 px-6 py-3 text-sm font-semibold text-[var(--sea-ink)] transition-all hover:-translate-y-0.5 hover:border-[rgba(23,58,64,0.4)] hover:shadow-lg"
+              className="inline-flex items-center gap-2 rounded-full border border-[rgba(23,58,64,0.25)] bg-white/60 px-6 py-3 text-sm font-semibold text-[var(--sea-ink)] transition-all hover:-translate-y-0.5 hover:border-[rgba(23,58,64,0.4)] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
             >
               Get In Touch
             </Link>
@@ -118,10 +119,11 @@ function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="island-shell mt-12 rounded-2xl p-8">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <AnimateIn className="scroll-in">
+        <section className="island-shell mt-12 rounded-2xl p-8">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { value: '5+', label: 'Years Experience' },
+            { value: '3+', label: 'Years Experience' },
             { value: '20+', label: 'Projects Completed' },
             { value: '40%', label: 'Performance Boost' },
             { value: '4.8', label: 'App Store Rating' },
@@ -149,12 +151,13 @@ function Home() {
         </p>
         <Link
           to="/contact"
-          className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-8 py-4 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg"
+          className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.4)] bg-[rgba(79,184,178,0.2)] px-8 py-4 text-sm font-semibold text-[var(--lagoon-deep)] transition-all hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lagoon)] focus-visible:ring-offset-2"
         >
           Contact Me
           <ArrowRight size={16} />
         </Link>
       </section>
+      </AnimateIn>
     </main>
   )
 }
