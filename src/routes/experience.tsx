@@ -22,63 +22,69 @@ export const Route = createFileRoute('/experience')({
 const experiences = [
   {
     id: 1,
-    role: 'Senior React Developer & React Native Developer',
-    company: 'TechMosaic Solutions',
+    role: 'Software Engineer',
+    company: 'PlanLab Solutions',
     location: 'Lahore, Pakistan',
-    period: 'Jan 2023 - Present',
+    period: 'Oct 2024 - Present',
     type: 'Full-time',
-    description: 'Leading development teams for both web and mobile applications, delivering high-quality solutions with modern technologies.',
+    description:
+      'Developing scalable web and mobile applications using React, Next.js, and React Native while collaborating with cross-functional teams in an Agile environment.',
     achievements: [
-      'Led 5-person team for React and 4-person team for React Native projects',
-      'Improved application performance by 40% through optimization techniques',
-      'Integrated GraphQL APIs, reducing data-fetching time by 25%',
-      'Built comprehensive design system improving team productivity by 35%',
-      'Achieved 4.8 App Store rating for mobile applications',
-      'Implemented CI/CD pipelines, reducing deployment time from 4 hours to 30 minutes',
-      'Built 15+ React components and 10+ reusable React Native components',
+      'Developed and maintained production React and Next.js applications',
+      'Built reusable component libraries reducing feature delivery time by 25%',
+      'Improved page performance using SSR, lazy loading, and API caching',
+      'Optimized React Native mobile performance reducing load time by ~18%',
+      'Ensured mobile and web UI consistency using shared logic with Next.js',
+      'Mentored junior developers and improved team code quality',
+      'Awarded Developer of the Month twice for delivery impact',
     ],
-    technologies: ['React.js', 'React Native', 'TypeScript', 'GraphQL', 'Redux', 'Next.js', 'CI/CD'],
+    technologies: [
+      'React.js',
+      'Next.js',
+      'React Native',
+      'TypeScript',
+      'Redux',
+      'GraphQL',
+      'Tailwind CSS',
+      'WebSockets',
+      'Jest',
+      'CI/CD',
+    ],
   },
   {
     id: 2,
-    role: 'React Developer & React Native Developer',
-    company: 'Nexus Digital',
+    role: 'Associate Software Developer',
+    company: 'Agile District',
     location: 'Lahore, Pakistan',
-    period: 'Aug 2021 - Dec 2022',
+    period: 'Sep 2023 - Oct 2024',
     type: 'Full-time',
-    description: 'Developed scalable web and mobile applications with focus on performance and user experience.',
+    description:
+      'Built scalable web and mobile applications using React.js, React Native, and Next.js with a focus on performance and maintainable architecture.',
     achievements: [
-      'Developed 20+ React components and 3 micro-frontends',
-      'Built 3 production-ready mobile apps with 25+ screens each',
-      'Improved application load time by 35% using Webpack optimization',
-      'Achieved 4.5+ App Store and Play Store ratings',
-      'Implemented complex animations using React Native Reanimated',
-      'Integrated third-party SDKs (Firebase, Google Maps, Stripe)',
-      'Optimized app bundle size by 45%',
-      'Conducted code reviews and mentored junior developers',
+      'Built responsive interfaces using React.js, Tailwind CSS, and Material UI',
+      'Developed mobile and web apps using React Native and Next.js',
+      'Integrated REST and GraphQL APIs for real-time and data-heavy features',
+      'Improved mobile app performance by 20% through state and animation optimization',
+      'Developed automated mobile testing suites using Appium',
+      'Supported CI/CD pipelines and automated deployments',
+      'Participated in code reviews and Agile sprint planning',
     ],
-    technologies: ['React.js', 'React Native', 'TypeScript', 'REST APIs', 'WebSocket', 'Reanimated', 'Expo'],
-  },
-  {
-    id: 3,
-    role: 'Junior Frontend Developer & Junior Mobile Developer',
-    company: 'ByteCraft Solutions',
-    location: 'Lahore, Pakistan',
-    period: 'Mar 2020 - Jul 2021',
-    type: 'Full-time',
-    description: 'Started my professional journey building React web applications and React Native mobile apps.',
-    achievements: [
-      'Built 30+ React components for customer-facing applications',
-      'Developed 2 Single Page Applications from scratch with React Router',
-      'Built 2 mobile apps with 15+ screens using React Native and Expo',
-      'Implemented responsive designs using Tailwind CSS',
-      'Implemented cross-platform push notifications with Firebase',
-      'Contributed to company design system',
-      'Handled iOS and Android deployments to app stores',
+    technologies: [
+      'React.js',
+      'React Native',
+      'Next.js',
+      'TypeScript',
+      'Tailwind CSS',
+      'Material UI',
+      'REST APIs',
+      'GraphQL',
+      'Appium',
+      'Docker',
+      'CI/CD',
     ],
-    technologies: ['React.js', 'React Native', 'TypeScript', 'Tailwind CSS', 'React Router', 'Firebase'],
   },
 ]
+
 
 function ExperienceCard({ exp, index }: { exp: typeof experiences[0]; index: number }) {
   return (
@@ -186,7 +192,7 @@ function Experience() {
 
           <ScrollReveal delay={0.2}>
             <p className="max-w-2xl text-lg text-[var(--text-secondary)] leading-relaxed">
-              Over 5 years of experience building exceptional web and mobile applications,
+              Over 3 years of experience building exceptional web and mobile applications,
               leading teams, and delivering impactful solutions that drive business growth.
             </p>
           </ScrollReveal>

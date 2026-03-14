@@ -8,19 +8,19 @@ export default function Footer() {
   const socialLinks = [
     {
       name: 'GitHub',
-      href: 'https://github.com',
+      href: 'https://github.com/SibteHussain',
       icon: Github,
     },
     {
       name: 'LinkedIn',
-      href: 'https://linkedin.com',
+      href: 'https://www.linkedin.com/in/sibte-hussain-b55aa723b',
       icon: Linkedin,
     },
-    {
-      name: 'Twitter',
-      href: 'https://twitter.com',
-      icon: Twitter,
-    },
+    // {
+    //   name: 'Twitter',
+    //   href: 'https://twitter.com',
+    //   icon: Twitter,
+    // },
     {
       name: 'Email',
       href: 'mailto:sibte566@gmail.com',
@@ -142,7 +142,7 @@ export default function Footer() {
           </p>
 
           {/* Decorative accent */}
-          <motion.div
+          {/* <motion.div
             className="flex items-center gap-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -157,7 +157,7 @@ export default function Footer() {
               ❤️
             </motion.span>
             <span className="text-sm text-[var(--text-muted)]">using React</span>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
     </footer>

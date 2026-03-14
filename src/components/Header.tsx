@@ -89,7 +89,7 @@ export default function Header() {
           {/* Right Actions */}
           <ScrollReveal delay={0.2} className="flex items-center gap-3">
             <motion.a
-              href="https://github.com"
+              href="https://github.com/SibteHussain"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-glass-hover)] transition-all"
@@ -171,7 +171,7 @@ export default function Header() {
               ))}
               <div className="flex items-center gap-3 pt-4 mt-2 border-t border-[var(--border-color)]">
                 <motion.a
-                  href="https://github.com"
+                  href="https://github.com/SibteHussain"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-10 h-10 rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)]"

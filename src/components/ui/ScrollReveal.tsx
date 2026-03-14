@@ -309,7 +309,7 @@ export function HoverCard({ children, className = '', glowColor = 'var(--accent-
       transition={{ duration: 0.3 }}
     >
       <motion.div
-        className="absolute inset-0 opacity-0"
+        className="hover-card-glow absolute inset-0 opacity-0"
         style={{
           background: `radial-gradient(circle at 50% 0%, ${glowColor}15, transparent 70%)`,
         }}

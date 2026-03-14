@@ -11,13 +11,11 @@ import {
   Zap,
   ArrowRight,
 } from 'lucide-react'
-import { motion, useInView } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
 import {
   ScrollReveal,
   StaggerContainer,
   StaggerItem,
-  HoverCard,
 } from '../components/ui/ScrollReveal'
 
 export const Route = createFileRoute('/skills')({
@@ -26,7 +24,6 @@ export const Route = createFileRoute('/skills')({
 
 interface Skill {
   name: string
-  level: number
   description: string
 }
 
@@ -45,26 +42,26 @@ const skillCategories: SkillCategory[] = [
     icon: Code2,
     color: 'from-blue-500 to-cyan-500',
     skills: [
-      { name: 'React.js', level: 95, description: 'Building modern, interactive UIs' },
-      { name: 'React 19', level: 90, description: 'Latest features and best practices' },
-      { name: 'TypeScript', level: 90, description: 'Type-safe development experience' },
-      { name: 'JavaScript (ES6+)', level: 95, description: 'Deep understanding of modern JS' },
-      { name: 'Next.js', level: 88, description: 'SSR, SSG, and API routes' },
-      { name: 'Gatsby', level: 75, description: 'Static site generation' },
+      { name: 'React.js', description: 'Modern, interactive UIs' },
+      { name: 'React 19', description: 'Latest features' },
+      { name: 'TypeScript', description: 'Type-safe development' },
+      { name: 'JavaScript (ES6+)', description: 'Modern JS' },
+      { name: 'Next.js', description: 'SSR, SSG, API routes' },
+      { name: 'Gatsby', description: 'Static sites' },
     ],
   },
   {
     id: 2,
-    title: 'React Native Development',
+    title: 'React Native',
     icon: Smartphone,
     color: 'from-green-500 to-emerald-500',
     skills: [
-      { name: 'React Native', level: 95, description: 'Cross-platform mobile development' },
-      { name: 'Expo', level: 92, description: 'Rapid development and testing' },
-      { name: 'React Native Paper', level: 85, description: 'Material Design components' },
-      { name: 'React Navigation', level: 90, description: 'Complex navigation patterns' },
-      { name: 'Native Modules', level: 78, description: 'Custom native integrations' },
-      { name: 'Detox', level: 80, description: 'E2E testing for mobile apps' },
+      { name: 'React Native', description: 'Cross-platform mobile' },
+      { name: 'Expo', description: 'Rapid development' },
+      { name: 'React Native Paper', description: 'Material Design' },
+      { name: 'React Navigation', description: 'Navigation patterns' },
+      { name: 'Native Modules', description: 'Custom integrations' },
+      { name: 'Detox', description: 'E2E testing' },
     ],
   },
   {
@@ -73,11 +70,11 @@ const skillCategories: SkillCategory[] = [
     icon: Database,
     color: 'from-purple-500 to-violet-500',
     skills: [
-      { name: 'Redux', level: 90, description: 'Global state management' },
-      { name: 'React Context API', level: 95, description: 'Local and global state' },
-      { name: 'Zustand', level: 88, description: 'Lightweight state management' },
-      { name: 'React Query', level: 90, description: 'Server state management' },
-      { name: 'MobX', level: 70, description: 'Reactive state management' },
+      { name: 'Redux', description: 'Global state' },
+      { name: 'React Context', description: 'Local & global state' },
+      { name: 'Zustand', description: 'Lightweight state' },
+      { name: 'React Query', description: 'Server state' },
+      { name: 'MobX', description: 'Reactive state' },
     ],
   },
   {
@@ -86,11 +83,11 @@ const skillCategories: SkillCategory[] = [
     icon: Palette,
     color: 'from-pink-500 to-rose-500',
     skills: [
-      { name: 'Tailwind CSS', level: 95, description: 'Utility-first CSS framework' },
-      { name: 'CSS Modules', level: 88, description: 'Scoped CSS for components' },
-      { name: 'Styled Components', level: 82, description: 'CSS-in-JS solution' },
-      { name: 'Framer Motion', level: 88, description: 'Production-ready animations' },
-      { name: 'Material UI', level: 78, description: 'React component library' },
+      { name: 'Tailwind CSS', description: 'Utility-first CSS' },
+      { name: 'CSS Modules', description: 'Scoped CSS' },
+      { name: 'Styled Components', description: 'CSS-in-JS' },
+      { name: 'Framer Motion', description: 'Animations' },
+      { name: 'Material UI', description: 'Component library' },
     ],
   },
   {
@@ -99,11 +96,11 @@ const skillCategories: SkillCategory[] = [
     icon: Terminal,
     color: 'from-orange-500 to-amber-500',
     skills: [
-      { name: 'Jest', level: 92, description: 'JavaScript testing framework' },
-      { name: 'React Testing Library', level: 90, description: 'Component testing utilities' },
-      { name: 'Vitest', level: 88, description: 'Fast unit testing with Vite' },
-      { name: 'Cypress', level: 78, description: 'E2E testing framework' },
-      { name: 'Detox', level: 82, description: 'Mobile E2E testing' },
+      { name: 'Jest', description: 'Testing framework' },
+      { name: 'React Testing Library', description: 'Component testing' },
+      { name: 'Vitest', description: 'Fast unit testing' },
+      { name: 'Cypress', description: 'E2E testing' },
+      { name: 'Detox', description: 'Mobile E2E' },
     ],
   },
   {
@@ -112,12 +109,12 @@ const skillCategories: SkillCategory[] = [
     icon: GitBranch,
     color: 'from-slate-500 to-zinc-500',
     skills: [
-      { name: 'Git', level: 95, description: 'Version control and collaboration' },
-      { name: 'GitHub', level: 92, description: 'Git hosting and CI/CD' },
-      { name: 'Webpack', level: 82, description: 'Module bundling' },
-      { name: 'Vite', level: 92, description: 'Next-gen frontend tooling' },
-      { name: 'ESLint', level: 88, description: 'Code linting and formatting' },
-      { name: 'Prettier', level: 92, description: 'Code formatting' },
+      { name: 'Git', description: 'Version control' },
+      { name: 'GitHub', description: 'CI/CD' },
+      { name: 'Webpack', description: 'Bundling' },
+      { name: 'Vite', description: 'Frontend tooling' },
+      { name: 'ESLint', description: 'Linting' },
+      { name: 'Prettier', description: 'Formatting' },
     ],
   },
   {
@@ -126,11 +123,11 @@ const skillCategories: SkillCategory[] = [
     icon: Server,
     color: 'from-red-500 to-orange-500',
     skills: [
-      { name: 'RESTful APIs', level: 95, description: 'REST API design and consumption' },
-      { name: 'GraphQL', level: 88, description: 'Query language for APIs' },
-      { name: 'WebSocket', level: 82, description: 'Real-time communication' },
-      { name: 'Node.js', level: 78, description: 'JavaScript runtime' },
-      { name: 'Firebase', level: 88, description: 'Backend-as-a-service platform' },
+      { name: 'RESTful APIs', description: 'API design' },
+      { name: 'GraphQL', description: 'Query language' },
+      { name: 'WebSocket', description: 'Real-time' },
+      { name: 'Node.js', description: 'Runtime' },
+      { name: 'Firebase', description: 'BaaS' },
     ],
   },
   {
@@ -139,11 +136,11 @@ const skillCategories: SkillCategory[] = [
     icon: Layout,
     color: 'from-indigo-500 to-blue-500',
     skills: [
-      { name: 'iOS Development', level: 85, description: 'iOS app development' },
-      { name: 'Android Development', level: 85, description: 'Android app development' },
-      { name: 'App Store Deployment', level: 92, description: 'iOS app store submission' },
-      { name: 'Play Store Deployment', level: 92, description: 'Android play store submission' },
-      { name: 'Push Notifications', level: 88, description: 'FCM and APNs integration' },
+      { name: 'iOS', description: 'App development' },
+      { name: 'Android', description: 'App development' },
+      { name: 'App Store', description: 'Deployment' },
+      { name: 'Play Store', description: 'Deployment' },
+      { name: 'Push Notifications', description: 'FCM & APNs' },
     ],
   },
 ]
@@ -152,174 +149,157 @@ const allTechnologies = [
   'React.js', 'React Native', 'TypeScript', 'Tailwind CSS',
   'Redux', 'Next.js', 'Jest', 'Git', 'GraphQL', 'Node.js',
   'Firebase', 'Expo', 'Vite', 'Webpack', 'CI/CD',
-  'GraphQL', 'REST APIs', 'Framer Motion', 'React Query',
-  'Zustand', 'WebSocket', 'Material UI', 'React Navigation',
+  'Framer Motion', 'React Query', 'Zustand', 'WebSocket',
+  'Material UI', 'React Navigation',
 ]
 
-function ProgressBar({ skill, index }: { skill: Skill; index: number }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-50px' })
-  const [width, setWidth] = useState(0)
-
-  useEffect(() => {
-    if (isInView) {
-      const timer = setTimeout(() => {
-        setWidth(skill.level)
-      }, 100 + index * 50)
-      return () => clearTimeout(timer)
-    }
-  }, [isInView, skill.level, index])
-
+function SkillPill({ skill }: { skill: Skill }) {
   return (
-    <div ref={ref} className="group">
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-sm font-medium text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
+    <StaggerItem>
+      <motion.div
+        className="group relative rounded-xl px-4 py-3 bg-[var(--bg-glass)] border border-[var(--border-color)] hover:border-[var(--accent-primary)]/50 transition-colors duration-300"
+        whileHover={{ scale: 1.02, y: -2 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+      >
+        <span className="text-sm font-medium text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors block">
           {skill.name}
         </span>
-        <span className="text-sm font-medium text-[var(--accent-primary)]">
-          {width}%
-        </span>
+        <div className="overflow-hidden max-h-0 group-hover:max-h-8 transition-[max-height] duration-200 ease-out">
+          <p className="pt-1 text-xs text-[var(--text-muted)] line-clamp-1">
+            {skill.description}
+          </p>
+        </div>
+      </motion.div>
+    </StaggerItem>
+  )
+}
+
+function CategoryCard({
+  category,
+  index,
+}: {
+  category: SkillCategory
+  index: number
+}) {
+  const Icon = category.icon
+  return (
+    <ScrollReveal delay={index * 0.06}>
+      <div className="relative rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] backdrop-blur-sm overflow-hidden">
+        <div className="p-6">
+          <div className="flex items-center gap-3 mb-5">
+            <motion.div
+              className={`p-2.5 rounded-xl bg-gradient-to-br ${category.color} shadow-lg`}
+              whileHover={{ scale: 1.05, rotate: 5 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            >
+              <Icon size={22} className="text-white" />
+            </motion.div>
+            <h2 className="text-lg font-semibold text-[var(--text-primary)] tracking-tight">
+              {category.title}
+            </h2>
+          </div>
+          <StaggerContainer stagger={0.04} delay={0.1}>
+            <div className="flex flex-wrap gap-2">
+              {category.skills.map((skill, i) => (
+                <SkillPill key={skill.name} skill={skill} />
+              ))}
+            </div>
+          </StaggerContainer>
+        </div>
       </div>
-      <div className="h-2 w-full rounded-full bg-[var(--bg-tertiary)] overflow-hidden">
-        <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)]"
-          initial={{ width: 0 }}
-          animate={{ width: isInView ? `${width}%` : '0%' }}
-          transition={{ duration: 1, ease: 'easeOut', delay: 0.1 }}
-        />
-      </div>
-      <p className="mt-1 text-xs text-[var(--text-muted)]">
-        {skill.description}
-      </p>
-    </div>
+    </ScrollReveal>
   )
 }
 
 function Skills() {
   return (
     <div className="page-container py-12">
-      {/* Hero Section */}
+      {/* Hero */}
       <ScrollReveal>
-        <section className="relative py-16 md:py-24">
-          <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-[var(--accent-primary)]/10 blur-[100px] pointer-events-none" />
-
-          <ScrollReveal delay={0}>
-            <p className="text-sm font-medium uppercase tracking-wider text-[var(--accent-primary)] mb-4">
+        <section className="relative py-16 md:py-20">
+          <div className="absolute top-0 right-0 w-[280px] h-[280px] rounded-full bg-[var(--accent-primary)]/10 blur-[80px] pointer-events-none" />
+          <ScrollReveal delay={0.05}>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent-primary)] mb-3">
               Skills
             </p>
           </ScrollReveal>
-
           <ScrollReveal delay={0.1}>
-            <h1 className="font-display text-4xl md:text-6xl font-bold text-[var(--text-primary)] mb-6">
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-4 tracking-tight">
               Technical <span className="text-gradient">Expertise</span>
             </h1>
           </ScrollReveal>
-
-          <ScrollReveal delay={0.2}>
-            <p className="max-w-2xl text-lg text-[var(--text-secondary)] leading-relaxed">
-              A comprehensive toolkit of technologies and frameworks I use to build
-              exceptional web and mobile applications. Always learning and adapting
-              to new technologies.
+          <ScrollReveal delay={0.15}>
+            <p className="max-w-xl text-[var(--text-secondary)] leading-relaxed">
+              Technologies and tools I use to build web and mobile applications.
             </p>
           </ScrollReveal>
         </section>
       </ScrollReveal>
 
-      {/* Skills Grid */}
-      <ScrollReveal>
-        <section className="py-10">
-          <div className="grid md:grid-cols-2 gap-6">
-            {skillCategories.map((category, categoryIndex) => {
-              const Icon = category.icon
-              return (
-                <ScrollReveal
-                  key={category.id}
-                  delay={categoryIndex * 0.05}
-                >
-                  <HoverCard className="p-6 h-full">
-                    {/* Category Header */}
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className={`p-3 rounded-xl bg-gradient-to-br ${category.color}`}>
-                        <Icon size={24} className="text-white" />
-                      </div>
-                      <h2 className="text-xl font-semibold text-[var(--text-primary)]">
-                        {category.title}
-                      </h2>
-                    </div>
+      {/* Categories Grid */}
+      <section className="py-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-5">
+          {skillCategories.map((category, i) => (
+            <CategoryCard key={category.id} category={category} index={i} />
+          ))}
+        </div>
+      </section>
 
-                    {/* Skills List */}
-                    <div className="space-y-4">
-                      {category.skills.map((skill, skillIndex) => (
-                        <ProgressBar
-                          key={skill.name}
-                          skill={skill}
-                          index={skillIndex}
-                        />
-                      ))}
-                    </div>
-                  </HoverCard>
-                </ScrollReveal>
-              )
-            })}
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* Key Technologies */}
+      {/* Tech Stack */}
       <ScrollReveal>
-        <section className="py-10">
+        <section className="py-12">
           <motion.div
-            className="card rounded-3xl p-8 relative overflow-hidden"
-            whileHover={{ scale: 1.01 }}
+            className="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] backdrop-blur-sm p-6 md:p-8 relative overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
           >
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-[var(--accent-primary)]/5 blur-[100px]" />
-
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 rounded-xl bg-[var(--accent-glow)]">
-                  <Zap size={24} className="text-[var(--accent-primary)]" />
-                </div>
-                <h2 className="text-2xl font-semibold text-[var(--text-primary)]">
-                  My Go-To Tech Stack
-                </h2>
+            <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[var(--accent-primary)]/5 blur-[60px]" />
+            <div className="relative z-10 flex items-center gap-3 mb-5">
+              <div className="p-2 rounded-lg bg-[var(--accent-glow)]">
+                <Zap size={20} className="text-[var(--accent-primary)]" />
               </div>
-
-              <div className="flex flex-wrap gap-3">
-                {allTechnologies.map((tech, index) => (
-                  <ScrollReveal
-                    key={tech}
-                    delay={index * 0.02}
-                    className="px-4 py-2 text-sm font-medium rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)] hover:bg-[var(--bg-glass-hover)] transition-all cursor-default"
+              <h2 className="text-xl font-semibold text-[var(--text-primary)]">
+                Go-To Stack
+              </h2>
+            </div>
+            <div className="relative z-10 flex flex-wrap gap-2">
+              {allTechnologies.map((tech, index) => (
+                <ScrollReveal key={tech} delay={index * 0.015}>
+                  <motion.span
+                    className="inline-block px-3 py-1.5 text-sm rounded-lg bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:border-[var(--accent-primary)]/40 hover:text-[var(--accent-primary)] transition-colors cursor-default"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   >
                     {tech}
-                  </ScrollReveal>
-                ))}
-              </div>
+                  </motion.span>
+                </ScrollReveal>
+              ))}
             </div>
           </motion.div>
         </section>
       </ScrollReveal>
 
-      {/* CTA Section */}
+      {/* CTA */}
       <ScrollReveal>
         <section className="py-10">
           <motion.div
-            className="relative overflow-hidden rounded-3xl card p-8 md:p-12 text-center"
-            whileHover={{ scale: 1.01 }}
-            transition={{ duration: 0.3 }}
+            className="relative rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] backdrop-blur-sm p-8 md:p-10 text-center overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ borderColor: 'rgba(0, 212, 170, 0.2)' }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-primary)]/10 to-transparent" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[var(--accent-primary)]/5 blur-[80px]" />
-
+            <div className="absolute inset-0 bg-gradient-to-b from-[var(--accent-primary)]/5 to-transparent pointer-events-none" />
             <div className="relative z-10">
-              <h2 className="font-display text-3xl font-bold text-[var(--text-primary)] mb-4">
+              <h2 className="font-display text-2xl font-bold text-[var(--text-primary)] mb-3">
                 Want to Discuss a Project?
               </h2>
-              <p className="max-w-xl mx-auto text-[var(--text-secondary)] mb-8">
-                I'm always excited to work with new technologies and take on challenging projects.
-                Let's discuss how my skills can help bring your vision to life!
+              <p className="max-w-md mx-auto text-[var(--text-secondary)] mb-6 text-sm">
+                I'm always excited to work with new technologies. Let's talk.
               </p>
-              <Link to="/contact" className="btn btn-primary">
+              <Link to="/contact" className="btn btn-primary inline-flex items-center gap-2">
                 Get In Touch
                 <ArrowRight size={18} />
               </Link>

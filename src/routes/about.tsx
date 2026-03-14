@@ -11,27 +11,31 @@ export const Route = createFileRoute('/about')({
 
 const journeyTimeline = [
   {
-    year: '2023 - Present',
-    title: 'Senior React Developer',
-    company: 'TechMosaic Solutions',
-    description: 'Leading development teams for web and mobile applications.',
+    year: 'Oct 2024 - Present',
+    title: 'Software Engineer',
+    company: 'PlanLab Solutions',
+    description:
+      'Building scalable React, Next.js, and React Native applications with focus on performance, reusable architecture, and production deployments.',
     align: 'left',
   },
   {
-    year: '2021 - 2023',
-    title: 'React Developer',
-    company: 'Nexus Digital',
-    description: 'Developed scalable web and mobile applications.',
+    year: 'Sep 2023 - Oct 2024',
+    title: 'Associate Software Developer',
+    company: 'Agile District',
+    description:
+      'Developed responsive web and mobile apps using React.js, Next.js, and React Native while integrating REST and GraphQL APIs.',
     align: 'right',
   },
   {
-    year: '2020 - 2021',
-    title: 'Junior Frontend Developer',
-    company: 'ByteCraft Solutions',
-    description: 'Started professional journey building React applications.',
+    year: '2018 - 2022',
+    title: 'Bachelor of Science in Computer Science',
+    company: 'University of Management and Technology',
+    description:
+      'Built strong foundations in software engineering, algorithms, and web development while starting my journey with JavaScript and React.',
     align: 'left',
   },
 ]
+
 
 const highlights = [
   {
@@ -57,7 +61,7 @@ const highlights = [
 ]
 
 const stats = [
-  { value: 5, suffix: '+', label: 'Years Experience' },
+  { value: 3, suffix: '+', label: 'Years Experience' },
   { value: 30, suffix: '+', label: 'Projects Delivered' },
   { value: 15, suffix: '+', label: 'Team Members Led' },
   { value: 40, suffix: '%', label: 'Performance Boost' },
@@ -119,7 +123,7 @@ function About() {
           <ScrollReveal delay={0.2}>
             <p className="max-w-2xl text-lg text-[var(--text-secondary)] leading-relaxed mb-8">
               Hello! I'm Sibte Hussain, a passionate developer with dual expertise in React
-              web applications and React Native mobile development. With over 5 years of
+              web applications and React Native mobile development. With over 3 years of
               professional experience, I specialize in building scalable, performant
               applications that delight users and drive business growth.
             </p>

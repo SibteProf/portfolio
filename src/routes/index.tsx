@@ -13,10 +13,10 @@ import {
 export const Route = createFileRoute('/')({ component: Home })
 
 const stats = [
-  { value: 5, suffix: '+', label: 'Years Experience' },
-  { value: 30, suffix: '+', label: 'Projects Completed' },
-  { value: 40, suffix: '%', label: 'Performance Boost' },
-  { value: 4.8, suffix: '', label: 'App Store Rating', decimals: 1 },
+{ value: 3, suffix: '+', label: 'Years Experience' },
+{ value: 10, suffix: '+', label: 'Projects Completed' },
+{ value: 40, suffix: '%', label: 'Performance Boost' },
+{ value: 25, suffix: '%', label: 'Faster Feature Delivery' },
 ]
 
 const featuredSkills = [
@@ -48,26 +48,37 @@ const featuredSkills = [
 
 const projects = [
   {
-    title: 'E-Commerce Platform',
-    description: 'Full-featured e-commerce web application with React, Next.js, and Stripe integration.',
-    tech: ['React', 'Next.js', 'TypeScript', 'Stripe'],
+    title: 'NowVPlay',
+    description:
+      'Sports streaming and collaboration platform built with Next.js featuring OAuth authentication, role-based access control, and optimized Redux state management.',
+    tech: ['Next.js', 'React', 'Redux', 'Material UI', 'OAuth'],
     github: '#',
-    demo: '#',
+    demo: 'https://www.nowvplay.com',
   },
   {
-    title: 'Fitness Tracking App',
-    description: 'Cross-platform mobile app for tracking workouts and nutrition with AI insights.',
-    tech: ['React Native', 'GraphQL', 'Firebase'],
+    title: 'RealWealtdy',
+    description:
+      'Scalable real estate web application for property listings and transactions with secure payments, Plaid integration, and real-time chat.',
+    tech: ['React', 'TypeScript', 'Socket.IO', 'Plaid API', 'Stripe'],
     github: '#',
-    demo: '#',
+    demo: 'https://sbx.realwealtdy.net',
   },
   {
-    title: 'Dashboard System',
-    description: 'Analytics dashboard with real-time data visualization and reporting.',
-    tech: ['React', 'D3.js', 'Node.js'],
+    title: 'GoodFynd',
+    description:
+      'Cross-platform fintech SaaS mobile application for food vendors with real-time chat, Redux state management, and optimized API handling.',
+    tech: ['React Native', 'Expo', 'Redux', 'React Query', 'Socket.IO'],
     github: '#',
-    demo: '#',
+    demo: 'https://www.goodfynd.com',
   },
+  // {
+  //   title: 'Atypically-me',
+  //   description:
+  //     'Cross-platform social platform with custom UI components for iOS and Android and optimized API performance using memoization techniques.',
+  //   tech: ['React Native', 'TypeScript', 'Redux', 'REST APIs'],
+  //   github: '#',
+  //   demo: '#',
+  // },
 ]
 
 function Home() {
@@ -133,9 +144,9 @@ function Home() {
             <ScrollReveal delay={0.5}>
               <div className="flex items-center gap-3">
                 {[
-                  { icon: Github, href: 'https://github.com', label: 'GitHub' },
-                  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-                  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
+                  { icon: Github, href: 'https://github.com/SibteHussain', label: 'GitHub' },
+                  { icon: Linkedin, href: 'https://www.linkedin.com/in/sibte-hussain-b55aa723b', label: 'LinkedIn' },
+                  // { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
                 ].map((social, i) => (
                   <motion.a
                     key={social.label}
@@ -236,7 +247,7 @@ function Home() {
               to="/experience"
               className="btn btn-secondary"
             >
-              View All Projects
+              View My Work
               <ArrowRight size={16} />
             </Link>
           </div>
@@ -270,7 +281,7 @@ function Home() {
                     </div>
                   </div>
                   <div className="flex items-center gap-3 pt-4 border-t border-[var(--border-color)]">
-                    <motion.a
+                    {/* <motion.a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -279,7 +290,7 @@ function Home() {
                     >
                       <Github size={16} />
                       Code
-                    </motion.a>
+                    </motion.a> */}
                     <motion.a
                       href={project.demo}
                       target="_blank"

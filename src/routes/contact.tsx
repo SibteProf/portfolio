@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 import { Mail, MapPin, Github, Linkedin, Twitter, Send, CheckCircle, AlertCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -35,18 +36,18 @@ const socialLinks = [
   {
     icon: Github,
     name: 'GitHub',
-    href: 'https://github.com',
+    href: 'https://github.com/SibteHussain',
   },
   {
     icon: Linkedin,
     name: 'LinkedIn',
-    href: 'https://linkedin.com',
+    href: 'https://www.linkedin.com/in/sibte-hussain-b55aa723b',
   },
-  {
-    icon: Twitter,
-    name: 'Twitter',
-    href: 'https://twitter.com',
-  },
+  // {
+  //   icon: Twitter,
+  //   name: 'Twitter',
+  //   href: 'https://twitter.com',
+  // },
 ]
 
 function Contact() {
@@ -95,12 +96,32 @@ function Contact() {
 
     setStatus('submitting')
 
+    const publicKey = import.meta.env.VITE_EMAIL_PUBLIC_KEY
+    const serviceId = import.meta.env.VITE_EMAIL_SERVICE_ID
+    const templateId = import.meta.env.VITE_EMAIL_TEMPLATE_ID
+
+    if (!publicKey || !serviceId || !templateId) {
+      setStatus('error')
+      setTimeout(() => setStatus('idle'), 5000)
+      return
+    }
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        { publicKey }
+      )
       setStatus('success')
       setFormData({ name: '', email: '', subject: '', message: '' })
       setErrors({})
-    } catch (error) {
+    } catch {
       setStatus('error')
     }
 
