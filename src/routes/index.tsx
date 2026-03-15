@@ -8,6 +8,7 @@ import {
   Counter,
   Magnetic,
   HoverCard,
+  Typewriter,
 } from '../components/ui/ScrollReveal'
 
 export const Route = createFileRoute('/')({ component: Home })
@@ -111,7 +112,14 @@ function Home() {
             <ScrollReveal delay={0.1}>
               <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-[var(--text-primary)] leading-tight mb-4">
                 Hi, I'm{' '}
-                <span className="text-gradient">Sibte Hussain</span>
+                <Typewriter
+                  text="Sibte Hussain"
+                  className="text-gradient"
+                  loop
+                  speed={75}
+                  deleteSpeed={45}
+                  pauseMs={1100}
+                />
               </h1>
             </ScrollReveal>
 

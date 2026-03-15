@@ -94,6 +94,8 @@ html,
 body,
 #app {
   min-height: 100%;
+  /* Prevent accidental horizontal scroll on mobile (e.g. large blurred orbs). */
+  overflow-x: clip;
 }
 
 body {
@@ -101,7 +103,7 @@ body {
   color: var(--text-primary);
   font-family: var(--font-sans);
   background-color: var(--bg-primary);
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
@@ -132,6 +134,14 @@ body::after {
     linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+}
+
+/* Media elements should never cause horizontal overflow */
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
 }
 
 /* Typography */

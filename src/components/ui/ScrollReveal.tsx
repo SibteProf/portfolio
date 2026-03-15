@@ -324,26 +324,68 @@ export function HoverCard({ children, className = '', glowColor = 'var(--accent-
 interface TypewriterProps {
   text: string
   speed?: number
+  deleteSpeed?: number
+  pauseMs?: number
+  loop?: boolean
   className?: string
 }
 
-export function Typewriter({ text, speed = 50, className = '' }: TypewriterProps) {
+export function Typewriter({
+  text,
+  speed = 50,
+  deleteSpeed = 35,
+  pauseMs = 900,
+  loop = false,
+  className = '',
+}: TypewriterProps) {
   const [displayedText, setDisplayedText] = useState('')
 
   useEffect(() => {
-    setDisplayedText('')
-    let i = 0
-    const timer = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText(text.slice(0, i + 1))
-        i++
-      } else {
-        clearInterval(timer)
+    let mounted = true
+    let timeoutId: number | undefined
+
+    const sleep = (ms: number) =>
+      new Promise<void>((resolve) => {
+        timeoutId = window.setTimeout(resolve, ms)
+      })
+
+    const run = async () => {
+      setDisplayedText('')
+
+      if (!loop) {
+        for (let i = 0; i < text.length && mounted; i++) {
+          setDisplayedText(text.slice(0, i + 1))
+          await sleep(speed)
+        }
+        return
       }
-    }, speed)
 
-    return () => clearInterval(timer)
-  }, [text, speed])
+      while (mounted) {
+        // type forward
+        for (let i = 0; i < text.length && mounted; i++) {
+          setDisplayedText(text.slice(0, i + 1))
+          await sleep(speed)
+        }
 
-  return <div className={className}>{displayedText}</div>
+        await sleep(pauseMs)
+
+        // delete backward
+        for (let i = text.length; i >= 0 && mounted; i--) {
+          setDisplayedText(text.slice(0, i))
+          await sleep(deleteSpeed)
+        }
+
+        await sleep(pauseMs / 2)
+      }
+    }
+
+    void run()
+
+    return () => {
+      mounted = false
+      if (timeoutId) window.clearTimeout(timeoutId)
+    }
+  }, [text, speed, deleteSpeed, pauseMs, loop])
+
+  return <span className={className}>{displayedText}</span>
 }
