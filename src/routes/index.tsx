@@ -110,7 +110,7 @@ function Home() {
 
             {/* Name & Role */}
             <ScrollReveal delay={0.1}>
-              <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-[var(--text-primary)] leading-tight mb-4">
+              <h1 className="font-display text-3xl md:text-7xl lg:text-8xl font-bold text-[var(--text-primary)] leading-tight mb-4">
                 Hi, I'm{' '}
                 <Typewriter
                   text="Sibte Hussain"
