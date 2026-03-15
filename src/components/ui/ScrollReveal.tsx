@@ -1,4 +1,4 @@
-import { motion, useInView, AnimatePresence  } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import type {MotionProps} from 'framer-motion';
 import { useRef, useState, useEffect  } from 'react'
 import type {ReactNode} from 'react';
@@ -221,7 +221,6 @@ interface MagneticProps {
 export function Magnetic({ children, strength = 0.3, className = '' }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered] = useState(false)
 
   const handleMouse = (e: React.MouseEvent) => {
     const rect = ref.current?.getBoundingClientRect()
@@ -234,7 +233,7 @@ export function Magnetic({ children, strength = 0.3, className = '' }: MagneticP
 
   const handleLeave = () => {
     setPosition({ x: 0, y: 0 })
-    setIsHovered(false)
+    // setIsHovered(false)
   }
 
   return (
@@ -244,7 +243,7 @@ export function Magnetic({ children, strength = 0.3, className = '' }: MagneticP
       animate={{ x: position.x, y: position.y }}
       transition={{ type: 'spring', stiffness: 150, damping: 15 }}
       onMouseMove={handleMouse}
-      onMouseEnter={() => setIsHovered(true)}
+      // onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleLeave}
       style={{ cursor: 'pointer' }}
     >
@@ -257,13 +256,114 @@ interface AnimatedBackgroundProps {
   className?: string
 }
 
+interface TrailPoint {
+  id: number
+  x: number
+  y: number
+  createdAt: number
+}
+
 export function AnimatedBackground({ className = '' }: AnimatedBackgroundProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [trailPoints, setTrailPoints] = useState<TrailPoint[]>([])
+  const lastAddTime = useRef(0)
+  const trailIdCounter = useRef(0)
+  const lastPos = useRef({ x: 0, y: 0 })
+  const velocity = useRef({ x: 0, y: 0 })
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches
+    if (prefersReducedMotion || isCoarsePointer) return
+
+    let mounted = true
+    let rafId = 0
+
+    const TRAIL_LIFETIME = 1500 // ms before fully faded
+    const ADD_INTERVAL = 16 // ms between adding new trail points
+
+    const onMove = (e: PointerEvent) => {
+      const now = performance.now()
+      if (now - lastAddTime.current < ADD_INTERVAL) return
+
+      // Calculate velocity (direction mouse is moving)
+      const dx = e.clientX - lastPos.current.x
+      const dy = e.clientY - lastPos.current.y
+
+      // Smooth velocity
+      velocity.current.x = velocity.current.x * 0.5 + dx * 0.5
+      velocity.current.y = velocity.current.y * 0.5 + dy * 0.5
+
+      // Offset trail point behind the cursor (opposite direction of movement)
+      const speed = Math.sqrt(velocity.current.x ** 2 + velocity.current.y ** 2)
+      const offset = Math.min(speed * 2, 60) // Max 60px behind, scales with speed
+
+      let offsetX = 0
+      let offsetY = 0
+      if (speed > 1) {
+        offsetX = -(velocity.current.x / speed) * offset
+        offsetY = -(velocity.current.y / speed) * offset
+      }
+
+      lastAddTime.current = now
+      lastPos.current = { x: e.clientX, y: e.clientY }
+
+      const newPoint: TrailPoint = {
+        id: trailIdCounter.current++,
+        x: e.clientX + offsetX,
+        y: e.clientY + offsetY,
+        createdAt: now,
+      }
+
+      setTrailPoints((prev) => [...prev.slice(-30), newPoint]) // Keep max 30 points
+    }
+
+    const tick = () => {
+      if (!mounted) return
+      const now = performance.now()
+
+      setTrailPoints((prev) => prev.filter((p) => now - p.createdAt < TRAIL_LIFETIME))
+
+      rafId = window.requestAnimationFrame(tick)
+    }
+
+    window.addEventListener('pointermove', onMove, { passive: true })
+    rafId = window.requestAnimationFrame(tick)
+
+    return () => {
+      mounted = false
+      window.removeEventListener('pointermove', onMove)
+      if (rafId) window.cancelAnimationFrame(rafId)
+    }
+  }, [])
+
   return (
-    <div className={`fixed inset-0 -z-10 overflow-hidden pointer-events-none ${className}`}>
+    <div ref={containerRef} className={`fixed inset-0 -z-10 overflow-hidden pointer-events-none ${className}`}>
+      {/* Trail points */}
+      {trailPoints.map((point) => {
+        const age = performance.now() - point.createdAt
+        const opacity = Math.max(0, 1 - age / 1500)
+        const scale = 1 - (age / 1500) * 0.3 // Slightly shrink as it ages
+
+        return (
+          <div
+            key={point.id}
+            className="trail-point"
+            style={{
+              left: point.x,
+              top: point.y,
+              opacity,
+              transform: `translate(-50%, -50%) scale(${scale})`,
+            }}
+            aria-hidden
+          />
+        )
+      })}
+
       {/* Gradient Orbs */}
       <motion.div
         className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
-        style={{ background: 'radial-gradient(circle, var(--accent-primary), transparent)' }}
+        style={{ background: 'radial-gradient(circle, var(--accent-marker), transparent)' }}
         animate={{
           x: [0, 30, 0],
           y: [0, -30, 0],
@@ -273,7 +373,7 @@ export function AnimatedBackground({ className = '' }: AnimatedBackgroundProps) 
       />
       <motion.div
         className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-15 blur-[80px]"
-        style={{ background: 'radial-gradient(circle, #00a080, transparent)' }}
+        style={{ background: 'radial-gradient(circle, #439c8a, transparent)' }}
         animate={{
           x: [0, -20, 0],
           y: [0, 20, 0],
@@ -301,7 +401,7 @@ interface HoverCardProps {
   glowColor?: string
 }
 
-export function HoverCard({ children, className = '', glowColor = 'var(--accent-primary)' }: HoverCardProps) {
+export function HoverCard({ children, className = '', glowColor = 'var(--accent-marker)' }: HoverCardProps) {
   return (
     <motion.div
       className={`card relative overflow-hidden rounded-2xl ${className}`}
@@ -362,7 +462,7 @@ export function Typewriter({
 
       while (mounted) {
         // type forward
-        for (let i = 0; i < text.length && mounted; i++) {
+        for (let i = 0; i < text.length; i++) {
           setDisplayedText(text.slice(0, i + 1))
           await sleep(speed)
         }
@@ -370,7 +470,7 @@ export function Typewriter({
         await sleep(pauseMs)
 
         // delete backward
-        for (let i = text.length; i >= 0 && mounted; i--) {
+        for (let i = text.length; i >= 0; i--) {
           setDisplayedText(text.slice(0, i))
           await sleep(deleteSpeed)
         }
