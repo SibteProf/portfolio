@@ -152,7 +152,7 @@ function Home() {
             <ScrollReveal delay={0.5}>
               <div className="flex items-center gap-3">
                 {[
-                  { icon: Github, href: 'https://github.com/SibteHussain', label: 'GitHub' },
+                  { icon: Github, href: 'https://github.com/SibtePls', label: 'GitHub' },
                   { icon: Linkedin, href: 'https://www.linkedin.com/in/sibte-hussain-b55aa723b', label: 'LinkedIn' },
                   // { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
                 ].map((social, i) => (

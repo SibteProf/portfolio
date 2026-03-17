@@ -36,7 +36,7 @@ const socialLinks = [
   {
     icon: Github,
     name: 'GitHub',
-    href: 'https://github.com/SibteHussain',
+    href: 'https://github.com/SibtePls',
   },
   {
     icon: Linkedin,

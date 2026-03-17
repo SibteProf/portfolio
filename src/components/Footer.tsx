@@ -8,7 +8,7 @@ export default function Footer() {
   const socialLinks = [
     {
       name: 'GitHub',
-      href: 'https://github.com/SibteHussain',
+      href: 'https://github.com/SibtePls',
       icon: Github,
     },
     {
