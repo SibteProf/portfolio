@@ -56,7 +56,7 @@ const experiences = [
     role: 'Associate Software Developer',
     company: 'Agile District',
     location: 'Lahore, Pakistan',
-    period: 'Sep 2023 - Oct 2024',
+    period: 'Jan 2023 - Oct 2024',
     type: 'Full-time',
     description:
       'Built scalable web and mobile applications using React.js, React Native, and Next.js with a focus on performance and maintainable architecture.',
