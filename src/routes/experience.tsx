@@ -56,7 +56,7 @@ const experiences = [
     role: 'Associate Software Developer',
     company: 'Agile District',
     location: 'Lahore, Pakistan',
-    period: 'Jan 2023 - Oct 2024',
+    period: 'Jan 2022 - Oct 2024',
     type: 'Full-time',
     description:
       'Built scalable web and mobile applications using React.js, React Native, and Next.js with a focus on performance and maintainable architecture.',
@@ -192,7 +192,7 @@ function Experience() {
 
           <ScrollReveal delay={0.2}>
             <p className="max-w-2xl text-lg text-[var(--text-secondary)] leading-relaxed">
-              Over 3 years of experience building exceptional web and mobile applications,
+              Over 4 years of experience building exceptional web and mobile applications,
               leading teams, and delivering impactful solutions that drive business growth.
             </p>
           </ScrollReveal>

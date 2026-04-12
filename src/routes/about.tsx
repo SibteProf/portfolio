@@ -19,7 +19,7 @@ const journeyTimeline = [
     align: 'left',
   },
   {
-    year: 'Jan 2023 - Oct 2024',
+    year: 'Jan 2022 - Oct 2024',
     title: 'Associate Software Developer',
     company: 'Agile District',
     description:
