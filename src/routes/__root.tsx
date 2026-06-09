@@ -1,14 +1,20 @@
-import { HeadContent, Scripts, createRootRoute, useLocation } from '@tanstack/react-router'
+import {
+  HeadContent,
+  Scripts,
+  createRootRoute,
+  useLocation,
+} from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AnimatedBackground } from '../components/ui/ScrollReveal'
+import { profile } from '../content/portfolio'
 
 import appCss from '../styles.css?url'
 
-const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getItem('theme');var mode=(stored==='light'||stored==='dark'||stored==='auto')?stored:'auto';var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var resolved=mode==='auto'?(prefersDark?'dark':'light'):mode;var root=document.documentElement;root.classList.remove('light','dark');root.classList.add(resolved);if(mode==='auto'){root.removeAttribute('data-theme')}else{root.setAttribute('data-theme',mode)}root.style.colorScheme=resolved;}catch(e){}})();`
+const THEME_INIT_SCRIPT = `(function(){try{var root=document.documentElement;root.classList.remove('light');root.classList.add('dark');root.setAttribute('data-theme','dark');root.style.colorScheme='dark';}catch(e){}})();`
 
 export const Route = createRootRoute({
   head: () => ({
@@ -16,26 +22,26 @@ export const Route = createRootRoute({
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
-        title: 'Sibte Hussain | Fullstack Product Engineer',
+        title: `${profile.name} | ${profile.title}`,
       },
       {
         name: 'description',
         content:
-          'Portfolio of Sibte Hussain, a fullstack product engineer building maintainable web and mobile products with React, Next.js, React Native, APIs, payments, auth, and real-time workflows.',
+          'Portfolio of Sibte Hussain, a full-stack engineer building scalable MERN, Next.js, Node.js, React Native, secure API, real-time, database, and local LLM workflows.',
       },
       {
         name: 'keywords',
         content:
-          'Sibte Hussain, Fullstack Product Engineer, React, Next.js, TypeScript, React Native, API integrations, portfolio',
+          'Sibte Hussain, Full-Stack Engineer, MERN stack, Next.js, Node.js, React Native, TypeScript, GraphQL, Socket.IO, portfolio',
       },
       {
         property: 'og:title',
-        content: 'Sibte Hussain | Fullstack Product Engineer',
+        content: `${profile.name} | ${profile.title}`,
       },
       {
         property: 'og:description',
         content:
-          'Fullstack-focused portfolio showing shipped work across web apps, mobile apps, integrations, and production delivery.',
+          'Full-stack portfolio showing shipped work across web apps, mobile apps, APIs, real-time systems, auth, performance, and AI-assisted internal workflows.',
       },
       {
         property: 'og:type',
@@ -56,7 +62,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   const location = useLocation()
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" data-theme="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />

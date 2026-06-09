@@ -1,72 +1,86 @@
 export const profile = {
   name: 'Sibte Hussain',
-  title: 'Fullstack Product Engineer',
+  title: 'Full-Stack Engineer',
   location: 'Lahore, Pakistan',
   email: 'sibte566@gmail.com',
+  phone: '+92-300-6346998',
+  linkedin: 'https://www.linkedin.com/in/sibte-hussain-b55aa723b',
+  github: 'https://github.com/SibtePls',
   intro:
-    'I help agencies and product teams ship web and mobile software that is reliable in production, clear to maintain, and fast to iterate on.',
+    'I build scalable web and mobile applications with the MERN stack, Next.js, React Native, secure APIs, and production-ready data flows.',
   summary:
-    'My work usually sits at the seam between product requirements, frontend UX, backend integrations, and release quality. I build interfaces, wire up APIs, handle real-time and payment workflows, and leave teams with code they can keep shipping on.',
-  availability: 'Available for freelance and contract work',
+    'My work sits between front-end experiences and scalable back-end architecture: SSR/SSG performance, REST and GraphQL APIs, SQL and NoSQL databases, real-time features, state management, auth/RBAC, CI/CD, and modern local AI/LLM workflows.',
+  availability: 'Available for full-stack web and mobile work',
 }
 
 export const credibilityItems = [
-  'React, Next.js, TypeScript, React Native',
-  'Auth, RBAC, payments, real-time features',
-  'Production apps for sports, fintech, and property workflows',
-  'Agile collaboration with product, design, and engineering teams',
+  '3+ years building MERN, Next.js, and React Native products',
+  'SSR/SSG, ISR, Core Web Vitals, and rendering performance',
+  'OAuth 2.0, JWT rotation, RBAC, REST, GraphQL, and Socket.IO',
+  'SQL/NoSQL databases, Docker, CI/CD, AWS, and local LLM tools',
 ]
 
 export const workingPrinciples = [
   {
-    title: 'Product-minded implementation',
-    description: 'I translate vague feature requests into clear workflows, practical edge cases, and code that teams can extend without friction.',
+    title: 'Full-stack product delivery',
+    description:
+      'I move comfortably from UI flows into APIs, database-backed behavior, state sync, auth, deployment, and release-ready edge cases.',
   },
   {
-    title: 'Frontend and integration ownership',
-    description: 'I am comfortable moving from interface work into APIs, auth flows, third-party services, and release-ready behavior.',
+    title: 'Performance-aware architecture',
+    description:
+      'I care about SSR, SSG, ISR, Core Web Vitals, caching, data-layer latency, and keeping high-traffic screens responsive.',
   },
   {
-    title: 'Performance and maintainability',
-    description: 'I care about bundle weight, state complexity, loading behavior, and keeping the codebase understandable after handoff.',
+    title: 'Secure integration work',
+    description:
+      'I have worked with OAuth 2.0, JWT rotation, multi-tenant RBAC, payment flows, webhooks, and API validation layers.',
   },
   {
-    title: 'Fast collaboration',
-    description: 'I work well with designers, PMs, backend teams, and agency stakeholders who need clear progress and dependable delivery.',
+    title: 'Team-ready engineering',
+    description:
+      'I build modular components, shared libraries, typed code, test coverage, Dockerized environments, and CI/CD workflows that help teams move faster.',
   },
 ]
 
 export const services = [
   {
-    title: 'Web app delivery',
-    description: 'Building responsive product surfaces in React and Next.js with maintainable state, routing, and real user workflows.',
+    title: 'Full-stack web app delivery',
+    description:
+      'Building responsive React and Next.js applications with Node/Nest/Express APIs, typed workflows, secure auth, and production data flows.',
   },
   {
     title: 'Mobile app delivery',
-    description: 'Shipping React Native apps with shared logic, stable release behavior, and thoughtful performance on iOS and Android.',
+    description:
+      'Shipping React Native and Expo apps with Redux Toolkit, React Query, real-time updates, caching, and responsive mobile UX.',
   },
   {
-    title: 'API and third-party integrations',
-    description: 'Connecting product features to auth providers, payment systems, Plaid, real-time services, and internal APIs.',
+    title: 'API, database, and integrations',
+    description:
+      'Connecting products to REST, GraphQL, Socket.IO, PostgreSQL, MySQL, MongoDB, Stripe, NextAuth, webhooks, and internal services.',
   },
   {
-    title: 'Refactors and performance work',
-    description: 'Untangling brittle code, improving state architecture, and reducing the friction of shipping new features.',
+    title: 'Performance, testing, and DevOps',
+    description:
+      'Improving SSR/SSG behavior, API latency, state architecture, Jest/RTL coverage, Docker environments, CI/CD, and Vercel/AWS deployments.',
   },
 ]
 
 export const processSteps = [
   {
-    title: 'Clarify the product constraint',
-    description: 'I start by mapping the user flow, technical dependencies, and the tradeoffs that actually matter to the release.',
+    title: 'Map the full-stack path',
+    description:
+      'I start by connecting the user flow to API contracts, data sources, auth rules, state ownership, and release constraints.',
   },
   {
-    title: 'Build the critical path first',
-    description: 'I prioritize the behavior that proves the feature works end to end before polishing lower-value edges.',
+    title: 'Build the critical path end to end',
+    description:
+      'I prioritize the behavior that proves the feature works across UI, API, data, and deployment before polishing lower-value edges.',
   },
   {
-    title: 'Leave a codebase people can reuse',
-    description: 'Reusable patterns, predictable state, and cleaner interfaces matter because projects rarely end with one release.',
+    title: 'Harden for the next release',
+    description:
+      'Reusable components, typed boundaries, tests, caching, and cleaner CI workflows matter because production projects keep evolving.',
   },
 ]
 
@@ -76,100 +90,144 @@ export const timeline = [
     role: 'Software Engineer',
     company: 'PlanLab Solutions',
     summary:
-      'Delivering production React, Next.js, and React Native features with a focus on maintainability, performance, and cross-team delivery.',
+      'Architecting production-grade Next.js, Node.js, and React Native applications, improving REST/GraphQL data flows, shared UI libraries, SSR/ISR performance, OAuth/RBAC security, and Jest/RTL coverage.',
   },
   {
-    period: 'Jan 2022 - Oct 2024',
+    period: 'Sep 2023 - Oct 2024',
     role: 'Associate Software Developer',
     company: 'Agile District',
     summary:
-      'Built web and mobile products across multiple client engagements, integrating APIs, improving UX quality, and supporting releases.',
+      'Built responsive React, Next.js, and Tailwind platforms, implemented Redux Toolkit data sync, migrated legacy JavaScript toward TypeScript, Dockerized local services, and supported CI/CD regression workflows.',
   },
   {
     period: '2018 - 2022',
     role: 'BS Computer Science',
     company: 'University of Management and Technology',
     summary:
-      'Developed the engineering foundation that led into production work with JavaScript, React, and software delivery practices.',
+      'Bachelor of Science in Computer Science, building the foundation for JavaScript, React, full-stack systems, databases, and production software delivery.',
   },
 ]
 
 export const stackGroups = [
   {
     title: 'Frontend',
-    items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Material UI'],
+    items: [
+      'React.js',
+      'Next.js',
+      'JavaScript ES6+',
+      'TypeScript',
+      'Tailwind CSS',
+      'Material UI',
+      'ShadCN',
+    ],
   },
   {
-    title: 'Backend and integrations',
-    items: ['REST APIs', 'GraphQL', 'WebSockets', 'OAuth', 'Stripe', 'Plaid'],
+    title: 'Backend and databases',
+    items: [
+      'Node.js',
+      'Express.js',
+      'NestJS',
+      'MongoDB',
+      'PostgreSQL',
+      'MySQL',
+      'FastAPI',
+      'Django',
+    ],
   },
   {
-    title: 'Mobile',
-    items: ['React Native', 'Expo', 'React Navigation', 'Shared state patterns'],
+    title: 'APIs and real-time',
+    items: [
+      'REST APIs',
+      'GraphQL',
+      'Socket.IO',
+      'OAuth 2.0',
+      'JWT',
+      'RBAC',
+      'Stripe',
+      'NextAuth',
+    ],
   },
   {
-    title: 'Tooling and quality',
-    items: ['Vitest', 'React Testing Library', 'GitHub', 'CI/CD', 'Vite'],
+    title: 'Mobile, tooling, and quality',
+    items: [
+      'React Native',
+      'Expo',
+      'Redux Toolkit',
+      'React Query',
+      'Jest',
+      'React Testing Library',
+      'Appium',
+    ],
   },
 ]
 
 export const comfortStack = [
-  'Redux',
-  'React Query',
-  'Zustand',
-  'Jest',
-  'Firebase',
-  'Appium',
   'Docker',
+  'Git',
+  'GitHub',
+  'CI/CD',
+  'Vercel',
+  'AWS S3',
+  'AWS EC2',
+  'Ollama',
+  'Qwen',
+  'Scalable system design',
+  'Agile Scrum',
 ]
 
 export const projects = [
   {
     title: 'NowVPlay',
     type: 'Sports streaming and collaboration platform',
-    role: 'Frontend and product delivery across authentication, permissions, and application workflows',
+    role: 'Full-stack sports-tech delivery across client management, live data, routing, and role-aware dashboards',
     problem:
-      'The platform needed to support multiple user roles, authenticated access, and a smoother experience for complex sports-media workflows.',
+      'The platform needed scalable client management, dynamic routing, authenticated access, and live tournament data views for different user roles.',
     highlights: [
-      'Implemented frontend product flows in Next.js and React for account access, protected surfaces, and day-to-day user actions.',
-      'Integrated OAuth-based authentication and role-aware behavior so teams could expose the right tools to the right users.',
-      'Improved state organization with Redux patterns that made data-heavy screens easier to reason about and extend.',
+      'Built scalable Next.js product surfaces with dynamic routing and server-driven application flows.',
+      'Integrated OAuth and role-based dashboard behavior so different users could access the right management tools.',
+      'Engineered Redux Toolkit state architecture for live tournament data and data-heavy sports workflows.',
     ],
     outcome:
-      'The result was a more maintainable product surface with clearer permissions, steadier user flows, and a frontend foundation that was easier to ship on.',
-    stack: ['Next.js', 'React', 'Redux', 'Material UI', 'OAuth'],
+      'The product gained a clearer role-aware dashboard foundation, stronger live-data handling, and a frontend architecture easier to extend.',
+    stack: ['Next.js', 'Node.js', 'Redux Toolkit', 'OAuth', 'Material UI'],
     link: 'https://www.nowvplay.com',
   },
   {
-    title: 'RealWealtdy',
-    type: 'Real estate transaction and listing application',
-    role: 'Fullstack-facing frontend ownership across transactions, integrations, and real-time customer workflows',
+    title: 'Pecunia and Custom Dev Integrations',
+    type: 'Compliance, payments, and internal AI workflow integrations',
+    role: 'Full-stack integration work across validation layers, webhooks, payments, authentication, and local LLM tooling',
     problem:
-      'The product needed to combine property discovery, payment-related flows, bank connectivity, and live communication without turning the UI brittle.',
+      'The product needed secure onboarding automation, strict validation, government webhook handling, payment/auth flows, and internal AI tooling without leaking sensitive data externally.',
     highlights: [
-      'Built transaction and listing interfaces that coordinated with backend APIs, secure payment behavior, and user-specific workflow states.',
-      'Integrated Plaid and Stripe-related flows while keeping edge cases understandable for users and manageable in code.',
-      'Supported real-time chat behavior and data updates so the product could handle more collaborative transaction flows.',
+      'Automated compliance onboarding paths with strict validation layers and official UK government webhook integrations.',
+      'Integrated Stripe and NextAuth-backed product flows while keeping security-sensitive states explicit and maintainable.',
+      'Researched and integrated localized AI endpoints using Ollama and Qwen for internal developer pipeline workflows.',
     ],
     outcome:
-      'The app became easier to navigate through multi-step property workflows while keeping integrations and state changes more predictable.',
-    stack: ['React', 'TypeScript', 'Socket.IO', 'Plaid API', 'Stripe'],
-    link: 'https://sbx.realwealtdy.net',
+      'The workflows became more automated, secure, and privacy-conscious, with internal LLM tooling kept inside controlled infrastructure.',
+    stack: ['Next.js', 'Stripe', 'NextAuth', 'Ollama', 'Qwen'],
+    link: 'https://www.myukaccountant.co.uk/',
   },
   {
     title: 'GoodFynd',
     type: 'Fintech SaaS mobile application for food vendors',
-    role: 'Mobile product delivery with API coordination, real-time communication, and performance-focused state management',
+    role: 'React Native mobile delivery across vendor workflows, real-time order tracking, chat, and server-state management',
     problem:
-      'The app needed to handle vendor-facing workflows, real-time communication, and frequent API interactions on mobile without becoming sluggish.',
+      'The mobile app needed to support vendor-facing operations, live order updates, chat, and frequent API interactions without becoming sluggish.',
     highlights: [
-      'Built React Native screens and flows that balanced product complexity with responsiveness on mobile devices.',
-      'Managed data and network behavior with Redux and React Query patterns that made high-traffic screens more stable.',
-      'Integrated chat and API-heavy workflows while paying close attention to loading states, interaction quality, and release readiness.',
+      'Built React Native and Expo screens for fintech vendor workflows, real-time order tracking, and chat behavior.',
+      'Used Redux Toolkit and React Query to separate global state from server state and stabilize high-traffic screens.',
+      'Integrated Socket.IO live updates and improved offline support, caching, and background sync for better responsiveness.',
     ],
     outcome:
-      'The mobile experience handled operational vendor workflows more smoothly and gave the team a steadier base for ongoing feature work.',
-    stack: ['React Native', 'Expo', 'Redux', 'React Query', 'Socket.IO'],
+      'The app handled operational vendor workflows more smoothly and improved responsiveness by roughly 15-18% through caching and sync work.',
+    stack: [
+      'React Native',
+      'Expo',
+      'Redux Toolkit',
+      'React Query',
+      'Socket.IO',
+    ],
     link: 'https://www.goodfynd.com',
   },
 ]
@@ -178,6 +236,7 @@ export const projectInquiryChecklist = [
   'what you are building',
   'timeline or delivery pressure',
   'team setup and who I would work with',
-  'any APIs, mobile apps, or third-party services involved',
+  'any web app, mobile app, API, database, auth, or real-time work involved',
+  'third-party services, payments, webhooks, or local AI tools involved',
   'budget range if you already have one',
 ]
