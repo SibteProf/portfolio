@@ -325,18 +325,6 @@ p {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
 }
 
-.eyebrow-chip::before,
-.status-chip::before {
-  content: '';
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 9999px;
-  background: var(--secondary);
-  box-shadow:
-    0 0 0 7px rgba(78, 222, 163, 0.12),
-    0 0 20px rgba(78, 222, 163, 0.65);
-}
-
 .sticker {
   display: inline-flex;
   align-items: center;
