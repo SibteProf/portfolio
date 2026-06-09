@@ -1,347 +1,241 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { ArrowRight, Github, Linkedin, Twitter, Code2, Smartphone, Zap, Target, Layers } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { createFileRoute } from '@tanstack/react-router'
+import { ArrowRight, CheckCircle2, ExternalLink } from 'lucide-react'
+import { ScrollReveal, StaggerContainer, StaggerItem } from '../components/ui/ScrollReveal'
 import {
-  ScrollReveal,
-  StaggerContainer,
-  StaggerItem,
-  Counter,
-  Magnetic,
-  HoverCard,
-  Typewriter,
-} from '../components/ui/ScrollReveal'
+  credibilityItems,
+  processSteps,
+  profile,
+  projects,
+  services,
+  timeline,
+  workingPrinciples,
+} from '../content/portfolio'
 
 export const Route = createFileRoute('/')({ component: Home })
 
-const stats = [
-{ value: 3, suffix: '+', label: 'Years Experience' },
-{ value: 10, suffix: '+', label: 'Projects Completed' },
-{ value: 40, suffix: '%', label: 'Performance Boost' },
-{ value: 25, suffix: '%', label: 'Faster Feature Delivery' },
-]
-
-const featuredSkills = [
-  {
-    icon: Code2,
-    title: 'React Development',
-    description: 'Building modern, interactive UIs with React, TypeScript, and Next.js',
-    color: '#00d4aa',
-  },
-  {
-    icon: Smartphone,
-    title: 'React Native',
-    description: 'Cross-platform mobile apps with smooth animations and native performance',
-    color: '#00a080',
-  },
-  {
-    icon: Zap,
-    title: 'Performance',
-    description: 'Optimizing applications for maximum speed and user experience',
-    color: '#00f5c4',
-  },
-  {
-    icon: Layers,
-    title: 'Architecture',
-    description: 'Scalable architecture patterns and best practices',
-    color: '#00c4aa',
-  },
-]
-
-const projects = [
-  {
-    title: 'NowVPlay',
-    description:
-      'Sports streaming and collaboration platform built with Next.js featuring OAuth authentication, role-based access control, and optimized Redux state management.',
-    tech: ['Next.js', 'React', 'Redux', 'Material UI', 'OAuth'],
-    github: '#',
-    demo: 'https://www.nowvplay.com',
-  },
-  {
-    title: 'RealWealtdy',
-    description:
-      'Scalable real estate web application for property listings and transactions with secure payments, Plaid integration, and real-time chat.',
-    tech: ['React', 'TypeScript', 'Socket.IO', 'Plaid API', 'Stripe'],
-    github: '#',
-    demo: 'https://sbx.realwealtdy.net',
-  },
-  {
-    title: 'GoodFynd',
-    description:
-      'Cross-platform fintech SaaS mobile application for food vendors with real-time chat, Redux state management, and optimized API handling.',
-    tech: ['React Native', 'Expo', 'Redux', 'React Query', 'Socket.IO'],
-    github: '#',
-    demo: 'https://www.goodfynd.com',
-  },
-  // {
-  //   title: 'Atypically-me',
-  //   description:
-  //     'Cross-platform social platform with custom UI components for iOS and Android and optimized API performance using memoization techniques.',
-  //   tech: ['React Native', 'TypeScript', 'Redux', 'REST APIs'],
-  //   github: '#',
-  //   demo: '#',
-  // },
-]
-
 function Home() {
   return (
-    <div className="page-container py-12">
-      {/* Hero Section */}
+    <div className="page-container pb-16 pt-8 md:pt-12">
       <ScrollReveal>
-        <section className="relative min-h-[80vh] flex flex-col justify-center py-20">
-          {/* Background glow */}
-          <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-[var(--accent-primary)]/10 blur-[120px] pointer-events-none" />
-          <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-[var(--accent-tertiary)]/10 blur-[100px] pointer-events-none" />
-
-          <div className="relative z-10">
-            {/* Greeting */}
-            <ScrollReveal delay={0}>
-              <motion.div
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] mb-6"
-                whileHover={{ scale: 1.05 }}
-              >
-                <motion.span
-                  className="h-2 w-2 rounded-full bg-[var(--accent-primary)]"
-                  animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                <span className="text-sm text-[var(--text-secondary)]">Available for freelance work</span>
-              </motion.div>
-            </ScrollReveal>
-
-            {/* Name & Role */}
-            <ScrollReveal delay={0.1}>
-              <h1 className="font-display text-3xl md:text-7xl lg:text-8xl font-bold text-[var(--text-primary)] leading-tight mb-4">
-                Hi, I'm{' '}
-                <Typewriter
-                  text="Sibte Hussain"
-                  className="text-gradient"
-                  loop
-                  speed={75}
-                  deleteSpeed={45}
-                  pauseMs={1100}
-                />
+        <section className="section grid gap-14 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+          <div className="space-y-7">
+            <span className="eyebrow-chip">{profile.availability}</span>
+            <div className="space-y-5">
+              <h1 className="section-title display-title max-w-4xl">
+                I build fullstack product experiences that teams can ship, maintain, and extend.
               </h1>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.2}>
-              <h2 className="text-2xl md:text-3xl text-[var(--text-secondary)] font-medium mb-6">
-                React & React Native Developer
-              </h2>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.3}>
-              <p className="max-w-2xl text-lg text-[var(--text-secondary)] leading-relaxed mb-8">
-                I craft exceptional digital experiences with modern technologies.
-                Specializing in building scalable web applications and performant
-                cross-platform mobile apps that delight users.
+              <p className="max-w-3xl text-lg text-[var(--text-secondary)] md:text-xl">
+                {profile.intro}
               </p>
-            </ScrollReveal>
-
-            {/* CTA Buttons */}
-            <ScrollReveal delay={0.4} className="flex flex-wrap gap-4 mb-10">
-              <Link to="/contact" className="btn btn-primary">
-                Let's Work Together
-                <ArrowRight size={18} />
-              </Link>
-              <Link to="/experience" className="btn btn-secondary">
-                View My Work
-              </Link>
-            </ScrollReveal>
-
-            {/* Social Links */}
-            <ScrollReveal delay={0.5}>
-              <div className="flex items-center gap-3">
-                {[
-                  { icon: Github, href: 'https://github.com/SibtePls', label: 'GitHub' },
-                  { icon: Linkedin, href: 'https://www.linkedin.com/in/sibte-hussain-b55aa723b', label: 'LinkedIn' },
-                  // { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
-                ].map((social, i) => (
-                  <motion.a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center w-12 h-12 rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-primary)] hover:bg-[var(--bg-glass-hover)] transition-all"
-                    aria-label={social.label}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 + i * 0.1 }}
-                  >
-                    <social.icon size={20} />
-                  </motion.a>
-                ))}
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* Stats Section */}
-      <ScrollReveal>
-        <section className="py-16">
-          <StaggerContainer delay={0.2} className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, i) => (
-              <StaggerItem key={stat.label}>
-                <motion.div
-                  className="card rounded-2xl p-6 text-center"
-                  whileHover={{ y: -4 }}
-                >
-                  <div className="font-display text-4xl md:text-5xl font-bold text-gradient mb-2">
-                    <Counter value={stat.value} duration={2} suffix={stat.suffix} />
-                  </div>
-                  <p className="text-sm text-[var(--text-secondary)]">{stat.label}</p>
-                </motion.div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </section>
-      </ScrollReveal>
-
-      {/* Featured Skills */}
-      <ScrollReveal>
-        <section className="py-16">
-          <div className="mb-10">
-            <h2 className="section-title text-[var(--text-primary)] mb-3">
-              What I Do
-            </h2>
-            <p className="section-subtitle text-[var(--text-secondary)]">
-              Specialized services to help bring your digital vision to life
-            </p>
-          </div>
-
-          <StaggerContainer delay={0.1} stagger={0.1} className="grid md:grid-cols-2 gap-6">
-            {featuredSkills.map((skill, i) => (
-              <StaggerItem key={skill.title}>
-                <HoverCard glowColor={skill.color} className="p-6 h-full">
-                  <div className="flex items-start gap-4">
-                    <motion.div
-                      className="p-3 rounded-xl bg-gradient-to-br from-[var(--bg-glass)] to-[var(--bg-tertiary)]"
-                      style={{ color: skill.color }}
-                      whileHover={{ rotate: 10, scale: 1.1 }}
-                    >
-                      <skill.icon size={28} />
-                    </motion.div>
-                    <div>
-                      <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-2">
-                        {skill.title}
-                      </h3>
-                      <p className="text-[var(--text-secondary)]">
-                        {skill.description}
-                      </p>
-                    </div>
-                  </div>
-                </HoverCard>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </section>
-      </ScrollReveal>
-
-      {/* Featured Projects */}
-      <ScrollReveal>
-        <section className="py-16">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
-            <div>
-              <h2 className="section-title text-[var(--text-primary)] mb-3">
-                Featured Projects
-              </h2>
-              <p className="section-subtitle text-[var(--text-secondary)]">
-                A selection of my recent work and side projects
+              <p className="max-w-3xl text-base text-[var(--text-secondary)] md:text-lg">
+                My work covers React and Next.js interfaces, React Native delivery, API integrations,
+                auth and RBAC, payments, real-time product behavior, and the release details that keep
+                production software dependable.
               </p>
             </div>
-            <Link
-              to="/experience"
-              className="btn btn-secondary"
-            >
-              View My Work
-              <ArrowRight size={16} />
-            </Link>
+            <div className="flex flex-wrap gap-4">
+              <a href="/contact" className="btn btn-primary">
+                Discuss a Project
+                <ArrowRight size={18} />
+              </a>
+              <a href="/#work" className="btn btn-secondary">
+                See Selected Work
+              </a>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, i) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <HoverCard className="p-6 h-full flex flex-col">
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-3">
-                      {project.title}
-                    </h3>
-                    <p className="text-[var(--text-secondary)] text-sm mb-4">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tech.map((tech) => (
+          <div className="surface-card rounded-[2rem] p-6 md:p-8">
+            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+              How I work
+            </p>
+            <div className="space-y-5">
+              {workingPrinciples.map((item) => (
+                <div key={item.title} className="border-t border-[var(--border-color)] pt-5 first:border-t-0 first:pt-0">
+                  <h2 className="mb-2 text-lg font-semibold">{item.title}</h2>
+                  <p className="text-sm leading-7 text-[var(--text-secondary)]">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <section className="line-panel grid gap-6 py-6 md:grid-cols-2">
+          {credibilityItems.map((item) => (
+            <div key={item} className="flex items-start gap-3 text-sm text-[var(--text-secondary)] md:text-base">
+              <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-[var(--accent-primary)]" />
+              <span>{item}</span>
+            </div>
+          ))}
+        </section>
+      </ScrollReveal>
+
+      <section id="work" className="section">
+        <ScrollReveal className="mb-10">
+          <p className="section-kicker">Selected Work</p>
+          <h2 className="display-title text-4xl font-bold md:text-6xl">
+            Case studies that show product context, integrations, and delivery judgment.
+          </h2>
+          <p className="section-subtitle mt-4">
+            These projects reflect the kind of work I enjoy most: complex user flows, real-world
+            product constraints, and code that has to stay usable after launch.
+          </p>
+        </ScrollReveal>
+
+        <StaggerContainer className="space-y-8">
+          {projects.map((project) => (
+            <StaggerItem key={project.title}>
+              <article className="surface-card rounded-[2rem] p-6 md:p-8">
+                <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+                  <div className="space-y-4">
+                    <div>
+                      <p className="section-kicker !mb-2">{project.type}</p>
+                      <h3 className="display-title text-3xl font-bold">{project.title}</h3>
+                    </div>
+                    <p className="text-sm font-medium text-[var(--text-primary)]">{project.role}</p>
+                    <p className="text-sm leading-7 text-[var(--text-secondary)]">{project.problem}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.stack.map((tech) => (
                         <span
                           key={tech}
-                          className="px-3 py-1 text-xs rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-muted)]"
+                          className="rounded-full border border-[var(--border-color)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)]"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 pt-4 border-t border-[var(--border-color)]">
-                    {/* <motion.a
-                      href={project.github}
+
+                  <div className="space-y-5">
+                    <div>
+                      <p className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                        What I implemented
+                      </p>
+                      <ul className="space-y-3 text-sm leading-7 text-[var(--text-secondary)]">
+                        {project.highlights.map((highlight) => (
+                          <li key={highlight} className="flex gap-3">
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-primary)]" />
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="border-t border-[var(--border-color)] pt-5">
+                      <p className="mb-2 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                        Outcome
+                      </p>
+                      <p className="text-sm leading-7 text-[var(--text-secondary)]">{project.outcome}</p>
+                    </div>
+                    <a
+                      href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent-primary)] flex items-center gap-1"
-                      whileHover={{ x: 2 }}
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-primary)]"
                     >
-                      <Github size={16} />
-                      Code
-                    </motion.a> */}
-                    <motion.a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent-primary)] flex items-center gap-1"
-                      whileHover={{ x: 2 }}
-                    >
-                      <Target size={16} />
-                      Demo
-                    </motion.a>
+                      Visit project
+                      <ExternalLink size={16} />
+                    </a>
                   </div>
-                </HoverCard>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-      </ScrollReveal>
+                </div>
+              </article>
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+      </section>
 
-      {/* CTA Section */}
+      <section id="services" className="section">
+        <ScrollReveal className="mb-10">
+          <p className="section-kicker">Services</p>
+          <h2 className="display-title text-4xl font-bold md:text-6xl">
+            The parts of product delivery I am strongest at.
+          </h2>
+        </ScrollReveal>
+
+        <div className="grid gap-5 md:grid-cols-2">
+          {services.map((service) => (
+            <ScrollReveal key={service.title}>
+              <div className="rounded-[1.75rem] border border-[var(--border-color)] p-6">
+                <h3 className="mb-3 text-2xl font-semibold">{service.title}</h3>
+                <p className="text-sm leading-7 text-[var(--text-secondary)]">{service.description}</p>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="section grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <ScrollReveal>
+          <p className="section-kicker">Engineering Approach</p>
+          <h2 className="display-title text-4xl font-bold md:text-6xl">
+            I try to reduce complexity before I add polish.
+          </h2>
+          <p className="mt-4 max-w-xl text-base leading-8 text-[var(--text-secondary)]">
+            {profile.summary}
+          </p>
+        </ScrollReveal>
+
+        <div className="space-y-4">
+          {processSteps.map((step, index) => (
+            <ScrollReveal key={step.title} delay={index * 0.05}>
+              <div className="rounded-[1.75rem] border border-[var(--border-color)] p-6">
+                <div className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--accent-primary)]">
+                  0{index + 1}
+                </div>
+                <h3 className="mb-2 text-xl font-semibold">{step.title}</h3>
+                <p className="text-sm leading-7 text-[var(--text-secondary)]">{step.description}</p>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="section">
+        <ScrollReveal className="mb-10">
+          <p className="section-kicker">Career Snapshot</p>
+          <h2 className="display-title text-4xl font-bold md:text-6xl">
+            Experience that supports client-facing delivery.
+          </h2>
+        </ScrollReveal>
+        <div className="grid gap-5 md:grid-cols-3">
+          {timeline.map((item) => (
+            <ScrollReveal key={item.period}>
+              <div className="rounded-[1.75rem] border border-[var(--border-color)] p-6">
+                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-[var(--accent-primary)]">
+                  {item.period}
+                </p>
+                <h3 className="text-xl font-semibold">{item.role}</h3>
+                <p className="mb-3 text-sm text-[var(--text-primary)]">{item.company}</p>
+                <p className="text-sm leading-7 text-[var(--text-secondary)]">{item.summary}</p>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
       <ScrollReveal>
-        <section className="py-16">
-          <motion.div
-            className="relative overflow-hidden rounded-3xl"
-            whileHover={{ scale: 1.01 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-primary)]/20 via-[var(--accent-tertiary)]/10 to-[var(--bg-secondary)]" />
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-[var(--accent-primary)]/10 blur-[100px]" />
-
-            <div className="relative p-10 md:p-16 text-center">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4">
-                Let's Build Something Amazing
+        <section className="surface-card rounded-[2rem] p-8 md:p-12">
+          <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+            <div>
+              <p className="section-kicker">Contact</p>
+              <h2 className="display-title text-4xl font-bold md:text-6xl">
+                Need someone who can own product details without overcomplicating the build?
               </h2>
-              <p className="max-w-xl mx-auto text-[var(--text-secondary)] mb-8">
-                I'm always excited to discuss new projects and opportunities.
-                Whether you have a question or just want to say hi, feel free to reach out!
+              <p className="mt-4 max-w-2xl text-base leading-8 text-[var(--text-secondary)]">
+                I work best with agencies and teams that value steady communication, practical
+                engineering decisions, and clean handoff quality. If that sounds useful, let&apos;s talk.
               </p>
-              <Link to="/contact" className="btn btn-primary">
-                Get In Touch
-                <ArrowRight size={18} />
-              </Link>
             </div>
-          </motion.div>
+            <div className="flex flex-wrap gap-4 lg:justify-end">
+              <a href="/contact" className="btn btn-primary">
+                Start a Conversation
+                <ArrowRight size={18} />
+              </a>
+              <a href={`mailto:${profile.email}`} className="btn btn-secondary">
+                Email Me Directly
+              </a>
+            </div>
+          </div>
         </section>
       </ScrollReveal>
     </div>

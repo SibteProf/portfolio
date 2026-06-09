@@ -1,261 +1,96 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import {
-  Briefcase,
-  Building2,
-  Calendar,
-  MapPin,
-  Award,
-  TrendingUp,
-  ArrowRight,
-  CheckCircle2,
-} from 'lucide-react'
-import { motion } from 'framer-motion'
-import {
-  ScrollReveal,
-  HoverCard,
-} from '../components/ui/ScrollReveal'
+import { createFileRoute } from '@tanstack/react-router'
+import { ExternalLink } from 'lucide-react'
+import { ScrollReveal } from '../components/ui/ScrollReveal'
+import { projects } from '../content/portfolio'
 
 export const Route = createFileRoute('/experience')({
   component: Experience,
 })
 
-const experiences = [
-  {
-    id: 1,
-    role: 'Software Engineer',
-    company: 'PlanLab Solutions',
-    location: 'Lahore, Pakistan',
-    period: 'Oct 2024 - Present',
-    type: 'Full-time',
-    description:
-      'Developing scalable web and mobile applications using React, Next.js, and React Native while collaborating with cross-functional teams in an Agile environment.',
-    achievements: [
-      'Developed and maintained production React and Next.js applications',
-      'Built reusable component libraries reducing feature delivery time by 25%',
-      'Improved page performance using SSR, lazy loading, and API caching',
-      'Optimized React Native mobile performance reducing load time by ~18%',
-      'Ensured mobile and web UI consistency using shared logic with Next.js',
-      'Mentored junior developers and improved team code quality',
-      'Awarded Developer of the Month twice for delivery impact',
-    ],
-    technologies: [
-      'React.js',
-      'Next.js',
-      'React Native',
-      'TypeScript',
-      'Redux',
-      'GraphQL',
-      'Tailwind CSS',
-      'WebSockets',
-      'Jest',
-      'CI/CD',
-    ],
-  },
-  {
-    id: 2,
-    role: 'Associate Software Developer',
-    company: 'Agile District',
-    location: 'Lahore, Pakistan',
-    period: 'Jan 2022 - Oct 2024',
-    type: 'Full-time',
-    description:
-      'Built scalable web and mobile applications using React.js, React Native, and Next.js with a focus on performance and maintainable architecture.',
-    achievements: [
-      'Built responsive interfaces using React.js, Tailwind CSS, and Material UI',
-      'Developed mobile and web apps using React Native and Next.js',
-      'Integrated REST and GraphQL APIs for real-time and data-heavy features',
-      'Improved mobile app performance by 20% through state and animation optimization',
-      'Developed automated mobile testing suites using Appium',
-      'Supported CI/CD pipelines and automated deployments',
-      'Participated in code reviews and Agile sprint planning',
-    ],
-    technologies: [
-      'React.js',
-      'React Native',
-      'Next.js',
-      'TypeScript',
-      'Tailwind CSS',
-      'Material UI',
-      'REST APIs',
-      'GraphQL',
-      'Appium',
-      'Docker',
-      'CI/CD',
-    ],
-  },
-]
-
-
-function ExperienceCard({ exp, index }: { exp: typeof experiences[0]; index: number }) {
-  return (
-    <ScrollReveal delay={index * 0.15} className="relative pl-14 md:pl-20">
-      {/* Timeline Dot */}
-      <div className="absolute left-3 md:left-6 top-6 h-4 w-4 rounded-full border-4 border-[var(--bg-secondary)] bg-[var(--accent-primary)] shadow-lg shadow-[var(--accent-glow)] z-10" />
-
-      <HoverCard className="p-6 md:p-8">
-        {/* Header */}
-        <div className="mb-6">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-3">
-            <h3 className="text-xl md:text-2xl font-semibold text-[var(--text-primary)]">
-              {exp.role}
-            </h3>
-            <span className="px-3 py-1 text-xs font-medium rounded-full bg-[var(--accent-glow)] text-[var(--accent-primary)] border border-[var(--accent-primary)]/30 w-fit">
-              {exp.type}
-            </span>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--text-secondary)]">
-            <div className="flex items-center gap-1.5">
-              <Building2 size={16} className="text-[var(--accent-primary)]" />
-              <span className="font-medium text-[var(--text-primary)]">{exp.company}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Calendar size={16} className="text-[var(--accent-primary)]" />
-              <span>{exp.period}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <MapPin size={16} className="text-[var(--accent-primary)]" />
-              <span>{exp.location}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Description */}
-        <p className="text-[var(--text-secondary)] mb-6 leading-relaxed">
-          {exp.description}
-        </p>
-
-        {/* Achievements */}
-        <div className="mb-6">
-          <div className="flex items-center gap-2 mb-3">
-            <Award size={18} className="text-[var(--accent-primary)]" />
-            <h4 className="text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wide">
-              Key Achievements
-            </h4>
-          </div>
-          <ul className="grid sm:grid-cols-2 gap-2">
-            {exp.achievements.map((achievement, i) => (
-              <li
-                key={i}
-                className="flex items-start gap-2 text-sm text-[var(--text-secondary)]"
-              >
-                <CheckCircle2 size={16} className="flex-shrink-0 mt-0.5 text-[var(--accent-primary)]" />
-                <span>{achievement}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Technologies */}
-        <div>
-          <div className="flex items-center gap-2 mb-3">
-            <TrendingUp size={18} className="text-[var(--accent-primary)]" />
-            <h4 className="text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wide">
-              Technologies Used
-            </h4>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {exp.technologies.map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1.5 text-xs font-medium rounded-full bg-[var(--bg-glass)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)] transition-all"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-      </HoverCard>
-    </ScrollReveal>
-  )
-}
-
 function Experience() {
   return (
     <div className="page-container py-12">
-      {/* Hero Section */}
-      <ScrollReveal>
-        <section className="relative py-16 md:py-24">
-          <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-[var(--accent-primary)]/10 blur-[100px] pointer-events-none" />
+      <section className="section">
+        <ScrollReveal className="mb-10">
+          <p className="section-kicker">Work</p>
+          <h1 className="display-title text-4xl font-bold md:text-6xl">
+            Expanded project detail with the context behind the build.
+          </h1>
+          <p className="section-subtitle mt-4">
+            This page goes a bit deeper into the kinds of responsibilities I have handled across
+            product, frontend architecture, integrations, and release-facing behavior.
+          </p>
+        </ScrollReveal>
 
-          <ScrollReveal delay={0}>
-            <p className="text-sm font-medium uppercase tracking-wider text-[var(--accent-primary)] mb-4">
-              Experience
-            </p>
-          </ScrollReveal>
+        <div className="space-y-8">
+          {projects.map((project) => (
+            <ScrollReveal key={project.title}>
+              <article className="surface-card rounded-[2rem] p-6 md:p-8">
+                <div className="mb-6 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-start">
+                  <div>
+                    <p className="section-kicker !mb-2">{project.type}</p>
+                    <h2 className="display-title text-3xl font-bold md:text-4xl">{project.title}</h2>
+                    <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--text-secondary)]">
+                      {project.role}
+                    </p>
+                  </div>
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-primary)]"
+                  >
+                    Visit project
+                    <ExternalLink size={16} />
+                  </a>
+                </div>
 
-          <ScrollReveal delay={0.1}>
-            <h1 className="font-display text-4xl md:text-6xl font-bold text-[var(--text-primary)] mb-6">
-              My Professional <span className="text-gradient">Journey</span>
-            </h1>
-          </ScrollReveal>
+                <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+                  <div>
+                    <h3 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                      Product challenge
+                    </h3>
+                    <p className="text-sm leading-7 text-[var(--text-secondary)]">{project.problem}</p>
+                  </div>
 
-          <ScrollReveal delay={0.2}>
-            <p className="max-w-2xl text-lg text-[var(--text-secondary)] leading-relaxed">
-              Over 4 years of experience building exceptional web and mobile applications,
-              leading teams, and delivering impactful solutions that drive business growth.
-            </p>
-          </ScrollReveal>
-        </section>
-      </ScrollReveal>
+                  <div>
+                    <h3 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                      Implementation highlights
+                    </h3>
+                    <ul className="space-y-3 text-sm leading-7 text-[var(--text-secondary)]">
+                      {project.highlights.map((highlight) => (
+                        <li key={highlight} className="flex gap-3">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-primary)]" />
+                          <span>{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
 
-      {/* Experience Timeline */}
-      <ScrollReveal>
-        <section className="py-10">
-          <div className="flex items-center gap-3 mb-8">
-            <motion.div
-              className="p-3 rounded-xl bg-[var(--accent-glow)]"
-              style={{ color: 'var(--accent-primary)' }}
-              whileHover={{ rotate: 10, scale: 1.05 }}
-            >
-              <Briefcase size={24} />
-            </motion.div>
-            <h2 className="text-2xl font-semibold text-[var(--text-primary)]">
-              Work History
-            </h2>
-          </div>
-
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-5 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--accent-primary)] via-[var(--accent-tertiary)] to-transparent" />
-
-            {/* Experience Cards */}
-            <div className="space-y-8">
-              {experiences.map((exp, index) => (
-                <ExperienceCard key={exp.id} exp={exp} index={index} />
-              ))}
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* CTA Section */}
-      <ScrollReveal>
-        <section className="py-16">
-          <motion.div
-            className="relative overflow-hidden rounded-3xl card p-8 md:p-12 text-center"
-            whileHover={{ scale: 1.01 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-primary)]/10 to-transparent" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[var(--accent-primary)]/5 blur-[80px]" />
-
-            <div className="relative z-10">
-              <h2 className="font-display text-3xl font-bold text-[var(--text-primary)] mb-4">
-                Interested in Working Together?
-              </h2>
-              <p className="max-w-xl mx-auto text-[var(--text-secondary)] mb-8">
-                I'm always open to discussing new opportunities and projects.
-                Let's connect and create something amazing!
-              </p>
-              <Link to="/contact" className="btn btn-primary">
-                Get In Touch
-                <ArrowRight size={18} />
-              </Link>
-            </div>
-          </motion.div>
-        </section>
-      </ScrollReveal>
+                <div className="mt-8 grid gap-6 border-t border-[var(--border-color)] pt-6 md:grid-cols-[1fr_auto] md:items-end">
+                  <div>
+                    <h3 className="mb-3 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                      Outcome
+                    </h3>
+                    <p className="text-sm leading-7 text-[var(--text-secondary)]">{project.outcome}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {project.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-full border border-[var(--border-color)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }

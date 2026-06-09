@@ -13,31 +13,29 @@ const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getIte
 export const Route = createRootRoute({
   head: () => ({
     meta: [
+      { charSet: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
-        charSet: 'utf-8',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        title: 'Sibte Hussain - React & React Native Developer',
+        title: 'Sibte Hussain | Fullstack Product Engineer',
       },
       {
         name: 'description',
-        content: 'Portfolio of Sibte Hussain - Senior React and React Native Developer with 3+ years of experience building scalable web and mobile applications.',
+        content:
+          'Portfolio of Sibte Hussain, a fullstack product engineer building maintainable web and mobile products with React, Next.js, React Native, APIs, payments, auth, and real-time workflows.',
       },
       {
         name: 'keywords',
-        content: 'React, React Native, TypeScript, Frontend Developer, Mobile Developer, Portfolio, Sibte Hussain',
+        content:
+          'Sibte Hussain, Fullstack Product Engineer, React, Next.js, TypeScript, React Native, API integrations, portfolio',
       },
       {
         property: 'og:title',
-        content: 'Sibte Hussain - React & React Native Developer',
+        content: 'Sibte Hussain | Fullstack Product Engineer',
       },
       {
         property: 'og:description',
-        content: 'Portfolio of Sibte Hussain - Senior React and React Native Developer with 3+ years of experience building scalable web and mobile applications.',
+        content:
+          'Fullstack-focused portfolio showing shipped work across web apps, mobile apps, integrations, and production delivery.',
       },
       {
         property: 'og:type',
@@ -57,34 +55,13 @@ export const Route = createRootRoute({
 function RootDocument({ children }: { children: React.ReactNode }) {
   const location = useLocation()
 
-  const pageVariants = {
-    initial: {
-      opacity: 0,
-      y: 20,
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-    },
-    exit: {
-      opacity: 0,
-      y: -20,
-    },
-  }
-
-  const pageTransition = {
-    type: 'tween',
-    ease: [0.25, 0.4, 0.25, 1],
-    duration: 0.4,
-  }
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
-      <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[var(--accent-primary)] selection:text-[var(--text-inverse)]">
+      <body className="font-sans antialiased">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
@@ -93,11 +70,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <AnimatePresence mode="wait">
           <motion.main
             key={location.pathname}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            variants={pageVariants}
-            transition={pageTransition}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.2 }}
             id="main-content"
             className="min-h-screen"
           >
@@ -105,17 +81,17 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           </motion.main>
         </AnimatePresence>
         <Footer />
-        <TanStackDevtools
-          config={{
-            position: 'bottom-right',
-          }}
-          plugins={[
-            {
-              name: 'Tanstack Router',
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-          ]}
-        />
+        {import.meta.env.DEV ? (
+          <TanStackDevtools
+            config={{ position: 'bottom-right' }}
+            plugins={[
+              {
+                name: 'Tanstack Router',
+                render: <TanStackRouterDevtoolsPanel />,
+              },
+            ]}
+          />
+        ) : null}
         <Scripts />
       </body>
     </html>
