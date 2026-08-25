@@ -520,6 +520,29 @@ p {
   }
 }
 
+@keyframes caret-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  50%,
+  95% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.typewriter-caret {
+  display: inline-block;
+  margin-left: 1px;
+  color: var(--secondary);
+  animation: caret-blink 1s steps(1) infinite;
+}
+
 @media (max-width: 768px) {
   .page-container {
     width: min(100% - 1.5rem, 1200px);
@@ -532,6 +555,20 @@ p {
   .btn {
     width: 100%;
   }
+}
+
+.terminal-output {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+}
+
+.terminal-output::-webkit-scrollbar {
+  width: 6px;
+}
+
+.terminal-output::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 9999px;
 }
 
 @media (prefers-reduced-motion: reduce) {

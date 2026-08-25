@@ -1,5 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ScrollReveal } from '../components/ui/ScrollReveal'
+import { motion } from 'framer-motion'
+import {
+  ScrollReveal,
+  StaggerContainer,
+  StaggerItem,
+} from '../components/ui/ScrollReveal'
 import { comfortStack, stackGroups } from '../content/portfolio'
 
 export const Route = createFileRoute('/skills')({
@@ -34,13 +39,20 @@ function Skills() {
                   <h2 className="mb-6 font-display text-3xl font-extrabold tracking-[-0.04em]">
                     {group.title}
                   </h2>
-                  <div className="flex flex-wrap gap-3">
+                  <StaggerContainer
+                    className="flex flex-wrap gap-3"
+                    stagger={0.04}
+                  >
                     {group.items.map((item) => (
-                      <span key={item} className="sticker">
-                        {item}
-                      </span>
+                      <StaggerItem
+                        key={item}
+                        className="inline-flex"
+                        whileHover={{ y: -2, scale: 1.05 }}
+                      >
+                        <motion.span className="sticker">{item}</motion.span>
+                      </StaggerItem>
                     ))}
-                  </div>
+                  </StaggerContainer>
                 </div>
               </article>
             </ScrollReveal>
@@ -71,13 +83,20 @@ function Skills() {
                 <span className="text-[var(--secondary)]">const</span>{' '}
                 adjacentTools = [
               </p>
-              <div className="mt-5 flex flex-wrap gap-3">
+              <StaggerContainer
+                className="mt-5 flex flex-wrap gap-3"
+                stagger={0.03}
+              >
                 {comfortStack.map((item) => (
-                  <span key={item} className="sticker">
-                    {item}
-                  </span>
+                  <StaggerItem
+                    key={item}
+                    className="inline-flex"
+                    whileHover={{ y: -2, scale: 1.05 }}
+                  >
+                    <motion.span className="sticker">{item}</motion.span>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
               <p className="mt-5">]</p>
             </div>
           </div>

@@ -13,6 +13,14 @@ export const profile = {
   availability: 'Available for full-stack web and mobile work',
 }
 
+export const offTheClock = {
+  label: 'Off the Clock',
+  value:
+    "Mostly single-player, story-first stuff: Cyberpunk 2077, the GTA series, The Last of Us. I'll jump into Valorant or Apex with friends when someone drags me into a lobby.",
+  short:
+    'Story-mode gamer (Cyberpunk 2077, GTA, TLOU), occasional Valorant/Apex with friends.',
+}
+
 export const credibilityItems = [
   '3+ years building Full-Stack and React Native products',
   'SSR/SSG, ISR, Core Web Vitals, and rendering performance',
@@ -178,13 +186,13 @@ export const comfortStack = [
 export const projects = [
   {
     title: 'NowVPlay',
-    type: 'Sports streaming and collaboration platform',
+    type: 'Sports technology platform connecting players, venues, and academies',
     role: 'Full-stack sports-tech delivery across client management, live data, routing, and role-aware dashboards',
     problem:
-      'The platform needed scalable client management, dynamic routing, authenticated access, and live tournament data views for different user roles.',
+      'The platform needed to connect players, venues, academies, and other members of the sports community through scalable client management, dynamic routing, authenticated access, and live tournament data views for different user roles.',
     highlights: [
       'Built scalable Next.js product surfaces with dynamic routing and server-driven application flows.',
-      'Integrated OAuth and role-based dashboard behavior so different users could access the right management tools.',
+      'Integrated OAuth and role-based dashboard behavior so players, venues, and academies could each access the right management tools.',
       'Engineered Redux Toolkit state architecture for live tournament data and data-heavy sports workflows.',
     ],
     outcome:
@@ -209,18 +217,36 @@ export const projects = [
     link: 'https://www.myukaccountant.co.uk/',
   },
   {
-    title: 'GoodFynd',
-    type: 'Fintech SaaS mobile application for food vendors',
-    role: 'React Native mobile delivery across vendor workflows, real-time order tracking, chat, and server-state management',
+    title: 'Kunji',
+    type: 'Society management and collaboration platform',
+    role: 'React Native mobile development for a residential-community platform covering visitor access, complaints, billing, and community features',
     problem:
-      'The mobile app needed to support vendor-facing operations, live order updates, chat, and frequent API interactions without becoming sluggish.',
+      'The platform needed a resident-facing mobile experience for a digital society-management system covering visitor pre-approval and entry logging, complaint submission and tracking, billing and payments, delivery coordination, community polls, parking access, and emergency panic alerts.',
     highlights: [
-      'Built React Native and Expo screens for fintech vendor workflows, real-time order tracking, and chat behavior.',
-      'Used Redux Toolkit and React Query to separate global state from server state and stabilize high-traffic screens.',
-      'Integrated Socket.IO live updates and improved offline support, caching, and background sync for better responsiveness.',
+      'Built React Native screens for resident-facing workflows including visitor management, complaint tracking, and billing.',
+      'Used Redux Toolkit for state management and integrated OAuth for authenticated, role-aware access across resident and staff flows.',
+      'Integrated Socket-based real-time updates for visitor entry, delivery notifications, and emergency panic alerts.',
+      'Worked within a multi-app system spanning a society-management admin dashboard, resident mobile app, and security staff app.',
     ],
     outcome:
-      'The app handled operational vendor workflows more smoothly and improved responsiveness by roughly 15-18% through caching and sync work.',
+      'Residents gained a centralized mobile experience for day-to-day society operations, reducing manual paperwork and improving response time on complaints and visitor access.',
+    stack: ['React Native', 'Redux Toolkit', 'Socket.IO', 'OAuth'],
+    link: 'https://kunji.pk',
+  },
+  {
+    title: 'GoodFynd',
+    type: 'POS and operations platform for food trucks and mobile vendors',
+    role: 'Full-stack delivery across POS and order-management workflows, real-time order tracking, payment integrations, and server-state management',
+    problem:
+      'The platform needed a production-grade POS and operations experience for food trucks and mobile vendors, supporting live order updates, payment integrations, online and offline ordering, and frequent API interactions without becoming sluggish.',
+    highlights: [
+      'Built React Native and Expo screens for POS and order-management workflows, real-time order tracking, and chat behavior.',
+      'Integrated payment systems and third-party services to support vendor checkout, order, and operational flows.',
+      'Used Redux Toolkit and React Query to separate global state from server state and stabilize high-traffic screens.',
+      'Integrated Socket.IO live updates and improved offline ordering support, caching, and background sync for better responsiveness.',
+    ],
+    outcome:
+      'The platform handled operational vendor workflows more smoothly and improved responsiveness by roughly 15-18% through caching and sync work.',
     stack: [
       'React Native',
       'Expo',
@@ -230,6 +256,43 @@ export const projects = [
     ],
     link: 'https://www.goodfynd.com',
   },
+  {
+    title: 'VueCent',
+    type: 'Personal finance tracker and expense-logging app',
+    role: 'React Native development on a self-directed personal project, including AI-powered invoice scanning and insights',
+    problem:
+      'I wanted a finance tracker that could log expenses without manual data entry for every purchase, and surface useful spending insights instead of just raw transaction lists.',
+    highlights: [
+      'Built the app end to end in React Native with Expo, covering expense logging, categorization, and personal finance tracking flows.',
+      'AI integration: used the Gemini API to scan invoices and receipts, auto-extracting expense data and generating spending insights.',
+      'Used Redux Toolkit for state management and React Query for data fetching and caching.',
+    ],
+    outcome:
+      'Turned manual expense entry into an AI-assisted flow: scan an invoice and the app extracts and categorizes the expense, with Gemini-generated insights on spending patterns.',
+    stack: [
+      'React Native',
+      'Expo',
+      'Redux Toolkit',
+      'React Query',
+      'Gemini API',
+    ],
+    link: 'https://play.google.com/store/apps/details?id=com.metafusion.pocketplan&hl=en',
+  },
+]
+
+const stackBreadthCount =
+  stackGroups.reduce((total, group) => total + group.items.length, 0) +
+  comfortStack.length
+
+export const impactStats = [
+  { value: 3, suffix: '+', label: 'Years shipping full-stack products' },
+  {
+    value: projects.length,
+    suffix: '',
+    label: 'Production apps shipped end to end',
+  },
+  { value: 18, suffix: '%', label: 'Faster mobile responsiveness on GoodFynd' },
+  { value: stackBreadthCount, suffix: '+', label: 'Technologies in daily use' },
 ]
 
 export const projectInquiryChecklist = [

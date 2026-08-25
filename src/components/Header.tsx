@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import { Github, Menu, Terminal, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { profile } from '../content/portfolio'
+import GameModeToggle from './GameModeToggle'
+import { Magnetic } from './ui/ScrollReveal'
 
 const navLinks = [
   { href: '/', label: 'Home', match: '/' },
@@ -70,6 +72,7 @@ export default function Header() {
           </div>
 
           <div className="flex items-center gap-3">
+            <GameModeToggle />
             <a
               href={profile.github}
               target="_blank"
@@ -79,12 +82,11 @@ export default function Header() {
             >
               <Github size={18} />
             </a>
-            <a
-              href="/contact"
-              className="hidden sm:inline-flex btn btn-primary min-h-10 px-4 py-2"
-            >
-              Let&apos;s Talk
-            </a>
+            <Magnetic strength={0.3} className="hidden sm:inline-flex">
+              <a href="/contact" className="btn btn-primary min-h-10 px-4 py-2">
+                Let&apos;s Talk
+              </a>
+            </Magnetic>
             <motion.button
               type="button"
               onClick={() => setMobileMenuOpen((value) => !value)}

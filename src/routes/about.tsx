@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Coffee, Keyboard, Moon } from 'lucide-react'
 import { ScrollReveal } from '../components/ui/ScrollReveal'
+import { funFacts } from '../content/funFacts'
 import {
   profile,
   stackGroups,
@@ -11,27 +11,6 @@ import {
 export const Route = createFileRoute('/about')({
   component: About,
 })
-
-const stats = [
-  {
-    icon: Coffee,
-    label: 'Operating Mode',
-    value: 'Product clarity before code volume',
-    color: 'text-[var(--secondary)]',
-  },
-  {
-    icon: Keyboard,
-    label: 'Favorite Build Zone',
-    value: 'UI, APIs, data, auth, and real-time flows working together',
-    color: 'text-[var(--tertiary)]',
-  },
-  {
-    icon: Moon,
-    label: 'Design Bias',
-    value: 'Dark systems, sharp edges, readable states',
-    color: 'text-[var(--primary)]',
-  },
-]
 
 function About() {
   return (
@@ -46,27 +25,29 @@ function About() {
           </div>
           <div className="space-y-5 text-lg leading-8 text-[var(--text-secondary)]">
             <p>
-              {profile.name} is a {profile.title.toLowerCase()} based in{' '}
-              {profile.location}. My strongest work lives around React, Next.js,
-              Node.js, Django, React Native, databases, secure APIs, and
-              integration-heavy product systems.
+              I&apos;m {profile.name}, a {profile.title.toLowerCase()} based in{' '}
+              {profile.location}. Most of what I build lives around React,
+              Next.js, Node.js, Django, and React Native: anything that needs a
+              solid database underneath, secure APIs holding it together, and a
+              bunch of integrations wired up correctly.
             </p>
             <p>
-              I am usually at my best when a team needs someone who can own the
-              end-to-end build, connect interfaces cleanly to APIs and
-              third-party services, reason through data and auth constraints,
-              and make tradeoffs that keep the project moving without leaving a
-              mess behind.
+              I do my best work when I can own a feature end to end, wiring the
+              interface cleanly into APIs and third-party services, thinking
+              through the data and auth constraints, and making the tradeoffs
+              that keep things moving without leaving a mess for future-me (or
+              whoever inherits the codebase).
             </p>
             <p>
-              That means thinking about maintainability, release pressure, user
-              clarity, and collaboration just as much as the code itself.
+              So I think about maintainability, release pressure, and how it
+              feels for the next person to work in the code, not just whether it
+              runs.
             </p>
           </div>
           <div className="glass-card rounded-xl p-6">
             <h2 className="section-kicker !mb-5">Vital Signals</h2>
             <div className="space-y-5">
-              {stats.map((item) => {
+              {funFacts.map((item) => {
                 const Icon = item.icon
 
                 return (

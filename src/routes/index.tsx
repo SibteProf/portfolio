@@ -5,21 +5,24 @@ import {
   Code2,
   ExternalLink,
   Github,
-  Sparkles,
 } from 'lucide-react'
+import InteractiveTerminal from '../components/InteractiveTerminal'
 import {
+  Counter,
+  Magnetic,
   ScrollReveal,
   StaggerContainer,
   StaggerItem,
 } from '../components/ui/ScrollReveal'
+import { funFacts } from '../content/funFacts'
 import {
   credibilityItems,
+  impactStats,
   processSteps,
   profile,
   projects,
   services,
   timeline,
-  workingPrinciples,
 } from '../content/portfolio'
 
 export const Route = createFileRoute('/')({ component: Home })
@@ -42,30 +45,38 @@ function Home() {
                 {profile.intro}
               </p>
               <p className="max-w-3xl text-base leading-8 text-[var(--text-secondary)]">
-                My work covers React, Next.js, Node.js, Django, React Native,
-                SQL and NoSQL databases, REST and GraphQL APIs, auth/RBAC,
-                real-time workflows, performance optimization, CI/CD, and local
-                LLM integrations.
+                In practice that means React and Next.js on the front end,
+                Node.js and Django behind it, React Native when it needs to be
+                mobile, plus the less glamorous stuff that makes it all hold
+                together: databases, REST/GraphQL APIs, auth and RBAC, real-time
+                features, performance tuning, CI/CD, and local LLM workflows.
               </p>
             </div>
             <div className="flex flex-wrap gap-4">
-              <a href="/experience" className="btn btn-primary">
-                Explore Work
-                <ArrowRight size={17} />
-              </a>
-              <a
-                href={profile.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-secondary"
-              >
-                <Github size={17} />
-                View GitHub
-              </a>
+              <Magnetic strength={0.25}>
+                <a href="/experience" className="btn btn-primary group">
+                  Explore Work
+                  <ArrowRight
+                    size={17}
+                    className="transition-transform duration-200 group-hover:translate-x-1"
+                  />
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.25}>
+                <a
+                  href={profile.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary"
+                >
+                  <Github size={17} />
+                  View GitHub
+                </a>
+              </Magnetic>
             </div>
           </div>
 
-          <TerminalHero />
+          <InteractiveTerminal />
         </section>
       </ScrollReveal>
 
@@ -86,6 +97,21 @@ function Home() {
         </section>
       </ScrollReveal>
 
+      <StaggerContainer className="mt-10 grid grid-cols-2 gap-4 md:mt-14 md:grid-cols-4">
+        {impactStats.map((stat) => (
+          <StaggerItem key={stat.label}>
+            <div className="glass-card h-full rounded-xl p-6 text-center">
+              <p className="font-display text-4xl font-extrabold tracking-[-0.04em] text-[var(--primary)] md:text-5xl">
+                <Counter value={stat.value} suffix={stat.suffix} />
+              </p>
+              <p className="mt-2 text-xs leading-6 text-[var(--text-secondary)] md:text-sm">
+                {stat.label}
+              </p>
+            </div>
+          </StaggerItem>
+        ))}
+      </StaggerContainer>
+
       <section id="work" className="section">
         <ScrollReveal className="mb-10">
           <p className="section-kicker">Selected Work</p>
@@ -103,59 +129,67 @@ function Home() {
         <StaggerContainer className="grid gap-6 lg:grid-cols-3">
           {projects.map((project, index) => (
             <StaggerItem key={project.title}>
-              <article className="glass-card group relative flex h-full min-h-[31rem] flex-col overflow-hidden rounded-xl p-6">
-                {project.link ? (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute inset-0 z-10 rounded-xl"
-                    aria-label={`Visit ${project.title}`}
-                  />
-                ) : null}
-                <div className="scanline opacity-0 transition-opacity group-hover:opacity-100" />
-                <div className="mb-8 flex items-center justify-between">
-                  <span className="font-code text-xs font-semibold uppercase tracking-[0.12em] text-[var(--secondary)]">
-                    0{index + 1} / Case Study
-                  </span>
+              <Magnetic strength={0.08} className="block h-full">
+                <article className="glass-card group relative flex h-full min-h-[31rem] flex-col overflow-hidden rounded-xl p-6">
                   {project.link ? (
-                    <ExternalLink
-                      size={17}
-                      className="text-[var(--text-muted)] transition-colors group-hover:text-[var(--primary)]"
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 z-10 rounded-xl"
+                      aria-label={`Visit ${project.title}`}
                     />
                   ) : null}
-                </div>
-                <div className="mb-8 rounded-lg border border-white/10 bg-[var(--bg-secondary)] p-4 font-code text-xs leading-7 text-[var(--text-secondary)]">
-                  <span className="text-[var(--primary)]">project</span>.ship(
-                  {`{`}
-                  <br />
-                  &nbsp;&nbsp;name: &apos;{project.title}&apos;,
-                  <br />
-                  &nbsp;&nbsp;stack: &apos;
-                  {project.stack.slice(0, 3).join(' + ')}&apos;
-                  <br />
-                  {`}`})
-                </div>
-                <div className="space-y-4">
-                  <p className="section-kicker !mb-0">{project.type}</p>
-                  <h3 className="font-display text-3xl font-extrabold tracking-[-0.04em] text-[var(--text-primary)]">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm font-semibold text-[var(--text-primary)]">
-                    {project.role}
-                  </p>
-                  <p className="text-sm leading-7 text-[var(--text-secondary)]">
-                    {project.outcome}
-                  </p>
-                </div>
-                <div className="mt-auto flex flex-wrap gap-2 pt-7">
-                  {project.stack.slice(0, 4).map((tech) => (
-                    <span key={tech} className="sticker">
-                      {tech}
+                  <div className="scanline opacity-0 transition-opacity group-hover:opacity-100" />
+                  {project.link ? (
+                    <span className="pointer-events-none absolute bottom-5 right-6 z-10 flex translate-y-1 items-center gap-1 font-code text-xs font-semibold uppercase tracking-[0.1em] text-[var(--primary)] opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+                      View case study
+                      <ArrowRight size={14} />
                     </span>
-                  ))}
-                </div>
-              </article>
+                  ) : null}
+                  <div className="mb-8 flex items-center justify-between">
+                    <span className="font-code text-xs font-semibold uppercase tracking-[0.12em] text-[var(--secondary)]">
+                      0{index + 1} / Case Study
+                    </span>
+                    {project.link ? (
+                      <ExternalLink
+                        size={17}
+                        className="text-[var(--text-muted)] transition-colors group-hover:text-[var(--primary)]"
+                      />
+                    ) : null}
+                  </div>
+                  <div className="mb-8 rounded-lg border border-white/10 bg-[var(--bg-secondary)] p-4 font-code text-xs leading-7 text-[var(--text-secondary)]">
+                    <span className="text-[var(--primary)]">project</span>.ship(
+                    {`{`}
+                    <br />
+                    &nbsp;&nbsp;name: &apos;{project.title}&apos;,
+                    <br />
+                    &nbsp;&nbsp;stack: &apos;
+                    {project.stack.slice(0, 3).join(' + ')}&apos;
+                    <br />
+                    {`}`})
+                  </div>
+                  <div className="space-y-4">
+                    <p className="section-kicker !mb-0">{project.type}</p>
+                    <h3 className="font-display text-3xl font-extrabold tracking-[-0.04em] text-[var(--text-primary)]">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm font-semibold text-[var(--text-primary)]">
+                      {project.role}
+                    </p>
+                    <p className="text-sm leading-7 text-[var(--text-secondary)]">
+                      {project.outcome}
+                    </p>
+                  </div>
+                  <div className="mt-auto flex flex-wrap gap-2 pt-7">
+                    {project.stack.slice(0, 4).map((tech) => (
+                      <span key={tech} className="sticker">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              </Magnetic>
             </StaggerItem>
           ))}
         </StaggerContainer>
@@ -245,6 +279,43 @@ function Home() {
         </div>
       </section>
 
+      <section className="section grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <ScrollReveal>
+          <p className="section-kicker">About Me</p>
+          <h2 className="section-title-sm">Hello, World.</h2>
+          <p className="mt-5 max-w-xl text-base leading-8 text-[var(--text-secondary)]">
+            I&apos;m {profile.name}, a {profile.title.toLowerCase()} based in{' '}
+            {profile.location}. {profile.intro}
+          </p>
+          <a
+            href="/about"
+            className="mt-5 inline-flex items-center gap-2 font-code text-sm font-semibold text-[var(--primary)] hover:text-[var(--secondary)]"
+          >
+            More about me
+            <ArrowRight size={15} />
+          </a>
+        </ScrollReveal>
+
+        <StaggerContainer className="grid gap-4 sm:grid-cols-2">
+          {funFacts.map((fact) => {
+            const Icon = fact.icon
+            return (
+              <StaggerItem key={fact.label}>
+                <div className="glass-card h-full rounded-xl p-5">
+                  <Icon className={`mb-3 ${fact.color}`} size={20} />
+                  <p className="font-code text-xs font-bold uppercase tracking-[0.1em] text-[var(--text-primary)]">
+                    {fact.label}
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
+                    {fact.value}
+                  </p>
+                </div>
+              </StaggerItem>
+            )
+          })}
+        </StaggerContainer>
+      </section>
+
       <ScrollReveal>
         <section className="glass-card relative overflow-hidden rounded-xl p-8 md:p-12">
           <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[var(--primary-deep)]/25 blur-[90px]" />
@@ -261,79 +332,27 @@ function Home() {
               </p>
             </div>
             <div className="flex flex-wrap gap-4 lg:justify-end">
-              <a href="/contact" className="btn btn-primary">
-                Start a Conversation
-                <ArrowRight size={17} />
-              </a>
-              <a href={`mailto:${profile.email}`} className="btn btn-secondary">
-                Email Directly
-              </a>
+              <Magnetic strength={0.25}>
+                <a href="/contact" className="btn btn-primary group">
+                  Start a Conversation
+                  <ArrowRight
+                    size={17}
+                    className="transition-transform duration-200 group-hover:translate-x-1"
+                  />
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.25}>
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="btn btn-secondary"
+                >
+                  Email Directly
+                </a>
+              </Magnetic>
             </div>
           </div>
         </section>
       </ScrollReveal>
-    </div>
-  )
-}
-
-function TerminalHero() {
-  return (
-    <div className="relative">
-      <div className="absolute inset-0 translate-y-8 rounded-full bg-[var(--primary-deep)]/25 blur-[90px]" />
-      <div className="terminal-window relative rotate-0 transition-transform duration-500 hover:rotate-0 lg:-rotate-2">
-        <div className="terminal-header">
-          <span className="terminal-dot bg-[#ff5f56]" />
-          <span className="terminal-dot bg-[#ffbd2e]" />
-          <span className="terminal-dot bg-[#27c93f]" />
-          <span className="ml-auto font-code text-xs text-[var(--text-muted)]">
-            ~/portfolio/index.ts
-          </span>
-        </div>
-        <div className="terminal-body">
-          <p>
-            <span className="text-[var(--secondary)]">$</span> npm run ship
-          </p>
-          <p className="mt-4 text-[var(--text-muted)]">
-            // current operating mode
-          </p>
-          <p>
-            const engineer ={' '}
-            <span className="text-[var(--primary)]">
-              &quot;{profile.name}&quot;
-            </span>
-          </p>
-          <p>
-            const focus = [
-            <span className="text-[var(--tertiary)]">&quot;Next.js&quot;</span>,{' '}
-            <span className="text-[var(--tertiary)]">&quot;Node.js&quot;</span>,{' '}
-            <span className="text-[var(--tertiary)]">&quot;Django&quot;</span>,{' '}
-            <span className="text-[var(--tertiary)]">
-              &quot;React Native&quot;
-            </span>
-            ]
-          </p>
-          <p>
-            build({`{`} integrations: true, maintainable: true, users:
-            &quot;first&quot; {`}`})
-          </p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            {workingPrinciples.slice(0, 4).map((item) => (
-              <div
-                key={item.title}
-                className="rounded-lg border border-white/10 bg-white/[0.03] p-4"
-              >
-                <Sparkles size={15} className="mb-2 text-[var(--secondary)]" />
-                <p className="font-code text-xs font-bold uppercase tracking-[0.08em] text-[var(--text-primary)]">
-                  {item.title}
-                </p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-6 text-[var(--secondary)]">
-            ready: production-minded delivery online
-          </p>
-        </div>
-      </div>
     </div>
   )
 }

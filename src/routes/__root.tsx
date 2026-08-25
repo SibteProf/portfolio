@@ -7,6 +7,8 @@ import {
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import Footer from '../components/Footer'
+import FloatingContactCTA from '../components/FloatingContactCTA'
+import GameModeOverlay from '../components/GameModeOverlay'
 import Header from '../components/Header'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AnimatedBackground } from '../components/ui/ScrollReveal'
@@ -72,6 +74,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           Skip to main content
         </a>
         <AnimatedBackground />
+        <GameModeOverlay />
         <Header />
         <AnimatePresence mode="wait">
           <motion.main
@@ -87,6 +90,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           </motion.main>
         </AnimatePresence>
         <Footer />
+        <FloatingContactCTA />
         {import.meta.env.DEV ? (
           <TanStackDevtools
             config={{ position: 'bottom-right' }}
