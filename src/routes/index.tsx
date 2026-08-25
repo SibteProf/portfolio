@@ -42,10 +42,10 @@ function Home() {
                 {profile.intro}
               </p>
               <p className="max-w-3xl text-base leading-8 text-[var(--text-secondary)]">
-                My work covers React, Next.js, Node.js, React Native, SQL and
-                NoSQL databases, REST and GraphQL APIs, auth/RBAC, real-time
-                workflows, performance optimization, CI/CD, and local LLM
-                integrations.
+                My work covers React, Next.js, Node.js, Django, React Native,
+                SQL and NoSQL databases, REST and GraphQL APIs, auth/RBAC,
+                real-time workflows, performance optimization, CI/CD, and local
+                LLM integrations.
               </p>
             </div>
             <div className="flex flex-wrap gap-4">
@@ -306,6 +306,7 @@ function TerminalHero() {
             const focus = [
             <span className="text-[var(--tertiary)]">&quot;Next.js&quot;</span>,{' '}
             <span className="text-[var(--tertiary)]">&quot;Node.js&quot;</span>,{' '}
+            <span className="text-[var(--tertiary)]">&quot;Django&quot;</span>,{' '}
             <span className="text-[var(--tertiary)]">
               &quot;React Native&quot;
             </span>

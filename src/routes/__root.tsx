@@ -27,12 +27,12 @@ export const Route = createRootRoute({
       {
         name: 'description',
         content:
-          'Portfolio of Sibte Hussain, a full-stack engineer building scalable MERN, Next.js, Node.js, React Native, secure API, real-time, database, and local LLM workflows.',
+          'Portfolio of Sibte Hussain, a full-stack engineer building scalable MERN, Next.js, Node.js, Django, React Native, secure API, real-time, database, and local LLM workflows.',
       },
       {
         name: 'keywords',
         content:
-          'Sibte Hussain, Full-Stack Engineer, MERN stack, Next.js, Node.js, React Native, TypeScript, GraphQL, Socket.IO, portfolio',
+          'Sibte Hussain, Full-Stack Engineer, MERN stack, Next.js, Node.js, Django, React Native, TypeScript, GraphQL, Socket.IO, portfolio',
       },
       {
         property: 'og:title',

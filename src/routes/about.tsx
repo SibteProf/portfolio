@@ -48,7 +48,7 @@ function About() {
             <p>
               {profile.name} is a {profile.title.toLowerCase()} based in{' '}
               {profile.location}. My strongest work lives around React, Next.js,
-              Node.js, React Native, databases, secure APIs, and
+              Node.js, Django, React Native, databases, secure APIs, and
               integration-heavy product systems.
             </p>
             <p>

@@ -25,8 +25,8 @@ export default function Footer() {
             </span>
           </a>
           <p className="max-w-md text-sm leading-7 text-[var(--text-secondary)]">
-            {profile.title} focused on scalable MERN, Next.js, Node.js, React
-            Native, secure APIs, real-time workflows, databases, and
+            {profile.title} focused on scalable MERN, Next.js, Node.js, Django,
+            React Native, secure APIs, real-time workflows, databases, and
             production-ready delivery.
           </p>
         </div>

@@ -4,17 +4,17 @@ export const profile = {
   location: 'Lahore, Pakistan',
   email: 'sibte566@gmail.com',
   phone: '+92-300-6346998',
-  linkedin: 'https://www.linkedin.com/in/sibte-hussain-b55aa723b',
-  github: 'https://github.com/SibtePls',
+  linkedin: 'https://www.linkedin.com/in/sibtehussain',
+  github: 'https://github.com/SibteProf',
   intro:
-    'I build scalable web and mobile applications with the MERN stack, Next.js, React Native, secure APIs, and production-ready data flows.',
+    'I build scalable web and mobile applications with the MERN stack, Next.js, Django, React Native, secure APIs, and production-ready data flows.',
   summary:
     'My work sits between front-end experiences and scalable back-end architecture: SSR/SSG performance, REST and GraphQL APIs, SQL and NoSQL databases, real-time features, state management, auth/RBAC, CI/CD, and modern local AI/LLM workflows.',
   availability: 'Available for full-stack web and mobile work',
 }
 
 export const credibilityItems = [
-  '3+ years building MERN, Next.js, and React Native products',
+  '3+ years building Full-Stack and React Native products',
   'SSR/SSG, ISR, Core Web Vitals, and rendering performance',
   'OAuth 2.0, JWT rotation, RBAC, REST, GraphQL, and Socket.IO',
   'SQL/NoSQL databases, Docker, CI/CD, AWS, and local LLM tools',
@@ -90,7 +90,7 @@ export const timeline = [
     role: 'Software Engineer',
     company: 'PlanLab Solutions',
     summary:
-      'Architecting production-grade Next.js, Node.js, and React Native applications, improving REST/GraphQL data flows, shared UI libraries, SSR/ISR performance, OAuth/RBAC security, and Jest/RTL coverage.',
+      'Architecting production-grade Next.js, Node.js, Django, and React Native applications, improving REST/GraphQL data flows, shared UI libraries, SSR/ISR performance, OAuth/RBAC security, and Jest/RTL coverage.',
   },
   {
     period: 'Sep 2023 - Oct 2024',
@@ -189,7 +189,7 @@ export const projects = [
     ],
     outcome:
       'The product gained a clearer role-aware dashboard foundation, stronger live-data handling, and a frontend architecture easier to extend.',
-    stack: ['Next.js', 'Node.js', 'Redux Toolkit', 'OAuth', 'Material UI'],
+    stack: ['Next.js', 'Django', 'Redux Toolkit', 'OAuth', 'Material UI'],
     link: 'https://www.nowvplay.com',
   },
   {
