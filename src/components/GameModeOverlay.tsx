@@ -1,14 +1,19 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
+import { useLocation } from '@tanstack/react-router'
+import { Gamepad2, X } from 'lucide-react'
 import { useGameMode } from '../lib/useGameMode'
+import DinoGame from './DinoGame'
 
 const CHARACTERS = '01アイウエオカキクケコサシスセソタチツテト<>{}[]();/=+-*'
 
 export default function GameModeOverlay() {
   const { enabled } = useGameMode()
+  const location = useLocation()
   const prefersReducedMotion = useReducedMotion()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [showToast, setShowToast] = useState(false)
+  const [showGame, setShowGame] = useState(false)
   const wasEnabled = useRef(false)
 
   useEffect(() => {
@@ -19,7 +24,24 @@ export default function GameModeOverlay() {
       return () => clearTimeout(timeout)
     }
     wasEnabled.current = enabled
+    if (!enabled) setShowGame(false)
   }, [enabled])
+
+  useEffect(() => {
+    if (!showGame) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') setShowGame(false)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [showGame])
 
   useEffect(() => {
     if (!enabled || prefersReducedMotion) return
@@ -84,6 +106,8 @@ export default function GameModeOverlay() {
 
   if (!enabled || prefersReducedMotion) return null
 
+  const showLauncher = location.pathname !== '/contact'
+
   return (
     <>
       <canvas
@@ -100,9 +124,58 @@ export default function GameModeOverlay() {
             transition={{ duration: 0.2 }}
             className="glass-card fixed bottom-6 left-6 z-40 max-w-xs rounded-xl p-4 font-code text-xs leading-6 text-[var(--text-secondary)]"
           >
-            Game mode: on. Also, yes, I game. Try{' '}
-            <span className="text-[var(--secondary)]">fun</span> in the
-            terminal.
+            Game mode: on. Also, yes, I game, and there is an actual game hiding
+            in the corner now.
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
+      {showLauncher ? (
+        <motion.button
+          type="button"
+          onClick={() => setShowGame(true)}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.94 }}
+          aria-label="Play dino game"
+          title="Play a quick game"
+          className="btn btn-secondary fixed bottom-6 left-6 z-40 shadow-[0_16px_40px_rgba(78,222,163,0.25)]"
+        >
+          <Gamepad2 size={17} />
+          <span className="hidden sm:inline">Play</span>
+        </motion.button>
+      ) : null}
+
+      <AnimatePresence>
+        {showGame ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(10,10,16,0.85)] p-4 backdrop-blur-sm"
+            onClick={(event) => {
+              if (event.target === event.currentTarget) setShowGame(false)
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 16, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.97 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-full max-w-xl"
+            >
+              <button
+                type="button"
+                onClick={() => setShowGame(false)}
+                aria-label="Close game"
+                className="absolute -top-3 -right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[var(--bg-card-strong)] text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)]"
+              >
+                <X size={16} />
+              </button>
+              <DinoGame />
+            </motion.div>
           </motion.div>
         ) : null}
       </AnimatePresence>

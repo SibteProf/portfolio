@@ -11,7 +11,6 @@ import FloatingContactCTA from '../components/FloatingContactCTA'
 import GameModeOverlay from '../components/GameModeOverlay'
 import Header from '../components/Header'
 import { AnimatePresence, motion } from 'framer-motion'
-import { AnimatedBackground } from '../components/ui/ScrollReveal'
 import { profile } from '../content/portfolio'
 
 import appCss from '../styles.css?url'
@@ -29,12 +28,12 @@ export const Route = createRootRoute({
       {
         name: 'description',
         content:
-          'Portfolio of Sibte Hussain, a full-stack engineer building scalable MERN, Next.js, Node.js, Django, React Native, secure API, real-time, database, and local LLM workflows.',
+          'Portfolio of Sibte Hussain, a full-stack engineer in Lahore building web and mobile apps with React, Next.js, Django, and React Native, and rooting phones for fun in his spare time.',
       },
       {
         name: 'keywords',
         content:
-          'Sibte Hussain, Full-Stack Engineer, MERN stack, Next.js, Node.js, Django, React Native, TypeScript, GraphQL, Socket.IO, portfolio',
+          'Sibte Hussain, Full-Stack Engineer, React, Next.js, Node.js, Django, React Native, TypeScript, portfolio',
       },
       {
         property: 'og:title',
@@ -43,7 +42,7 @@ export const Route = createRootRoute({
       {
         property: 'og:description',
         content:
-          'Full-stack portfolio showing shipped work across web apps, mobile apps, APIs, real-time systems, auth, performance, and AI-assisted internal workflows.',
+          'Full-stack portfolio: shipped web apps, mobile apps, and a few things built purely for fun.',
       },
       {
         property: 'og:type',
@@ -73,7 +72,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <AnimatedBackground />
         <GameModeOverlay />
         <Header />
         <AnimatePresence mode="wait">

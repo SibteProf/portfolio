@@ -97,8 +97,7 @@ export default function InteractiveTerminal() {
 
   return (
     <div className="relative">
-      <div className="absolute inset-0 translate-y-8 rounded-full bg-[var(--primary-deep)]/25 blur-[90px]" />
-      <div className="terminal-window relative rotate-0 transition-transform duration-500 hover:rotate-0 lg:-rotate-2">
+      <div className="terminal-window relative">
         <div className="terminal-header">
           <span className="terminal-dot bg-[#ff5f56]" />
           <span className="terminal-dot bg-[#ffbd2e]" />
@@ -112,9 +111,7 @@ export default function InteractiveTerminal() {
             <span className="text-[var(--secondary)]">$</span>{' '}
             <Typewriter text="npm run ship" speed={70} />
           </p>
-          <p className="mt-4 text-[var(--text-muted)]">
-            // what I&apos;m actually running these days
-          </p>
+          <p className="mt-4 text-[var(--text-muted)]">// this week, roughly</p>
           <p>
             const engineer ={' '}
             <span className="text-[var(--primary)]">
@@ -122,27 +119,28 @@ export default function InteractiveTerminal() {
             </span>
           </p>
           <p>
-            const focus = [
-            <span className="text-[var(--tertiary)]">&quot;Next.js&quot;</span>,{' '}
-            <span className="text-[var(--tertiary)]">&quot;Node.js&quot;</span>,{' '}
-            <span className="text-[var(--tertiary)]">&quot;Django&quot;</span>,{' '}
+            const alsoTrue = [
             <span className="text-[var(--tertiary)]">
-              &quot;React Native&quot;
+              &quot;builds PCs for friends&quot;
+            </span>
+            ,{' '}
+            <span className="text-[var(--tertiary)]">
+              &quot;rooted a phone last weekend&quot;
             </span>
             ]
           </p>
           <p>
-            build({`{`} integrations: true, maintainable: true, users:
-            &quot;first&quot; {`}`})
+            build({`{`} breaksThings: true, fixesThem: &quot;usually&quot; {`}`}
+            )
           </p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <div className="mt-6 space-y-1.5">
             {workingPrinciples.slice(0, 4).map((item) => (
-              <div
-                key={item.title}
-                className="rounded-lg border border-white/10 bg-white/[0.03] p-4"
-              >
-                <Sparkles size={15} className="mb-2 text-[var(--secondary)]" />
-                <p className="font-code text-xs font-bold uppercase tracking-[0.08em] text-[var(--text-primary)]">
+              <div key={item.title} className="flex items-center gap-2">
+                <Sparkles
+                  size={13}
+                  className="shrink-0 text-[var(--secondary)]"
+                />
+                <p className="text-xs text-[var(--text-primary)]">
                   {item.title}
                 </p>
               </div>
@@ -205,7 +203,7 @@ export default function InteractiveTerminal() {
                   key={command}
                   type="button"
                   onClick={() => submit(command)}
-                  className="sticker"
+                  className="tag"
                 >
                   {command}
                 </button>

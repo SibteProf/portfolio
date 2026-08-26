@@ -1,5 +1,5 @@
 import {
-  offTheClock,
+  interests,
   profile,
   projects,
   stackGroups,
@@ -55,7 +55,7 @@ export function runCommand(raw: string): CommandOutput {
 
     case 'fun':
     case 'hobbies':
-      return [offTheClock.short]
+      return interests.flatMap((item) => [`${item.label}:`, `  ${item.short}`])
 
     case 'sudo':
       return [

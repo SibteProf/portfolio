@@ -1,29 +1,23 @@
-import { Coffee, Gamepad2, Keyboard, Moon } from 'lucide-react'
-import { offTheClock } from './portfolio'
+import { Cpu, Gamepad2, Music, Smartphone } from 'lucide-react'
+import { interests } from './portfolio'
 
-export const funFacts = [
-  {
-    icon: Coffee,
-    label: 'Operating Mode',
-    value: 'Product clarity before code volume',
-    color: 'text-[var(--secondary)]',
-  },
-  {
-    icon: Keyboard,
-    label: 'Favorite Build Zone',
-    value: 'UI, APIs, data, auth, and real-time flows working together',
-    color: 'text-[var(--tertiary)]',
-  },
-  {
-    icon: Moon,
-    label: 'Design Bias',
-    value: 'Dark systems, sharp edges, readable states',
-    color: 'text-[var(--primary)]',
-  },
-  {
-    icon: Gamepad2,
-    label: offTheClock.label,
-    value: offTheClock.value,
-    color: 'text-[var(--secondary)]',
-  },
-]
+const iconByKey: Record<string, typeof Gamepad2> = {
+  gaming: Gamepad2,
+  'pc-building': Cpu,
+  phones: Smartphone,
+  music: Music,
+}
+
+const colorByKey: Record<string, string> = {
+  gaming: 'text-[var(--secondary)]',
+  'pc-building': 'text-[var(--tertiary)]',
+  phones: 'text-[var(--primary)]',
+  music: 'text-[var(--secondary)]',
+}
+
+export const funFacts = interests.map((item) => ({
+  icon: iconByKey[item.key] ?? Gamepad2,
+  label: item.label,
+  value: item.value,
+  color: colorByKey[item.key] ?? 'text-[var(--secondary)]',
+}))

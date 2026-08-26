@@ -1,10 +1,9 @@
 import { useLocation } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
-import { Github, Menu, Terminal, X } from 'lucide-react'
+import { Github, Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { profile } from '../content/portfolio'
 import GameModeToggle from './GameModeToggle'
-import { Magnetic } from './ui/ScrollReveal'
 
 const navLinks = [
   { href: '/', label: 'Home', match: '/' },
@@ -38,21 +37,19 @@ export default function Header() {
       <header
         className={`sticky top-0 z-50 border-b transition-all duration-200 ${
           scrolled
-            ? 'border-white/10 bg-[rgba(13,13,21,0.86)] shadow-[0_16px_50px_rgba(0,0,0,0.22)] backdrop-blur-xl'
-            : 'border-white/5 bg-[rgba(19,19,27,0.64)] backdrop-blur-md'
+            ? 'border-white/10 bg-[rgba(13,13,21,0.86)] backdrop-blur-xl'
+            : 'border-transparent bg-[rgba(19,19,27,0.4)] backdrop-blur-md'
         }`}
       >
         <nav
           className="page-container flex items-center justify-between py-4"
           aria-label="Main navigation"
         >
-          <a href="/" className="group inline-flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-[var(--bg-card-strong)] text-[var(--primary)] shadow-[0_0_18px_rgba(73,75,214,0.22)] transition-colors group-hover:text-[var(--secondary)]">
-              <Terminal size={19} aria-hidden />
-            </span>
-            <span className="font-display text-xl font-extrabold tracking-[-0.03em] text-[var(--text-primary)]">
-              Sibte.dev
-            </span>
+          <a
+            href="/"
+            className="font-display text-lg font-semibold tracking-[-0.02em] text-[var(--text-primary)] transition-colors hover:text-[var(--primary)]"
+          >
+            sibte.dev
           </a>
 
           <div className="hidden items-center gap-7 lg:flex">
@@ -82,11 +79,12 @@ export default function Header() {
             >
               <Github size={18} />
             </a>
-            <Magnetic strength={0.3} className="hidden sm:inline-flex">
-              <a href="/contact" className="btn btn-primary min-h-10 px-4 py-2">
-                Let&apos;s Talk
-              </a>
-            </Magnetic>
+            <a
+              href="/contact"
+              className="btn btn-primary hidden min-h-10 px-4 py-2 sm:inline-flex"
+            >
+              Let&apos;s Talk
+            </a>
             <motion.button
               type="button"
               onClick={() => setMobileMenuOpen((value) => !value)}

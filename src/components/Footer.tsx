@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Terminal } from 'lucide-react'
+import { Github, Linkedin, Mail } from 'lucide-react'
 import { profile } from '../content/portfolio'
 
 const footerLinks = [
@@ -16,18 +16,15 @@ export default function Footer() {
     <footer className="mt-12 border-t border-white/10 bg-[rgba(13,13,21,0.52)] py-10">
       <div className="page-container grid gap-10 md:grid-cols-[1.15fr_0.7fr_0.8fr]">
         <div className="space-y-4">
-          <a href="/" className="inline-flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-[var(--bg-card-strong)] text-[var(--secondary)]">
-              <Terminal size={18} aria-hidden />
-            </span>
-            <span className="font-display text-2xl font-extrabold tracking-[-0.04em]">
-              {profile.name}
-            </span>
+          <a
+            href="/"
+            className="font-display text-xl font-semibold tracking-[-0.02em]"
+          >
+            {profile.name}
           </a>
           <p className="max-w-md text-sm leading-7 text-[var(--text-secondary)]">
-            {profile.title} focused on scalable MERN, Next.js, Node.js, Django,
-            React Native, secure APIs, real-time workflows, databases, and
-            production-ready delivery.
+            {profile.title} who also can&apos;t leave a phone&apos;s firmware
+            alone. Based in {profile.location}.
           </p>
         </div>
 
@@ -78,8 +75,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="page-container mt-8 border-t border-white/10 pt-5 font-code text-xs uppercase tracking-[0.12em] text-[var(--text-muted)]">
-        (c) {year} {profile.name}. Built like a product, tuned like a terminal.
+      <div className="page-container mt-8 border-t border-white/10 pt-5 text-xs text-[var(--text-muted)]">
+        (c) {year} {profile.name}.
       </div>
     </footer>
   )

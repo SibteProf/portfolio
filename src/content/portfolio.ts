@@ -7,19 +7,42 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/sibtehussain',
   github: 'https://github.com/SibteProf',
   intro:
-    'I build scalable web and mobile applications with the MERN stack, Next.js, Django, React Native, secure APIs, and production-ready data flows.',
+    'I build stuff people actually use: web apps, mobile apps, the occasional weird side project. React, Next.js, Django, and React Native are the usual tools.',
   summary:
-    'My work sits between front-end experiences and scalable back-end architecture: SSR/SSG performance, REST and GraphQL APIs, SQL and NoSQL databases, real-time features, state management, auth/RBAC, CI/CD, and modern local AI/LLM workflows.',
+    "I like owning a feature start to finish: front end, backend, database, the annoying edge cases nobody wants to touch. If it needs to talk to an API, hold a login, or run in real time, I've probably already broken it once in a way that taught me something.",
   availability: 'Available for full-stack web and mobile work',
 }
 
-export const offTheClock = {
-  label: 'Off the Clock',
-  value:
-    "Mostly single-player, story-first stuff: Cyberpunk 2077, the GTA series, The Last of Us. I'll jump into Valorant or Apex with friends when someone drags me into a lobby.",
-  short:
-    'Story-mode gamer (Cyberpunk 2077, GTA, TLOU), occasional Valorant/Apex with friends.',
-}
+export const interests = [
+  {
+    key: 'gaming',
+    label: 'Gaming',
+    value:
+      "Mostly single-player, story-first stuff: Cyberpunk 2077, the GTA series, The Last of Us. I'll jump into Valorant or Apex with friends when someone drags me into a lobby.",
+    short:
+      'Story-mode gamer (Cyberpunk 2077, GTA, TLOU), occasional Valorant/Apex with friends.',
+  },
+  {
+    key: 'pc-building',
+    label: 'PC Building',
+    value:
+      "I'm the unofficial IT department of my friend group, building and speccing PCs for whoever asks nicely (or brings snacks).",
+    short: 'Builds and specs PCs for friends. Unofficial group IT guy.',
+  },
+  {
+    key: 'phones',
+    label: 'Phone Tinkering',
+    value:
+      'I root phones and flash custom ROMs for fun, mostly just to squeeze out a bit more performance or battery life. Not always necessary. Always fun.',
+    short: 'Roots phones, flashes custom ROMs, chases performance for fun.',
+  },
+  {
+    key: 'music',
+    label: 'Music',
+    value: 'Pop and upbeat, mostly. I am not a lo-fi-while-coding person.',
+    short: 'Pop / upbeat music, not the lo-fi coding-playlist type.',
+  },
+]
 
 export const credibilityItems = [
   '3+ years building Full-Stack and React Native products',
@@ -30,65 +53,37 @@ export const credibilityItems = [
 
 export const workingPrinciples = [
   {
-    title: 'Full-stack product delivery',
+    title: 'I own the whole feature',
     description:
-      'I move comfortably from UI flows into APIs, database-backed behavior, state sync, auth, deployment, and release-ready edge cases.',
+      'UI, API, database, auth, deployment: I move through all of it instead of throwing work over a wall and hoping it lands right.',
   },
   {
-    title: 'Performance-aware architecture',
+    title: 'I sweat the boring stuff',
     description:
-      'I care about SSR, SSG, ISR, Core Web Vitals, caching, data-layer latency, and keeping high-traffic screens responsive.',
+      'Slow pages, janky loading states, API calls that block the UI for no reason. That is where I actually spend my time.',
   },
   {
-    title: 'Secure integration work',
+    title: 'I write code for the next person',
     description:
-      'I have worked with OAuth 2.0, JWT rotation, multi-tenant RBAC, payment flows, webhooks, and API validation layers.',
-  },
-  {
-    title: 'Team-ready engineering',
-    description:
-      'I build modular components, shared libraries, typed code, test coverage, Dockerized environments, and CI/CD workflows that help teams move faster.',
+      'Usually that person is me, six months later, with no memory of why any of this works. I try not to make that guy angry.',
   },
 ]
 
 export const services = [
   {
-    title: 'Full-stack web app delivery',
+    title: 'Full-stack web apps',
     description:
-      'Building responsive React and Next.js applications with Node/Nest/Express APIs, typed workflows, secure auth, and production data flows.',
+      'React and Next.js on the front end, Node/Nest/Express behind it, with auth and data flows that actually hold up in production.',
   },
   {
-    title: 'Mobile app delivery',
+    title: 'Mobile apps',
     description:
-      'Shipping React Native and Expo apps with Redux Toolkit, React Query, real-time updates, caching, and responsive mobile UX.',
+      'React Native and Expo apps with real-time updates, caching, and UX that does not feel like a web page wearing a costume.',
   },
   {
-    title: 'API, database, and integrations',
+    title: 'APIs, databases, and integrations',
     description:
-      'Connecting products to REST, GraphQL, Socket.IO, PostgreSQL, MySQL, MongoDB, Stripe, NextAuth, webhooks, and internal services.',
-  },
-  {
-    title: 'Performance, testing, and DevOps',
-    description:
-      'Improving SSR/SSG behavior, API latency, state architecture, Jest/RTL coverage, Docker environments, CI/CD, and Vercel/AWS deployments.',
-  },
-]
-
-export const processSteps = [
-  {
-    title: 'Map the full-stack path',
-    description:
-      'I start by connecting the user flow to API contracts, data sources, auth rules, state ownership, and release constraints.',
-  },
-  {
-    title: 'Build the critical path end to end',
-    description:
-      'I prioritize the behavior that proves the feature works across UI, API, data, and deployment before polishing lower-value edges.',
-  },
-  {
-    title: 'Harden for the next release',
-    description:
-      'Reusable components, typed boundaries, tests, caching, and cleaner CI workflows matter because production projects keep evolving.',
+      'REST, GraphQL, Socket.IO, Postgres/MySQL/Mongo, Stripe, webhooks: wiring the pieces together so they stay wired together.',
   },
 ]
 
@@ -98,21 +93,21 @@ export const timeline = [
     role: 'Software Engineer',
     company: 'PlanLab Solutions',
     summary:
-      'Architecting production-grade Next.js, Node.js, Django, and React Native applications, improving REST/GraphQL data flows, shared UI libraries, SSR/ISR performance, OAuth/RBAC security, and Jest/RTL coverage.',
+      'Building and maintaining the core product across web and mobile, mostly Next.js and React Native, with Django doing the heavy lifting on the backend.',
   },
   {
     period: 'Sep 2023 - Oct 2024',
     role: 'Associate Software Developer',
     company: 'Agile District',
     summary:
-      'Built responsive React, Next.js, and Tailwind platforms, implemented Redux Toolkit data sync, migrated legacy JavaScript toward TypeScript, Dockerized local services, and supported CI/CD regression workflows.',
+      'Built out React and Next.js platforms, migrated a chunk of legacy JavaScript to TypeScript, and got the local dev environment Dockerized so it stopped only working on one laptop.',
   },
   {
     period: '2018 - 2022',
     role: 'BS Computer Science',
     company: 'University of Management and Technology',
     summary:
-      'Bachelor of Science in Computer Science, building the foundation for JavaScript, React, full-stack systems, databases, and production software delivery.',
+      'Where I learned the fundamentals, and where "it works on my machine" stopped being an acceptable final answer.',
   },
 ]
 
@@ -189,14 +184,14 @@ export const projects = [
     type: 'Sports technology platform connecting players, venues, and academies',
     role: 'Full-stack sports-tech delivery across client management, live data, routing, and role-aware dashboards',
     problem:
-      'The platform needed to connect players, venues, academies, and other members of the sports community through scalable client management, dynamic routing, authenticated access, and live tournament data views for different user roles.',
+      'The platform needed to connect players, venues, academies, and other members of the sports community, with each group seeing a different dashboard and live tournament data that actually stayed live.',
     highlights: [
-      'Built scalable Next.js product surfaces with dynamic routing and server-driven application flows.',
-      'Integrated OAuth and role-based dashboard behavior so players, venues, and academies could each access the right management tools.',
-      'Engineered Redux Toolkit state architecture for live tournament data and data-heavy sports workflows.',
+      'Built the core Next.js app: dynamic routing and role-based dashboards so players, venues, and academies each see what they need.',
+      'Wired up OAuth so access control was not just a checkbox. The right people got the right tools.',
+      'Built the Redux Toolkit state layer that keeps live tournament data from turning into a stale-data mess.',
     ],
     outcome:
-      'The product gained a clearer role-aware dashboard foundation, stronger live-data handling, and a frontend architecture easier to extend.',
+      'A dashboard system that scales by role instead of by special-casing everything, and a frontend that is easier to extend than it was on day one.',
     stack: ['Next.js', 'Django', 'Redux Toolkit', 'OAuth', 'Material UI'],
     link: 'https://www.nowvplay.com',
   },
@@ -205,14 +200,14 @@ export const projects = [
     type: 'Compliance, payments, and internal AI workflow integrations',
     role: 'Full-stack integration work across validation layers, webhooks, payments, authentication, and local LLM tooling',
     problem:
-      'The product needed secure onboarding automation, strict validation, government webhook handling, payment/auth flows, and internal AI tooling without leaking sensitive data externally.',
+      'Onboarding needed to be automated without cutting corners on validation, government webhooks had to behave, and an internal AI tool needed to exist without sending anything sensitive off-site.',
     highlights: [
-      'Automated compliance onboarding paths with strict validation layers and official UK government webhook integrations.',
-      'Integrated Stripe and NextAuth-backed product flows while keeping security-sensitive states explicit and maintainable.',
-      'Researched and integrated localized AI endpoints using Ollama and Qwen for internal developer pipeline workflows.',
+      'Automated compliance onboarding with strict validation and official UK government webhook integrations.',
+      'Wired up Stripe and NextAuth without turning the security-sensitive parts into a black box.',
+      'Set up local AI endpoints with Ollama and Qwen so internal tooling never had to leave the building.',
     ],
     outcome:
-      'The workflows became more automated, secure, and privacy-conscious, with internal LLM tooling kept inside controlled infrastructure.',
+      'Less manual onboarding work, tighter security, and an internal AI setup that stays inside infrastructure we actually control.',
     stack: ['Next.js', 'Stripe', 'NextAuth', 'Ollama', 'Qwen'],
     link: 'https://www.myukaccountant.co.uk/',
   },
@@ -221,15 +216,15 @@ export const projects = [
     type: 'Society management and collaboration platform',
     role: 'React Native mobile development for a residential-community platform covering visitor access, complaints, billing, and community features',
     problem:
-      'The platform needed a resident-facing mobile experience for a digital society-management system covering visitor pre-approval and entry logging, complaint submission and tracking, billing and payments, delivery coordination, community polls, parking access, and emergency panic alerts.',
+      'A residential community needed one app to replace a pile of paperwork: visitor approval and entry logs, complaints, billing, deliveries, polls, parking, and a panic button for emergencies.',
     highlights: [
-      'Built React Native screens for resident-facing workflows including visitor management, complaint tracking, and billing.',
-      'Used Redux Toolkit for state management and integrated OAuth for authenticated, role-aware access across resident and staff flows.',
-      'Integrated Socket-based real-time updates for visitor entry, delivery notifications, and emergency panic alerts.',
-      'Worked within a multi-app system spanning a society-management admin dashboard, resident mobile app, and security staff app.',
+      'Built the resident-facing React Native screens: visitor management, complaint tracking, billing, all in one place.',
+      'Used Redux Toolkit for state and OAuth for access, so residents and staff each saw the right version of the app.',
+      'Added real-time updates over sockets for visitor entries, delivery pings, and emergency alerts.',
+      'Worked across a multi-app system: admin dashboard, resident app, and a separate security-staff app.',
     ],
     outcome:
-      'Residents gained a centralized mobile experience for day-to-day society operations, reducing manual paperwork and improving response time on complaints and visitor access.',
+      'Residents got one app instead of a folder of forms, and complaints and visitor entries started moving faster because nobody was waiting on a security guard with a clipboard.',
     stack: ['React Native', 'Redux Toolkit', 'Socket.IO', 'OAuth'],
     link: 'https://kunji.pk',
   },
@@ -238,15 +233,15 @@ export const projects = [
     type: 'POS and operations platform for food trucks and mobile vendors',
     role: 'Full-stack delivery across POS and order-management workflows, real-time order tracking, payment integrations, and server-state management',
     problem:
-      'The platform needed a production-grade POS and operations experience for food trucks and mobile vendors, supporting live order updates, payment integrations, online and offline ordering, and frequent API interactions without becoming sluggish.',
+      'Food trucks needed a POS that could take a hit of orders during a lunch rush without turning laggy, work offline when a signal dropped, and still sync up cleanly after.',
     highlights: [
-      'Built React Native and Expo screens for POS and order-management workflows, real-time order tracking, and chat behavior.',
-      'Integrated payment systems and third-party services to support vendor checkout, order, and operational flows.',
-      'Used Redux Toolkit and React Query to separate global state from server state and stabilize high-traffic screens.',
-      'Integrated Socket.IO live updates and improved offline ordering support, caching, and background sync for better responsiveness.',
+      'Built React Native and Expo screens for POS, order tracking, and in-app chat.',
+      'Hooked up payment systems and the third-party services vendor checkout actually needs.',
+      'Split global state from server state with Redux Toolkit and React Query so busy screens stayed responsive.',
+      'Added Socket.IO live updates plus offline ordering, caching, and background sync.',
     ],
     outcome:
-      'The platform handled operational vendor workflows more smoothly and improved responsiveness by roughly 15-18% through caching and sync work.',
+      'Smoother day-to-day vendor operations, and roughly 15-18% faster responsiveness from the caching and sync work.',
     stack: [
       'React Native',
       'Expo',
@@ -261,14 +256,14 @@ export const projects = [
     type: 'Personal finance tracker and expense-logging app',
     role: 'React Native development on a self-directed personal project, including AI-powered invoice scanning and insights',
     problem:
-      'I wanted a finance tracker that could log expenses without manual data entry for every purchase, and surface useful spending insights instead of just raw transaction lists.',
+      'I wanted a finance tracker that could log expenses without me typing in every purchase by hand, and that actually told me something useful about my spending instead of just listing it.',
     highlights: [
-      'Built the app end to end in React Native with Expo, covering expense logging, categorization, and personal finance tracking flows.',
-      'AI integration: used the Gemini API to scan invoices and receipts, auto-extracting expense data and generating spending insights.',
-      'Used Redux Toolkit for state management and React Query for data fetching and caching.',
+      'Built the whole thing in React Native with Expo: expense logging, categorization, the works.',
+      'Used the Gemini API to scan receipts and invoices and pull out the expense data automatically.',
+      'Redux Toolkit for state, React Query for fetching and caching.',
     ],
     outcome:
-      'Turned manual expense entry into an AI-assisted flow: scan an invoice and the app extracts and categorizes the expense, with Gemini-generated insights on spending patterns.',
+      'Manual expense entry turned into "point phone at receipt": the app extracts and categorizes it, and Gemini generates the spending insights I actually read.',
     stack: [
       'React Native',
       'Expo',
@@ -296,10 +291,9 @@ export const impactStats = [
 ]
 
 export const projectInquiryChecklist = [
-  'what you are building',
-  'timeline or delivery pressure',
-  'team setup and who I would work with',
-  'any web app, mobile app, API, database, auth, or real-time work involved',
-  'third-party services, payments, webhooks, or local AI tools involved',
-  'budget range if you already have one',
+  'what you are trying to build',
+  'your timeline',
+  'who else is on the team',
+  'the tricky parts: real-time features, payments, auth, whatever it is',
+  'a rough budget, if you have one',
 ]
