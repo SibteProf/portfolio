@@ -195,6 +195,7 @@ export const projects = [
       'A dashboard system that scales by role instead of by special-casing everything, and a frontend that is easier to extend than it was on day one.',
     stack: ['Next.js', 'Django', 'Redux Toolkit', 'OAuth', 'Material UI'],
     link: 'https://www.nowvplay.com',
+    featured: true,
   },
   {
     title: 'Pecunia and Custom Dev Integrations',
@@ -211,6 +212,7 @@ export const projects = [
       'Less manual onboarding work, tighter security, and an internal AI setup that stays inside infrastructure we actually control.',
     stack: ['Next.js', 'Stripe', 'NextAuth', 'Ollama', 'Qwen'],
     link: 'https://www.myukaccountant.co.uk/',
+    featured: true,
   },
   {
     title: 'Kunji',
@@ -228,6 +230,7 @@ export const projects = [
       'Residents got one app instead of a folder of forms, and complaints and visitor entries started moving faster because nobody was waiting on a security guard with a clipboard.',
     stack: ['React Native', 'Redux Toolkit', 'Socket.IO', 'OAuth'],
     link: 'https://kunji.pk',
+    featured: false,
   },
   {
     title: 'GoodFynd',
@@ -251,6 +254,7 @@ export const projects = [
       'Socket.IO',
     ],
     link: 'https://www.goodfynd.com',
+    featured: false,
   },
   {
     title: 'VueCent',
@@ -273,13 +277,24 @@ export const projects = [
       'Gemini API',
     ],
     link: 'https://play.google.com/store/apps/details?id=com.metafusion.pocketplan&hl=en',
+    featured: true,
   },
 ]
+
+/** The three the home page leads with. Order follows the list above. */
+export const featuredProjects = projects.filter((project) => project.featured)
 
 const stackBreadthCount =
   stackGroups.reduce((total, group) => total + group.items.length, 0) +
   comfortStack.length
 
+/** Counted, not hardcoded, so it cannot drift from the project list. */
+const mobileAppCount = projects.filter((project) =>
+  project.stack.includes('React Native'),
+).length
+
+// Every entry here is about the body of work as a whole. Nothing scoped to a
+// single project belongs in this band.
 export const impactStats = [
   { value: 3, suffix: '+', label: 'Years shipping full-stack products' },
   {
@@ -287,7 +302,11 @@ export const impactStats = [
     suffix: '',
     label: 'Production apps shipped end to end',
   },
-  { value: 18, suffix: '%', label: 'Faster mobile responsiveness on GoodFynd' },
+  {
+    value: mobileAppCount,
+    suffix: '',
+    label: 'Shipped to mobile with React Native',
+  },
   { value: stackBreadthCount, suffix: '+', label: 'Technologies in daily use' },
 ]
 

@@ -102,29 +102,27 @@ export default function InteractiveTerminal() {
           <span className="terminal-dot bg-[#ff5f56]" />
           <span className="terminal-dot bg-[#ffbd2e]" />
           <span className="terminal-dot bg-[#27c93f]" />
-          <span className="ml-auto font-code text-xs text-[var(--text-muted)]">
+          <span className="ml-auto font-code text-xs text-ink-3">
             ~/portfolio/index.ts
           </span>
         </div>
         <div className="terminal-body">
           <p>
-            <span className="text-[var(--secondary)]">$</span>{' '}
+            <span className="text-mint">$</span>{' '}
             <Typewriter text="npm run ship" speed={70} />
           </p>
-          <p className="mt-4 text-[var(--text-muted)]">// this week, roughly</p>
+          <p className="mt-4 text-ink-3">// this week, roughly</p>
           <p>
             const engineer ={' '}
-            <span className="text-[var(--primary)]">
-              &quot;{profile.name}&quot;
-            </span>
+            <span className="text-indigo">&quot;{profile.name}&quot;</span>
           </p>
           <p>
             const alsoTrue = [
-            <span className="text-[var(--tertiary)]">
+            <span className="text-amber">
               &quot;builds PCs for friends&quot;
             </span>
             ,{' '}
-            <span className="text-[var(--tertiary)]">
+            <span className="text-amber">
               &quot;rooted a phone last weekend&quot;
             </span>
             ]
@@ -136,17 +134,12 @@ export default function InteractiveTerminal() {
           <div className="mt-6 space-y-1.5">
             {workingPrinciples.slice(0, 4).map((item) => (
               <div key={item.title} className="flex items-center gap-2">
-                <Sparkles
-                  size={13}
-                  className="shrink-0 text-[var(--secondary)]"
-                />
-                <p className="text-xs text-[var(--text-primary)]">
-                  {item.title}
-                </p>
+                <Sparkles size={13} className="shrink-0 text-mint" />
+                <p className="text-xs text-ink">{item.title}</p>
               </div>
             ))}
           </div>
-          <p className="mt-6 text-[var(--secondary)]">
+          <p className="mt-6 text-mint">
             status: caffeinated, shipping, occasionally gaming
           </p>
 
@@ -168,13 +161,10 @@ export default function InteractiveTerminal() {
                 <p key={line.id}>
                   {line.type === 'input' ? (
                     <>
-                      <span className="text-[var(--secondary)]">$</span>{' '}
-                      {line.text}
+                      <span className="text-mint">$</span> {line.text}
                     </>
                   ) : (
-                    <span className="text-[var(--text-secondary)]">
-                      {line.text}
-                    </span>
+                    <span className="text-ink-2">{line.text}</span>
                   )}
                 </p>
               ))}
@@ -183,7 +173,7 @@ export default function InteractiveTerminal() {
               className="mt-2 flex items-center gap-2"
               onClick={() => inputRef.current?.focus()}
             >
-              <span className="text-[var(--secondary)]">$</span>
+              <span className="text-mint">$</span>
               <input
                 ref={inputRef}
                 type="text"
@@ -194,7 +184,7 @@ export default function InteractiveTerminal() {
                 autoComplete="off"
                 spellCheck={false}
                 aria-label="Terminal command input"
-                className="w-full bg-transparent font-code text-sm text-[var(--text-primary)] outline-none placeholder:text-[var(--text-muted)]"
+                className="w-full bg-transparent font-code text-sm text-ink outline-none placeholder:text-ink-3"
               />
             </div>
             <div className="mt-3 flex flex-wrap gap-2 sm:hidden">

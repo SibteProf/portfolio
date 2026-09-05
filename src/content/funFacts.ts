@@ -9,15 +9,15 @@ const iconByKey: Record<string, typeof Gamepad2> = {
 }
 
 const colorByKey: Record<string, string> = {
-  gaming: 'text-[var(--secondary)]',
-  'pc-building': 'text-[var(--tertiary)]',
-  phones: 'text-[var(--primary)]',
-  music: 'text-[var(--secondary)]',
+  gaming: 'text-mint',
+  'pc-building': 'text-amber',
+  phones: 'text-indigo',
+  music: 'text-mint',
 }
 
 export const funFacts = interests.map((item) => ({
   icon: iconByKey[item.key] ?? Gamepad2,
   label: item.label,
   value: item.value,
-  color: colorByKey[item.key] ?? 'text-[var(--secondary)]',
+  color: colorByKey[item.key] ?? 'text-mint',
 }))

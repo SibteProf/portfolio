@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ScrollReveal } from '../components/ui/ScrollReveal'
+import SketchUnderline from '../components/ui/SketchUnderline'
 import { profile, projectInquiryChecklist } from '../content/portfolio'
 import { seo } from '../lib/seo'
 
@@ -147,28 +148,34 @@ function Contact() {
     `form-field ${hasError ? 'error' : ''}`
 
   return (
-    <div className="prose-container py-12">
+    <div className="page-container">
       <section className="section">
         <ScrollReveal className="mb-14">
-          <span className="status-chip mb-8">{profile.availability}</span>
-          <p className="section-kicker">Contact</p>
-          <h1 className="section-title">
+          <span className="chip mb-8">
+            <span
+              aria-hidden="true"
+              className="h-1.5 w-1.5 rounded-full bg-mint"
+            />
+            {profile.availability}
+          </span>
+          <p className="section-kicker mb-3.5">Contact</p>
+          <h1 className="section-title measure">
             Let&apos;s build something{' '}
-            <span className="text-accent">exceptional</span>.
+            <SketchUnderline>exceptional</SketchUnderline>.
           </h1>
-          <p className="section-subtitle mt-5">
+          <p className="section-subtitle measure mt-5">
             Have something in mind? Tell me about it below.
           </p>
         </ScrollReveal>
 
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <ScrollReveal className="divided-list">
             <div>
-              <h2 className="section-kicker">Useful Context</h2>
-              <ul className="space-y-3 text-sm leading-7 text-[var(--text-secondary)]">
+              <h2 className="section-kicker mb-4">Useful Context</h2>
+              <ul className="space-y-3 text-sm leading-7 text-ink-2">
                 {projectInquiryChecklist.map((item) => (
                   <li key={item} className="flex gap-3">
-                    <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[var(--text-muted)]" />
+                    <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-ink-3" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -176,31 +183,26 @@ function Contact() {
             </div>
 
             <div>
-              <h2 className="section-kicker">Direct Contact</h2>
+              <h2 className="section-kicker mb-4">Direct Contact</h2>
               <div className="space-y-4">
                 {contactInfo.map((item) => {
                   const Icon = item.icon
                   return (
                     <div key={item.label} className="flex items-start gap-3">
-                      <Icon
-                        size={16}
-                        className="mt-1 text-[var(--text-muted)]"
-                      />
+                      <Icon size={16} className="mt-1 text-ink-3" />
                       <div>
-                        <p className="text-xs uppercase tracking-[0.08em] text-[var(--text-muted)]">
+                        <p className="text-xs uppercase tracking-[0.08em] text-ink-3">
                           {item.label}
                         </p>
                         {item.link ? (
                           <a
                             href={item.link}
-                            className="text-sm text-[var(--text-primary)] hover:text-[var(--primary)]"
+                            className="text-sm text-ink hover:text-indigo"
                           >
                             {item.value}
                           </a>
                         ) : (
-                          <p className="text-sm text-[var(--text-primary)]">
-                            {item.value}
-                          </p>
+                          <p className="text-sm text-ink">{item.value}</p>
                         )}
                       </div>
                     </div>
@@ -210,7 +212,7 @@ function Contact() {
             </div>
 
             <div>
-              <h2 className="section-kicker">Resume</h2>
+              <h2 className="section-kicker mb-4">Resume</h2>
               <a
                 href={profile.resume}
                 target="_blank"
@@ -223,7 +225,7 @@ function Contact() {
             </div>
 
             <div>
-              <h2 className="section-kicker">Profiles</h2>
+              <h2 className="section-kicker mb-4">Profiles</h2>
               <div className="flex flex-wrap gap-3">
                 {socialLinks.map((link) => {
                   const Icon = link.icon
@@ -244,12 +246,12 @@ function Contact() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal>
+          <ScrollReveal className="glass-card h-fit p-6 sm:p-8">
             <div className="mb-7">
               <h2 className="font-display text-2xl font-semibold tracking-[-0.02em]">
                 Project inquiry
               </h2>
-              <p className="mt-2 text-sm text-[var(--text-secondary)]">
+              <p className="mt-2 text-sm text-ink-2">
                 A few specifics are enough. We can untangle the rest together.
               </p>
             </div>
@@ -262,14 +264,10 @@ function Contact() {
                   exit={{ opacity: 0, y: -10 }}
                   role="alert"
                   aria-live="polite"
-                  className="mb-6 flex items-center gap-3 rounded-lg border border-[var(--secondary)]/30 bg-[var(--secondary)]/10 px-4 py-3"
+                  className="mb-6 flex items-center gap-3 rounded-lg border border-mint/30 bg-mint/10 px-4 py-3"
                 >
-                  <CheckCircle
-                    className="text-[var(--secondary)]"
-                    size={20}
-                    aria-hidden
-                  />
-                  <p className="text-sm font-medium text-[var(--secondary)]">
+                  <CheckCircle className="text-mint" size={20} aria-hidden />
+                  <p className="text-sm font-medium text-mint">
                     Message sent successfully. I&apos;ll get back to you soon.
                   </p>
                 </motion.div>
@@ -284,14 +282,10 @@ function Contact() {
                   exit={{ opacity: 0, y: -10 }}
                   role="alert"
                   aria-live="assertive"
-                  className="mb-6 flex items-center gap-3 rounded-lg border border-[var(--danger)]/30 bg-[var(--danger)]/10 px-4 py-3"
+                  className="mb-6 flex items-center gap-3 rounded-lg border border-rose/30 bg-rose/10 px-4 py-3"
                 >
-                  <AlertCircle
-                    className="text-[var(--danger)]"
-                    size={20}
-                    aria-hidden
-                  />
-                  <p className="text-sm font-medium text-[var(--danger)]">
+                  <AlertCircle className="text-rose" size={20} aria-hidden />
+                  <p className="text-sm font-medium text-rose">
                     Something went wrong. Please try again.
                   </p>
                 </motion.div>
@@ -305,7 +299,7 @@ function Contact() {
                   className="mb-2 block font-code text-xs font-bold uppercase tracking-[0.1em]"
                 >
                   Name{' '}
-                  <span className="text-[var(--danger)]" aria-hidden="true">
+                  <span className="text-rose" aria-hidden="true">
                     *
                   </span>
                 </label>
@@ -331,7 +325,7 @@ function Contact() {
                   className="mb-2 block font-code text-xs font-bold uppercase tracking-[0.1em]"
                 >
                   Email{' '}
-                  <span className="text-[var(--danger)]" aria-hidden="true">
+                  <span className="text-rose" aria-hidden="true">
                     *
                   </span>
                 </label>
@@ -357,7 +351,7 @@ function Contact() {
                   className="mb-2 block font-code text-xs font-bold uppercase tracking-[0.1em]"
                 >
                   Subject{' '}
-                  <span className="text-[var(--danger)]" aria-hidden="true">
+                  <span className="text-rose" aria-hidden="true">
                     *
                   </span>
                 </label>
@@ -385,7 +379,7 @@ function Contact() {
                   className="mb-2 block font-code text-xs font-bold uppercase tracking-[0.1em]"
                 >
                   Message{' '}
-                  <span className="text-[var(--danger)]" aria-hidden="true">
+                  <span className="text-rose" aria-hidden="true">
                     *
                   </span>
                 </label>
@@ -410,7 +404,7 @@ function Contact() {
                 type="submit"
                 disabled={status === 'submitting'}
                 aria-busy={status === 'submitting'}
-                className="btn btn-primary w-full"
+                className="btn btn-primary btn-block"
                 whileTap={{ scale: status === 'submitting' ? 1 : 0.99 }}
               >
                 {status === 'submitting' ? (
@@ -465,7 +459,7 @@ function FieldError({
     <div>
       {children}
       {message && (
-        <p id={id} className="mt-2 text-xs text-[var(--danger)]" role="alert">
+        <p id={id} className="mt-2 text-xs text-rose" role="alert">
           {message}
         </p>
       )}

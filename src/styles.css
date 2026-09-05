@@ -1,433 +1,700 @@
 @import 'tailwindcss';
-@plugin "@tailwindcss/typography";
 
+/* ---------------------------------------------------------------------------
+   Tokens
+
+   The palette lives in @theme so Tailwind generates real utilities for it
+   (bg-surface, text-ink-2, border-line). Before this every colour was a bare
+   CSS var, which is why the TSX was full of text-[var(--text-secondary)].
+
+   Source of truth: design/synthetic_edge/DESIGN.md
+--------------------------------------------------------------------------- */
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --color-bg: #13131b;
+  --color-deep: #0d0d15;
+  --color-surface: #1b1b23;
+  --color-surface-2: #1f1f27;
+  --color-surface-3: #292932;
+
+  --color-ink: #e4e1ed;
+  --color-ink-2: #c7c4d7;
+  --color-ink-3: #908fa0;
+
+  --color-indigo: #c0c1ff;
+  --color-indigo-hot: #8083ff;
+  --color-indigo-deep: #494bd6;
+  --color-mint: #4edea3;
+  --color-mint-deep: #00a572;
+  --color-amber: #ffb783;
+  --color-rose: #ffb4ab;
+
+  --color-line: rgba(255, 255, 255, 0.06);
+  --color-line-strong: rgba(192, 193, 255, 0.32);
 }
 
-:root,
-:root[data-theme='dark'] {
+:root {
   color-scheme: dark;
-  --bg-primary: #13131b;
-  --bg-secondary: #0d0d15;
-  --bg-elevated: #1b1b23;
-  --bg-card: rgba(31, 31, 39, 0.68);
-  --bg-card-strong: #1f1f27;
-  --bg-card-muted: #292932;
-  --text-primary: #e4e1ed;
-  --text-secondary: #c7c4d7;
-  --text-muted: #908fa0;
-  --text-inverse: #ffffff;
-  --border-color: rgba(255, 255, 255, 0.06);
-  --border-strong: rgba(192, 193, 255, 0.32);
-  --primary: #c0c1ff;
-  --primary-deep: #494bd6;
-  --primary-hot: #8083ff;
-  --secondary: #4edea3;
-  --secondary-deep: #00a572;
-  --tertiary: #ffb783;
-  --danger: #ffb4ab;
+
+  /* Read at runtime by ParticlePortrait off documentElement to build its
+     particle colour ramp. Do not rename these two. */
+  --primary: var(--color-indigo);
+  --secondary: var(--color-mint);
+
+  /* Semantic radii, deliberately outside Tailwind's own --radius-* namespace
+     so rounded-lg and friends keep their familiar values. */
+  --r-code: 0.25rem;
+  --r-control: 0.5rem;
+  --r-card: 0.75rem;
+  --r-panel: 1rem;
+
+  /* 8px rhythm, per DESIGN.md. The old 6.5rem section padding was off-scale. */
+  --space-section: 5rem;
+  --header-h: 4.5rem;
+
   --grid-line: rgba(255, 255, 255, 0.035);
-  --glow-primary: 0 24px 70px rgba(73, 75, 214, 0.24);
   --glow-soft: 0 20px 44px rgba(73, 75, 214, 0.12);
+  --glow-primary: 0 24px 70px rgba(73, 75, 214, 0.24);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-* {
-  box-sizing: border-box;
+/* ---------------------------------------------------------------------------
+   Everything below is layered on purpose.
+
+   Unlayered CSS outranks every layered rule, and Tailwind ships its utilities
+   in `@layer utilities`. When these rules sat outside a layer, the `p { margin: 0 }`
+   reset quietly beat `mt-5` and `space-y-6` on every heading and paragraph on
+   the site — which is why the footer needed an `!mb-0` to get its spacing back.
+   Inside `base` and `components`, utilities win again, as they should.
+--------------------------------------------------------------------------- */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100%;
+    overflow-x: clip;
+  }
+
+  html {
+    background: var(--color-bg);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-deep);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-surface-3);
+    border-radius: 9999px;
+  }
+
+  ::selection {
+    background: var(--color-indigo-deep);
+    color: white;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-indigo);
+    outline-offset: 3px;
+  }
 }
 
-html,
-body,
-#app {
-  min-height: 100%;
-  overflow-x: clip;
-}
+@layer components {
+  .font-display,
+  .display-title {
+    font-family: var(--font-display);
+  }
 
-html {
-  background: var(--bg-primary);
-  scroll-behavior: smooth;
-}
+  .font-code {
+    font-family: var(--font-mono);
+  }
 
-body {
-  margin: 0;
-  color: var(--text-primary);
-  font-family: var(--font-sans);
-  background: var(--bg-primary);
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  /* -------------------------------------------------------------------------
+     Layout
 
-img,
-svg,
-video,
-canvas {
-  max-width: 100%;
-}
+     One container width for the whole site. Prose is constrained by .measure
+     inside wide layouts rather than by narrowing the page itself.
+  ------------------------------------------------------------------------- */
+  .page-container {
+    width: min(1200px, calc(100% - 3rem));
+    margin-inline: auto;
+    min-width: 0;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  .measure {
+    max-width: 65ch;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0;
-}
+  .measure-sm {
+    max-width: 48ch;
+  }
 
-.font-display,
-.display-title {
-  font-family: var(--font-display);
-}
+  /* Display type needs a much tighter measure than body copy: 65ch of 60px
+     type is an unreadable ribbon. */
+  .measure-display {
+    max-width: 16ch;
+  }
 
-.font-code {
-  font-family: var(--font-mono);
-}
+  .section {
+    padding-block: var(--space-section);
+  }
 
-.page-container {
-  width: min(1200px, calc(100% - 3rem));
-  margin-inline: auto;
-  min-width: 0;
-}
+  .section-tight {
+    padding-block: calc(var(--space-section) * 0.6);
+  }
 
-.prose-container {
-  width: min(760px, calc(100% - 3rem));
-  margin-inline: auto;
-  min-width: 0;
-}
+  /* -------------------------------------------------------------------------
+     Typography
+  ------------------------------------------------------------------------- */
 
-.section {
-  padding: 6.5rem 0;
-}
+  /* Purely typographic: spacing is the layout container's job, which is what
+     removes the need for the !mb-0 override the footer used to carry. */
+  .section-kicker {
+    display: block;
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
 
-.section-kicker {
-  margin-bottom: 0.9rem;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  line-height: 1;
-  text-transform: uppercase;
-}
+  .section-title {
+    /* Display type needs its own measure. Without this the h1 ran the full
+       1200px container and read as a ribbon. */
+    max-width: 24ch;
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 4.4vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+  }
 
-.section-title {
-  max-width: 46rem;
-  font-family: var(--font-display);
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-}
+  .section-title-sm {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.18;
+  }
 
-.section-title-sm {
-  font-family: var(--font-display);
-  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.18;
-}
+  .section-subtitle {
+    color: var(--color-ink-2);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
 
-.section-subtitle {
-  max-width: 40rem;
-  color: var(--text-secondary);
-  font-size: 1rem;
-  line-height: 1.75;
-}
+  .stack-line {
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
 
-.text-accent {
-  color: var(--primary);
-}
+  /* -------------------------------------------------------------------------
+     Surfaces
+  ------------------------------------------------------------------------- */
+  /* No backdrop-filter on these two. They sit on a flat page background, so
+     the blur composited nothing while forcing a layer per card — with a dozen
+     cards on a page that was enough to break sticky-header repaint on scroll.
+     Blur is kept only where something genuinely shows through: the sticky
+     header and the project-card overlay. */
+  .glass-card {
+    border: 1px solid var(--color-line);
+    border-radius: var(--r-card);
+    background: linear-gradient(
+      145deg,
+      rgba(31, 31, 39, 0.78),
+      rgba(19, 19, 27, 0.58)
+    );
+    box-shadow: var(--glow-soft);
+  }
 
-.text-mint {
-  color: var(--secondary);
-}
+  .surface-card {
+    border: 1px solid var(--color-line);
+    border-radius: var(--r-card);
+    background: rgba(31, 31, 39, 0.68);
+    box-shadow: var(--glow-soft);
+    transition:
+      border-color 240ms var(--ease-out),
+      box-shadow 240ms var(--ease-out);
+  }
 
-.glass-card {
-  border: 1px solid var(--border-color);
-  background: linear-gradient(
-    145deg,
-    rgba(31, 31, 39, 0.78),
-    rgba(19, 19, 27, 0.58)
-  );
-  box-shadow: var(--glow-soft);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
+  .surface-card:hover {
+    border-color: var(--color-line-strong);
+    box-shadow: var(--glow-primary);
+  }
 
-.surface-card {
-  border: 1px solid var(--border-color);
-  background: var(--bg-card);
-  box-shadow: var(--glow-soft);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
+  /* Faint technical grid, the same motif as the OG image, so shared links and
+     the site itself read as one thing. */
+  .grid-motif {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
 
-.line-panel {
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
-  background: rgba(13, 13, 21, 0.4);
-}
+  .line-panel {
+    border-block: 1px solid var(--color-line);
+    background: rgba(13, 13, 21, 0.4);
+  }
 
-.divided-list > * {
-  border-top: 1px solid var(--border-color);
-  padding-top: 1.75rem;
-  padding-bottom: 1.75rem;
-}
+  .divided-list > * {
+    border-top: 1px solid var(--color-line);
+    padding-block: 1.75rem;
+  }
 
-.divided-list > *:first-child {
-  border-top: none;
-  padding-top: 0;
-}
+  .divided-list > *:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
 
-.divided-list > *:last-child {
-  padding-bottom: 0;
-}
+  .divided-list > *:last-child {
+    padding-bottom: 0;
+  }
 
-.stack-line {
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  letter-spacing: 0.01em;
-}
+  /* -------------------------------------------------------------------------
+     Project card
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  min-height: 2.85rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0.5rem;
-  font-family: var(--font-sans);
-  font-size: 0.92rem;
-  font-weight: 600;
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    background-color 180ms ease,
-    color 180ms ease;
-}
+     DESIGN.md calls for a glassmorphic overlay over a project screenshot.
+     There are no screenshots in the repo, so the card header is a small IDE
+     window instead and the overlay rises on hover to surface the visit
+     affordance.
+  ------------------------------------------------------------------------- */
+  .project-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition:
+      transform 260ms var(--ease-out),
+      border-color 260ms var(--ease-out),
+      box-shadow 260ms var(--ease-out);
+  }
 
-.btn:hover {
-  transform: translateY(-1px);
-}
+  .project-card:hover,
+  .project-card:focus-within {
+    transform: translateY(-4px);
+    border-color: var(--color-line-strong);
+    box-shadow: var(--glow-primary);
+  }
 
-.btn-primary {
-  border: 1px solid transparent;
-  background: var(--primary-deep);
-  color: var(--text-inverse);
-}
+  .project-card-media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-deep);
+    aspect-ratio: 16 / 5;
+  }
 
-.btn-primary:hover {
-  background: var(--primary-hot);
-  color: #0d0096;
-}
+  .project-card-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border-top: 1px solid var(--color-line-strong);
+    background: rgba(19, 19, 27, 0.72);
+    padding: 0.7rem 1rem;
+    color: var(--color-indigo);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition:
+      opacity 260ms var(--ease-out),
+      transform 260ms var(--ease-out);
+  }
 
-.btn-secondary {
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  background: transparent;
-}
-
-.btn-secondary:hover {
-  border-color: rgba(192, 193, 255, 0.4);
-  color: var(--primary);
-}
-
-.nav-link {
-  position: relative;
-  color: var(--text-secondary);
-  font-size: 0.92rem;
-  font-weight: 500;
-  transition: color 180ms ease;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  bottom: -0.55rem;
-  left: 0;
-  height: 2px;
-  border-radius: 9999px;
-  background: var(--primary);
-  opacity: 0;
-  transform: scaleX(0.6);
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  color: var(--primary);
-}
-
-.nav-link.active::after {
-  opacity: 1;
-  transform: scaleX(1);
-}
-
-.eyebrow-chip,
-.status-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  width: fit-content;
-  border: 1px solid var(--border-color);
-  border-radius: 9999px;
-  padding: 0.4rem 0.85rem;
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-}
-
-.tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--border-color);
-  border-radius: 0.35rem;
-  padding: 0.35rem 0.65rem;
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-}
-
-.terminal-window {
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.75rem;
-  background: #0d0d15;
-  box-shadow:
-    0 24px 70px rgba(0, 0, 0, 0.42),
-    0 0 0 1px rgba(255, 255, 255, 0.04);
-}
-
-.terminal-header {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  border-bottom: 1px solid var(--border-color);
-  background: rgba(31, 31, 39, 0.9);
-  padding: 0.85rem 1rem;
-}
-
-.terminal-dot {
-  width: 0.72rem;
-  height: 0.72rem;
-  border-radius: 9999px;
-}
-
-.terminal-body {
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  line-height: 1.8;
-  padding: 1.25rem;
-}
-
-.scanline {
-  position: absolute;
-  top: -6rem;
-  right: 0;
-  left: 0;
-  z-index: 2;
-  height: 6rem;
-  pointer-events: none;
-  background: linear-gradient(
-    0deg,
-    transparent,
-    rgba(78, 222, 163, 0.12),
-    transparent
-  );
-  opacity: 0.28;
-  animation: scanline 8s linear infinite;
-}
-
-.form-field {
-  width: 100%;
-  border: 1px solid var(--border-color);
-  border-radius: 0.65rem;
-  background: rgba(13, 13, 21, 0.72);
-  padding: 0.9rem 1rem;
-  color: var(--text-primary);
-  font-size: 0.94rem;
-  transition:
-    border-color 180ms ease,
-    box-shadow 180ms ease,
-    background-color 180ms ease;
-}
-
-.form-field::placeholder {
-  color: rgba(144, 143, 160, 0.8);
-}
-
-.form-field:focus {
-  border-color: var(--primary);
-  background: rgba(13, 13, 21, 0.88);
-  box-shadow: 0 0 0 3px rgba(192, 193, 255, 0.12);
-  outline: none;
-}
-
-.form-field.error {
-  border-color: rgba(255, 180, 171, 0.7);
-  box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.08);
-}
-
-.skip-link {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  padding: 0.75rem 1rem;
-  background: var(--primary);
-  color: #07006c;
-  font-weight: 700;
-  transform: translateY(-100%);
-  transition: transform 180ms ease;
-}
-
-.skip-link:focus {
-  transform: translateY(0);
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--bg-card-muted);
-  border-radius: 9999px;
-}
-
-::selection {
-  background: var(--primary-deep);
-  color: white;
-}
-
-:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 3px;
-}
-
-@keyframes scanline {
-  0% {
+  .project-card:hover .project-card-overlay,
+  .project-card:focus-within .project-card-overlay {
+    opacity: 1;
     transform: translateY(0);
   }
 
-  100% {
+  /* -------------------------------------------------------------------------
+     Buttons
+  ------------------------------------------------------------------------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 2.85rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--r-control);
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    font-weight: 600;
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease,
+      box-shadow 180ms ease,
+      color 180ms ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Opt-in. This used to be a blanket rule under 768px, which also stretched
+     the two fixed-position CTAs across the viewport and made them overlap. */
+  .btn-block {
+    width: 100%;
+  }
+
+  .btn-sm {
+    gap: 0.45rem;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.95rem;
+    font-size: 0.86rem;
+  }
+
+  .btn-primary {
+    border: 1px solid transparent;
+    background: var(--color-indigo-deep);
+    color: #ffffff;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-indigo-hot);
+    color: #0d0096;
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--color-line);
+    color: var(--color-ink);
+    background: transparent;
+  }
+
+  /* Ghost buttons glow on hover, per DESIGN.md. */
+  .btn-secondary:hover {
+    border-color: var(--color-line-strong);
+    box-shadow: var(--glow-soft);
+    color: var(--color-indigo);
+  }
+
+  /* -------------------------------------------------------------------------
+     Nav
+  ------------------------------------------------------------------------- */
+  .nav-link {
+    position: relative;
+    color: var(--color-ink-2);
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: color 180ms ease;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -0.55rem 0;
+    height: 2px;
+    border-radius: 9999px;
+    background: var(--color-indigo);
+    opacity: 0;
+    transform: scaleX(0.6);
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--color-indigo);
+  }
+
+  .nav-link.active::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  /* -------------------------------------------------------------------------
+     Chips, tags, stickers
+  ------------------------------------------------------------------------- */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: fit-content;
+    border: 1px solid var(--color-line);
+    border-radius: 9999px;
+    padding: 0.4rem 0.85rem;
+    color: var(--color-ink-2);
+    font-size: 0.8rem;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-line);
+    border-radius: var(--r-code);
+    padding: 0.35rem 0.65rem;
+    color: var(--color-ink-2);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  /* Sticker badge: pill, 2px border, slightly tilted so a row of them reads as
+     something physical rather than as another rack of chips. The tilt comes
+     from an index, never Math.random, so server and client agree. */
+  .sticker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 2px solid var(--color-line-strong);
+    border-radius: 9999px;
+    background: rgba(31, 31, 39, 0.72);
+    padding: 0.3rem 0.7rem;
+    color: var(--color-ink-2);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    transition:
+      rotate 200ms var(--ease-out),
+      border-color 200ms var(--ease-out),
+      color 200ms var(--ease-out);
+  }
+
+  .sticker[data-tilt='0'] {
+    rotate: -2.5deg;
+  }
+
+  .sticker[data-tilt='1'] {
+    rotate: 1.5deg;
+  }
+
+  .sticker[data-tilt='2'] {
+    rotate: -1deg;
+  }
+
+  .sticker:hover {
+    rotate: 0deg;
+    border-color: var(--color-indigo);
+    color: var(--color-indigo);
+  }
+
+  .sticker-accent {
+    border-color: rgba(78, 222, 163, 0.45);
+    color: var(--color-mint);
+  }
+
+  /* -------------------------------------------------------------------------
+     Hand-drawn underline, for key headline phrases (DESIGN.md)
+  ------------------------------------------------------------------------- */
+  .sketch-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .sketch-underline > svg {
+    position: absolute;
+    inset: auto 0 -0.02em 0;
+    width: 100%;
+    height: 0.2em;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  /* -------------------------------------------------------------------------
+     Terminal
+  ------------------------------------------------------------------------- */
+  .terminal-window {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--r-card);
+    background: var(--color-deep);
+    box-shadow:
+      0 24px 70px rgba(0, 0, 0, 0.42),
+      0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
+
+  .terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    border-bottom: 1px solid var(--color-line);
+    background: rgba(31, 31, 39, 0.9);
+    padding: 0.85rem 1rem;
+  }
+
+  .terminal-dot {
+    width: 0.72rem;
+    height: 0.72rem;
+    border-radius: 9999px;
+  }
+
+  .terminal-body {
+    color: var(--color-ink-2);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.8;
+    padding: 1.25rem;
+  }
+
+  .terminal-output {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line) transparent;
+  }
+
+  .terminal-output::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .terminal-output::-webkit-scrollbar-thumb {
+    background: var(--color-line);
+    border-radius: 9999px;
+  }
+
+  .scanline {
+    position: absolute;
+    inset: -6rem 0 auto 0;
+    z-index: 2;
+    height: 6rem;
+    pointer-events: none;
+    background: linear-gradient(
+      0deg,
+      transparent,
+      rgba(78, 222, 163, 0.12),
+      transparent
+    );
+    opacity: 0.28;
+    animation: scanline 8s linear infinite;
+  }
+
+  /* -------------------------------------------------------------------------
+     Forms
+  ------------------------------------------------------------------------- */
+  .form-field {
+    width: 100%;
+    border: 1px solid var(--color-line);
+    border-radius: var(--r-control);
+    background: rgba(13, 13, 21, 0.72);
+    padding: 0.9rem 1rem;
+    color: var(--color-ink);
+    caret-color: var(--color-mint);
+    font-size: 0.94rem;
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .form-field::placeholder {
+    color: rgba(144, 143, 160, 0.8);
+  }
+
+  .form-field:focus {
+    border-color: var(--color-indigo);
+    background: rgba(13, 13, 21, 0.88);
+    box-shadow: 0 0 0 3px rgba(192, 193, 255, 0.12);
+    outline: none;
+  }
+
+  .form-field.error {
+    border-color: rgba(255, 180, 171, 0.7);
+    box-shadow: 0 0 0 3px rgba(255, 180, 171, 0.08);
+  }
+
+  /* -------------------------------------------------------------------------
+     Chrome
+  ------------------------------------------------------------------------- */
+  .skip-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: var(--color-indigo);
+    color: #07006c;
+    font-weight: 700;
+    transform: translateY(-100%);
+    transition: transform 180ms ease;
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  .typewriter-caret {
+    display: inline-block;
+    margin-left: 1px;
+    color: var(--color-mint);
+    animation: caret-blink 1s steps(1) infinite;
+  }
+
+  /* The logo cursor blinks on the terminal caret's keyframes, so the mark and
+     the hero read as the same idea. */
+  .logo-caret {
+    animation: caret-blink 1.4s steps(1) infinite;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Motion
+--------------------------------------------------------------------------- */
+@keyframes scanline {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
     transform: translateY(calc(100vh + 12rem));
   }
 }
@@ -448,46 +715,29 @@ p {
   }
 }
 
-.typewriter-caret {
-  display: inline-block;
-  margin-left: 1px;
-  color: var(--secondary);
-  animation: caret-blink 1s steps(1) infinite;
-}
-
 @media (max-width: 768px) {
-  .page-container {
-    width: min(100% - 1.5rem, 1200px);
+  :root {
+    --space-section: 3.5rem;
+    --header-h: 4rem;
   }
 
-  .section {
-    padding: 3.75rem 0;
-  }
-
-  .btn {
-    width: 100%;
+  @layer components {
+    .page-container {
+      width: min(100% - 1.5rem, 1200px);
+    }
   }
 }
 
-.terminal-output {
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-color) transparent;
-}
-
-.terminal-output::-webkit-scrollbar {
-  width: 6px;
-}
-
-.terminal-output::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 9999px;
-}
-
+/* Deliberately unlayered: an unlayered !important outranks every layered rule,
+   which is what makes this a genuine kill switch for CSS animation. Note that
+   framer-motion animates in JS and ignores this entirely — that is handled in
+   ScrollReveal and friends with useReducedMotion. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     animation-delay: 0ms !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;

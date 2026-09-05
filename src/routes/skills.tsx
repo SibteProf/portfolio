@@ -1,5 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ScrollReveal } from '../components/ui/ScrollReveal'
+import Section from '../components/ui/Section'
+import SketchUnderline from '../components/ui/SketchUnderline'
+import Sticker, { StickerRow } from '../components/ui/Sticker'
+import {
+  ScrollReveal,
+  StaggerContainer,
+  StaggerItem,
+} from '../components/ui/ScrollReveal'
 import { comfortStack, stackGroups } from '../content/portfolio'
 import { seo } from '../lib/seo'
 
@@ -16,47 +23,50 @@ export const Route = createFileRoute('/skills')({
 
 function Skills() {
   return (
-    <div className="prose-container py-12">
-      <section className="section">
-        <ScrollReveal className="mb-12">
-          <p className="section-kicker">Stack</p>
-          <h1 className="section-title">
-            What I actually <span className="text-accent">reach for</span>.
-          </h1>
-          <p className="section-subtitle mt-5">
-            The full list, so I don't have to keep repeating it on every other
-            page.
-          </p>
-        </ScrollReveal>
-
-        <div className="divided-list">
+    <div className="page-container">
+      <Section
+        kicker="Stack"
+        headingAs="h1"
+        size="lg"
+        title={
+          <>
+            What I actually <SketchUnderline>reach for</SketchUnderline>.
+          </>
+        }
+        subtitle="The full list, so I don't have to keep repeating it on every other page."
+      >
+        <StaggerContainer className="grid gap-6 md:grid-cols-2">
           {stackGroups.map((group) => (
-            <ScrollReveal key={group.title}>
-              <h2 className="mb-2 font-display text-lg font-semibold">
-                {group.title}
-              </h2>
-              <p className="stack-line">{group.items.join(', ')}</p>
-            </ScrollReveal>
+            <StaggerItem key={group.title}>
+              <div className="surface-card h-full p-6">
+                <h2 className="mb-4 font-display text-lg font-semibold">
+                  {group.title}
+                </h2>
+                <StickerRow items={group.items} />
+              </div>
+            </StaggerItem>
           ))}
-        </div>
-      </section>
+        </StaggerContainer>
+      </Section>
 
-      <section className="section">
-        <ScrollReveal className="mb-6">
-          <p className="section-kicker">Also Comfortable With</p>
-          <h2 className="section-title-sm">
-            Supporting tools I can slot into an existing setup.
-          </h2>
-        </ScrollReveal>
-
+      <Section
+        kicker="Also Comfortable With"
+        title="Supporting tools I can slot into an existing setup."
+      >
         <ScrollReveal>
-          <p className="stack-line">{comfortStack.join(', ')}</p>
-          <p className="mt-4 text-sm text-[var(--text-muted)]">
-            also comfortable flashing a ROM onto a phone that didn&apos;t ask
+          <div className="flex flex-wrap items-center gap-2.5">
+            {comfortStack.map((item, i) => (
+              <Sticker key={item} index={i} accent>
+                {item}
+              </Sticker>
+            ))}
+          </div>
+          <p className="mt-8 font-code text-sm text-ink-3">
+            # also comfortable flashing a ROM onto a phone that didn&apos;t ask
             for it
           </p>
         </ScrollReveal>
-      </section>
+      </Section>
     </div>
   )
 }
