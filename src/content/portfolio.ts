@@ -11,6 +11,7 @@ export const profile = {
   summary:
     "I like owning a feature start to finish: front end, backend, database, the annoying edge cases nobody wants to touch. If it needs to talk to an API, hold a login, or run in real time, I've probably already broken it once in a way that taught me something.",
   availability: 'Available for full-stack web and mobile work',
+  resume: '/SibteHussain_FullStack_Resume.pdf',
 }
 
 export const interests = [

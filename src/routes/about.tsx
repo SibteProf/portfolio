@@ -1,9 +1,19 @@
 import { createFileRoute } from '@tanstack/react-router'
+import ParticlePortrait from '../components/ParticlePortrait'
 import { ScrollReveal } from '../components/ui/ScrollReveal'
 import { funFacts } from '../content/funFacts'
 import { profile, timeline, workingPrinciples } from '../content/portfolio'
+import { seo } from '../lib/seo'
 
 export const Route = createFileRoute('/about')({
+  head: () =>
+    seo({
+      title: 'About',
+      description:
+        'Sibte Hussain, full-stack engineer in Lahore. How I work, what I build, and the phones I root for no good reason. Background, principles, and a short career timeline.',
+      path: '/about',
+      type: 'profile',
+    }),
   component: About,
 })
 
@@ -16,6 +26,11 @@ function About() {
             <p className="section-kicker">About</p>
             <h1 className="section-title">Hello, World.</h1>
           </div>
+          <ParticlePortrait
+            src="/portrait-cutout.png"
+            alt="Portrait of Sibte Hussain rendered as a field of particles"
+            className="max-w-[260px]"
+          />
           <div className="space-y-5 text-lg leading-8 text-[var(--text-secondary)]">
             <p>
               I&apos;m {profile.name}, a {profile.title.toLowerCase()} based in{' '}
