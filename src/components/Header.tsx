@@ -1,17 +1,11 @@
-import { useLocation } from '@tanstack/react-router'
+import { Link, useLocation } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { FileText, Github, Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { profile } from '../content/portfolio'
+import { navLinks } from '../content/nav'
+import Logo from './ui/Logo'
 import GameModeToggle from './GameModeToggle'
-
-const navLinks = [
-  { href: '/', label: 'Home', match: '/' },
-  { href: '/experience', label: 'Work', match: '/experience' },
-  { href: '/skills', label: 'Stack', match: '/skills' },
-  { href: '/about', label: 'About', match: '/about' },
-  { href: '/contact', label: 'Contact', match: '/contact' },
-]
 
 export default function Header() {
   const location = useLocation()
@@ -42,30 +36,25 @@ export default function Header() {
         }`}
       >
         <nav
-          className="page-container flex items-center justify-between py-4"
+          className="page-container flex h-[var(--header-h)] items-center justify-between"
           aria-label="Main navigation"
         >
-          <a
-            href="/"
-            className="font-display text-lg font-semibold tracking-[-0.02em] text-[var(--text-primary)] transition-colors hover:text-[var(--primary)]"
-          >
-            sibtehussain.com
-          </a>
+          <Link to="/" className="group/logo" aria-label="Sibte Hussain, home">
+            <Logo />
+          </Link>
 
           <div className="hidden items-center gap-7 lg:flex">
-            {navLinks.map((link) => {
-              const isActive = location.pathname === link.match
-
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className={`nav-link ${isActive ? 'active' : ''}`}
-                >
-                  {link.label}
-                </a>
-              )
-            })}
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                to={link.href}
+                className="nav-link"
+                activeProps={{ className: 'active' }}
+                activeOptions={{ exact: link.href === '/' }}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
           <div className="flex items-center gap-3">
@@ -74,8 +63,8 @@ export default function Header() {
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-[var(--text-secondary)] transition-all hover:border-[var(--primary)] hover:text-[var(--primary)] sm:flex"
-              aria-label="GitHub"
+              className="hidden h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-ink-2 transition-all hover:border-indigo hover:text-indigo sm:flex"
+              aria-label="GitHub profile (opens in a new tab)"
             >
               <Github size={18} />
             </a>
@@ -83,21 +72,21 @@ export default function Header() {
               href={profile.resume}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden items-center gap-1.5 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)] lg:inline-flex"
+              className="hidden items-center gap-1.5 text-sm font-medium text-ink-2 transition-colors hover:text-indigo lg:inline-flex"
             >
               <FileText size={15} />
               Resume
             </a>
-            <a
-              href="/contact"
-              className="btn btn-primary hidden min-h-10 px-4 py-2 sm:inline-flex"
+            <Link
+              to="/contact"
+              className="btn btn-primary btn-sm hidden sm:inline-flex"
             >
               Let&apos;s Talk
-            </a>
+            </Link>
             <motion.button
               type="button"
               onClick={() => setMobileMenuOpen((value) => !value)}
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-[var(--text-secondary)] lg:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-ink-2 lg:hidden"
               aria-label="Toggle menu"
               aria-expanded={mobileMenuOpen}
               whileTap={{ scale: 0.96 }}
@@ -115,20 +104,22 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.18 }}
-            className="sticky top-[73px] z-40 border-b border-white/10 bg-[rgba(13,13,21,0.94)] backdrop-blur-xl lg:hidden"
+            className="sticky top-[var(--header-h)] z-40 border-b border-white/10 bg-[rgba(13,13,21,0.94)] backdrop-blur-xl lg:hidden"
           >
             <nav
               className="page-container flex flex-col gap-4 py-5"
               aria-label="Mobile navigation"
             >
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
-                  href={link.href}
-                  className={`nav-link w-fit text-sm ${location.pathname === link.match ? 'active' : ''}`}
+                  to={link.href}
+                  className="nav-link w-fit text-sm"
+                  activeProps={{ className: 'active' }}
+                  activeOptions={{ exact: link.href === '/' }}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <a
                 href={profile.resume}
@@ -139,9 +130,9 @@ export default function Header() {
                 <FileText size={15} />
                 Resume
               </a>
-              <a href="/contact" className="btn btn-primary mt-2">
+              <Link to="/contact" className="btn btn-primary btn-block mt-2">
                 Start a Conversation
-              </a>
+              </Link>
             </nav>
           </motion.div>
         )}

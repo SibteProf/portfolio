@@ -91,9 +91,15 @@ export const Route = createRootRoute({
       },
       { rel: 'stylesheet', href: GOOGLE_FONTS_HREF },
       { rel: 'stylesheet', href: appCss },
-      { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
-      { rel: 'icon', href: '/favicon.png', type: 'image/png' },
-      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+      // Canonical minimal icon set. The .ico carries 16/32/48 for legacy and
+      // search crawlers; the SVG wins wherever it is supported.
+      { rel: 'icon', href: '/favicon.ico', sizes: '16x16 32x32 48x48' },
+      { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
+      {
+        rel: 'apple-touch-icon',
+        href: '/apple-touch-icon.png',
+        sizes: '180x180',
+      },
       { rel: 'manifest', href: '/manifest.json' },
     ],
   }),

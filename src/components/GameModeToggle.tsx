@@ -19,8 +19,8 @@ export default function GameModeToggle() {
       whileTap={{ scale: 0.94 }}
       className={`hidden h-10 w-10 items-center justify-center rounded-lg border transition-colors sm:flex ${
         enabled
-          ? 'border-[var(--secondary)] text-[var(--secondary)]'
-          : 'border-white/10 bg-white/[0.03] text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)]'
+          ? 'border-mint text-mint'
+          : 'border-white/10 bg-white/[0.03] text-ink-2 hover:border-indigo hover:text-indigo'
       }`}
     >
       <Gamepad2 size={18} />

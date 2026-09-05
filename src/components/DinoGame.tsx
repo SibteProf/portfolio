@@ -234,34 +234,32 @@ export default function DinoGame() {
         <span className="terminal-dot bg-[#ff5f56]" />
         <span className="terminal-dot bg-[#ffbd2e]" />
         <span className="terminal-dot bg-[#27c93f]" />
-        <span className="ml-auto font-code text-xs text-[var(--text-muted)]">
-          dino.exe
-        </span>
+        <span className="ml-auto font-code text-xs text-ink-3">dino.exe</span>
       </div>
       <div className="terminal-body">
-        <div className="mb-3 flex items-center justify-between font-code text-xs text-[var(--text-secondary)]">
+        <div className="mb-3 flex items-center justify-between font-code text-xs text-ink-2">
           <span>
-            score: <span className="text-[var(--primary)]">{score}</span>
+            score: <span className="text-indigo">{score}</span>
           </span>
           <span>
-            best: <span className="text-[var(--secondary)]">{highScore}</span>
+            best: <span className="text-mint">{highScore}</span>
           </span>
         </div>
         <div className="relative">
           <canvas
             ref={canvasRef}
-            className="w-full cursor-pointer touch-none rounded-lg border border-white/10 bg-[var(--bg-secondary)]"
+            className="w-full cursor-pointer touch-none rounded-lg border border-white/10 bg-deep"
             style={{ height: CANVAS_HEIGHT }}
           />
           {status !== 'playing' ? (
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center font-code text-sm text-[var(--text-secondary)]">
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center font-code text-sm text-ink-2">
               {status === 'ready'
                 ? 'tap or press space to jump'
                 : `game over. best: ${highScore}. tap to retry`}
             </div>
           ) : null}
         </div>
-        <p className="mt-3 font-code text-xs text-[var(--text-muted)]">
+        <p className="mt-3 font-code text-xs text-ink-3">
           space / tap to jump. yes, this is the whole game.
         </p>
       </div>

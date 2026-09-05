@@ -122,7 +122,7 @@ export default function GameModeOverlay() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.2 }}
-            className="glass-card fixed bottom-6 left-6 z-40 max-w-xs rounded-xl p-4 font-code text-xs leading-6 text-[var(--text-secondary)]"
+            className="glass-card fixed bottom-6 left-6 z-40 max-w-xs rounded-xl p-4 font-code text-xs leading-6 text-ink-2"
           >
             Game mode: on. Also, yes, I game, and there is an actual game hiding
             in the corner now.
@@ -170,7 +170,7 @@ export default function GameModeOverlay() {
                 type="button"
                 onClick={() => setShowGame(false)}
                 aria-label="Close game"
-                className="absolute -top-3 -right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[var(--bg-card-strong)] text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)]"
+                className="absolute -top-3 -right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-surface-2 text-ink-2 transition-colors hover:text-indigo"
               >
                 <X size={16} />
               </button>

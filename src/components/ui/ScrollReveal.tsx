@@ -2,6 +2,13 @@ import { motion, useInView, useReducedMotion } from 'framer-motion'
 import type { MotionProps } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
+import {
+  DURATION,
+  REVEAL_Y,
+  STAGGER,
+  ease,
+  revealVariants,
+} from '../../lib/motion'
 
 interface ScrollRevealProps extends MotionProps {
   children: ReactNode
@@ -11,23 +18,35 @@ interface ScrollRevealProps extends MotionProps {
   className?: string
 }
 
+/**
+ * Fade-and-rise on scroll into view.
+ *
+ * Note the reduced-motion handling: the `prefers-reduced-motion` block in
+ * styles.css only overrides CSS animation and transition durations, and
+ * framer-motion animates via JS, so it ignored that block entirely. The check
+ * has to happen here. The element still renders the same markup either way, so
+ * SSR and hydration agree — only the transition duration changes.
+ */
 export function ScrollReveal({
   children,
   delay = 0,
-  duration = 0.4,
+  duration = DURATION.base,
   once = true,
   className = '',
   ...props
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once, margin: '-80px' })
+  const reduced = useReducedMotion()
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 16 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: REVEAL_Y }}
+      animate={
+        isInView || reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: REVEAL_Y }
+      }
+      transition={reduced ? { duration: 0 } : ease(duration, delay)}
       className={className}
       {...props}
     >
@@ -43,25 +62,31 @@ interface StaggerContainerProps {
   className?: string
 }
 
+/**
+ * Coordinated reveal for grids and lists. Cheaper and better-looking than one
+ * ScrollReveal per item, which makes every child observe the viewport on its
+ * own and arrive out of step.
+ */
 export function StaggerContainer({
   children,
   delay = 0,
-  stagger = 0.08,
+  stagger = STAGGER,
   className = '',
 }: StaggerContainerProps) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-60px' })
+  const reduced = useReducedMotion()
 
   return (
     <motion.div
       ref={ref}
       initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
+      animate={isInView || reduced ? 'visible' : 'hidden'}
       variants={{
         visible: {
           transition: {
-            delayChildren: delay,
-            staggerChildren: stagger,
+            delayChildren: reduced ? 0 : delay,
+            staggerChildren: reduced ? 0 : stagger,
           },
         },
       }}
@@ -82,13 +107,12 @@ export function StaggerItem({
   className = '',
   ...props
 }: StaggerItemProps) {
+  const reduced = useReducedMotion()
+
   return (
     <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 14 },
-        visible: { opacity: 1, y: 0 },
-      }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      variants={revealVariants}
+      transition={reduced ? { duration: 0 } : ease()}
       className={className}
       {...props}
     >
