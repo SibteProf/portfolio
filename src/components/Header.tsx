@@ -1,6 +1,6 @@
 import { useLocation } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
-import { Github, Menu, X } from 'lucide-react'
+import { FileText, Github, Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { profile } from '../content/portfolio'
 import GameModeToggle from './GameModeToggle'
@@ -49,7 +49,7 @@ export default function Header() {
             href="/"
             className="font-display text-lg font-semibold tracking-[-0.02em] text-[var(--text-primary)] transition-colors hover:text-[var(--primary)]"
           >
-            sibte.dev
+            sibtehussain.com
           </a>
 
           <div className="hidden items-center gap-7 lg:flex">
@@ -78,6 +78,15 @@ export default function Header() {
               aria-label="GitHub"
             >
               <Github size={18} />
+            </a>
+            <a
+              href={profile.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden items-center gap-1.5 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)] lg:inline-flex"
+            >
+              <FileText size={15} />
+              Resume
             </a>
             <a
               href="/contact"
@@ -121,6 +130,15 @@ export default function Header() {
                   {link.label}
                 </a>
               ))}
+              <a
+                href={profile.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link flex w-fit items-center gap-1.5 text-sm"
+              >
+                <FileText size={15} />
+                Resume
+              </a>
               <a href="/contact" className="btn btn-primary mt-2">
                 Start a Conversation
               </a>

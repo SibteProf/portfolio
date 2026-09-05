@@ -1,8 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ScrollReveal } from '../components/ui/ScrollReveal'
 import { comfortStack, stackGroups } from '../content/portfolio'
+import { seo } from '../lib/seo'
 
 export const Route = createFileRoute('/skills')({
+  head: () =>
+    seo({
+      title: 'Stack',
+      description:
+        'The tools Sibte Hussain builds with: React, Next.js, TypeScript, Node, NestJS, Django, FastAPI, PostgreSQL, MongoDB, React Native, Expo, GraphQL, Socket.IO, Docker and AWS.',
+      path: '/skills',
+    }),
   component: Skills,
 })
 

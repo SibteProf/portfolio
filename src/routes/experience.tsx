@@ -2,8 +2,16 @@ import { createFileRoute } from '@tanstack/react-router'
 import { ArrowUpRight } from 'lucide-react'
 import { ScrollReveal } from '../components/ui/ScrollReveal'
 import { projects } from '../content/portfolio'
+import { seo } from '../lib/seo'
 
 export const Route = createFileRoute('/experience')({
+  head: () =>
+    seo({
+      title: 'Work',
+      description:
+        'Production work by Sibte Hussain: NowVPlay, Pecunia, Kunji, GoodFynd and VueCent. Role-based dashboards, offline-first POS, real-time sockets, payments and auth.',
+      path: '/experience',
+    }),
   component: Experience,
 })
 

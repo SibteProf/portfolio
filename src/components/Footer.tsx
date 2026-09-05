@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from 'lucide-react'
+import { FileText, Github, Linkedin, Mail } from 'lucide-react'
 import { profile } from '../content/portfolio'
 
 const footerLinks = [
@@ -70,6 +70,15 @@ export default function Footer() {
             >
               <Linkedin size={16} />
               LinkedIn
+            </a>
+            <a
+              href={profile.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 transition-colors hover:text-[var(--primary)]"
+            >
+              <FileText size={16} />
+              Resume (PDF)
             </a>
           </div>
         </div>

@@ -13,3 +13,6 @@ __unconfig*
 todos.json
 .vercel
 .env*.local
+
+# Source photo for the particle-portrait cutout, not shipped
+.assets-source/

@@ -5,6 +5,7 @@ import emailjs from '@emailjs/browser'
 import {
   AlertCircle,
   CheckCircle,
+  FileText,
   Github,
   Linkedin,
   Mail,
@@ -15,8 +16,16 @@ import {
 import { AnimatePresence, motion } from 'framer-motion'
 import { ScrollReveal } from '../components/ui/ScrollReveal'
 import { profile, projectInquiryChecklist } from '../content/portfolio'
+import { seo } from '../lib/seo'
 
 export const Route = createFileRoute('/contact')({
+  head: () =>
+    seo({
+      title: 'Contact',
+      description:
+        'Get in touch with Sibte Hussain about full-stack web and mobile work. Available for React, Next.js, Django and React Native projects.',
+      path: '/contact',
+    }),
   component: Contact,
 })
 
@@ -198,6 +207,19 @@ function Contact() {
                   )
                 })}
               </div>
+            </div>
+
+            <div>
+              <h2 className="section-kicker">Resume</h2>
+              <a
+                href={profile.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+              >
+                <FileText size={16} />
+                Download CV (PDF)
+              </a>
             </div>
 
             <div>

@@ -4,8 +4,34 @@ import InteractiveTerminal from '../components/InteractiveTerminal'
 import { ScrollReveal } from '../components/ui/ScrollReveal'
 import { funFacts } from '../content/funFacts'
 import { profile, projects, services, timeline } from '../content/portfolio'
+import { SITE_NAME, SITE_URL, seo } from '../lib/seo'
 
-export const Route = createFileRoute('/')({ component: Home })
+export const Route = createFileRoute('/')({
+  head: () =>
+    seo({
+      // The home page owns the bare brand title; every other route gets the
+      // "${page} | Sibte Hussain" template.
+      title: 'Full-Stack Engineer',
+      titleOverride: `${SITE_NAME} | Full-Stack Engineer`,
+      description:
+        'Sibte Hussain builds full-stack web and mobile products with React, Next.js, Django and React Native. Shipped work, services, and a terminal you can actually type into.',
+      path: '/',
+      jsonLd: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          '@id': `${SITE_URL}/#website`,
+          url: SITE_URL,
+          name: SITE_NAME,
+          description:
+            'Portfolio of Sibte Hussain, full-stack engineer in Lahore.',
+          inLanguage: 'en',
+          publisher: { '@id': `${SITE_URL}/#person` },
+        },
+      ],
+    }),
+  component: Home,
+})
 
 function Home() {
   return (
