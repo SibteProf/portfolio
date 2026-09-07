@@ -26,7 +26,11 @@ function nextId() {
   return lineId
 }
 
-export default function InteractiveTerminal() {
+export default function InteractiveTerminal({
+  className = '',
+}: {
+  className?: string
+} = {}) {
   const [lines, setLines] = useState<Line[]>([])
   const [draft, setDraft] = useState('')
   const [commandLog, setCommandLog] = useState<string[]>([])
@@ -96,7 +100,7 @@ export default function InteractiveTerminal() {
   }
 
   return (
-    <div className="relative">
+    <div className={`relative ${className}`}>
       <div className="terminal-window relative">
         <div className="terminal-header">
           <span className="terminal-dot bg-[#ff5f56]" />

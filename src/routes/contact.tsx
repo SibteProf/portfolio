@@ -16,6 +16,7 @@ import {
 import { AnimatePresence, motion } from 'framer-motion'
 import { ScrollReveal } from '../components/ui/ScrollReveal'
 import SketchUnderline from '../components/ui/SketchUnderline'
+import AvailabilityStatus from '../components/ui/AvailabilityStatus'
 import { profile, projectInquiryChecklist } from '../content/portfolio'
 import { seo } from '../lib/seo'
 
@@ -151,20 +152,16 @@ function Contact() {
     <div className="page-container">
       <section className="section">
         <ScrollReveal className="mb-14">
-          <span className="chip mb-8">
-            <span
-              aria-hidden="true"
-              className="h-1.5 w-1.5 rounded-full bg-mint"
-            />
-            {profile.availability}
-          </span>
+          <AvailabilityStatus className="mb-8" />
           <p className="section-kicker mb-3.5">Contact</p>
           <h1 className="section-title measure">
-            Let&apos;s build something{' '}
-            <SketchUnderline>exceptional</SketchUnderline>.
+            So, what are you{' '}
+            <SketchUnderline variant="circle" trailing="?">
+              building
+            </SketchUnderline>
           </h1>
           <p className="section-subtitle measure mt-5">
-            Have something in mind? Tell me about it below.
+            A rough idea is fine. I would rather hear it early than polished.
           </p>
         </ScrollReveal>
 

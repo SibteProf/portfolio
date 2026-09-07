@@ -28,6 +28,8 @@ export const Route = createFileRoute('/about')({
   component: About,
 })
 
+const timelineAccents = ['mint', 'indigo', 'amber']
+
 function About() {
   return (
     <div className="page-container">
@@ -40,11 +42,13 @@ function About() {
       >
         <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr]">
           <ScrollReveal className="space-y-8">
-            <ParticlePortrait
-              src="/portrait-cutout.png"
-              alt="Portrait of Sibte Hussain rendered as a field of particles"
-              className="max-w-[320px]"
-            />
+            <div className="particle-stage">
+              <ParticlePortrait
+                src="/portrait-cutout.png"
+                alt="Portrait of Sibte Hussain rendered as a field of particles"
+                className="max-w-[420px]"
+              />
+            </div>
             <div className="measure space-y-5 text-lg leading-8 text-ink-2">
               <p>
                 I&apos;m {profile.name}, a {profile.title.toLowerCase()} based
@@ -114,10 +118,10 @@ function About() {
             const Icon = item.icon
 
             return (
-              <StaggerItem key={item.label}>
+              <StaggerItem key={item.label} data-accent={item.accent}>
                 <div className="surface-card h-full p-5">
                   <Icon
-                    className={`shrink-0 ${item.color}`}
+                    className="accent-text shrink-0"
                     size={22}
                     aria-hidden="true"
                   />
@@ -135,21 +139,20 @@ function About() {
       </Section>
 
       <Section kicker="Timeline" title="The short version of how I got here.">
-        <div className="relative pl-7">
-          <div className="absolute top-1 bottom-0 left-[0.32rem] w-px bg-white/10" />
+        <div className="rail">
           <div className="space-y-10">
             {timeline.map((item, index) => (
               <ScrollReveal
                 key={item.period}
                 delay={index * 0.05}
-                className="relative"
+                className="rail-item"
+                data-accent={timelineAccents[index] ?? 'indigo'}
               >
-                <div className="absolute top-1.5 left-[-1.75rem] h-2 w-2 rounded-full bg-mint" />
                 <p className="font-code text-xs text-ink-3">{item.period}</p>
                 <h3 className="mt-1 font-display text-lg font-semibold">
                   {item.role}
                 </h3>
-                <p className="text-sm text-indigo">{item.company}</p>
+                <p className="accent-text text-sm">{item.company}</p>
                 <p className="measure mt-2 text-sm leading-7 text-ink-2">
                   {item.summary}
                 </p>

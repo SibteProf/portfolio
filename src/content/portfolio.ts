@@ -10,13 +10,14 @@ export const profile = {
     'I build stuff people actually use: web apps, mobile apps, the occasional weird side project. React, Next.js, Django, and React Native are the usual tools.',
   summary:
     "I like owning a feature start to finish: front end, backend, database, the annoying edge cases nobody wants to touch. If it needs to talk to an API, hold a login, or run in real time, I've probably already broken it once in a way that taught me something.",
-  availability: 'Available for full-stack web and mobile work',
+  availability: 'Available for web and mobile work',
   resume: '/SibteHussain_FullStack_Resume.pdf',
 }
 
 export const interests = [
   {
     key: 'gaming',
+    accent: 'mint',
     label: 'Gaming',
     value:
       "Mostly single-player, story-first stuff: Cyberpunk 2077, the GTA series, The Last of Us. I'll jump into Valorant or Apex with friends when someone drags me into a lobby.",
@@ -25,6 +26,7 @@ export const interests = [
   },
   {
     key: 'pc-building',
+    accent: 'amber',
     label: 'PC Building',
     value:
       "I'm the unofficial IT department of my friend group, building and speccing PCs for whoever asks nicely (or brings snacks).",
@@ -32,6 +34,7 @@ export const interests = [
   },
   {
     key: 'phones',
+    accent: 'indigo',
     label: 'Phone Tinkering',
     value:
       'I root phones and flash custom ROMs for fun, mostly just to squeeze out a bit more performance or battery life. Not always necessary. Always fun.',
@@ -39,6 +42,7 @@ export const interests = [
   },
   {
     key: 'music',
+    accent: 'rose',
     label: 'Music',
     value: 'Pop and upbeat, mostly. I am not a lo-fi-while-coding person.',
     short: 'Pop / upbeat music, not the lo-fi coding-playlist type.',
@@ -72,16 +76,19 @@ export const workingPrinciples = [
 
 export const services = [
   {
+    accent: 'indigo',
     title: 'Full-stack web apps',
     description:
       'React and Next.js on the front end, Node/Nest/Express behind it, with auth and data flows that actually hold up in production.',
   },
   {
+    accent: 'mint',
     title: 'Mobile apps',
     description:
       'React Native and Expo apps with real-time updates, caching, and UX that does not feel like a web page wearing a costume.',
   },
   {
+    accent: 'amber',
     title: 'APIs, databases, and integrations',
     description:
       'REST, GraphQL, Socket.IO, Postgres/MySQL/Mongo, Stripe, webhooks: wiring the pieces together so they stay wired together.',
@@ -181,7 +188,12 @@ export const comfortStack = [
 
 export const projects = [
   {
+    accent: 'mint',
     title: 'NowVPlay',
+    image: 'nowvplay',
+    brand: '#14b39a',
+    tagline: 'Find your next game.',
+    domain: 'nowvplay.com',
     type: 'Sports technology platform connecting players, venues, and academies',
     role: 'Full-stack sports-tech delivery across client management, live data, routing, and role-aware dashboards',
     problem:
@@ -198,7 +210,12 @@ export const projects = [
     featured: true,
   },
   {
+    accent: 'indigo',
     title: 'Pecunia and Custom Dev Integrations',
+    image: 'pecunia',
+    brand: '#7c79e8',
+    tagline: 'Accounting practice software.',
+    domain: 'myukaccountant.co.uk',
     type: 'Compliance, payments, and internal AI workflow integrations',
     role: 'Full-stack integration work across validation layers, webhooks, payments, authentication, and local LLM tooling',
     problem:
@@ -215,7 +232,12 @@ export const projects = [
     featured: true,
   },
   {
+    accent: 'amber',
     title: 'Kunji',
+    image: 'kunji',
+    brand: '#12c6c7',
+    tagline: 'One platform. Every society needs.',
+    domain: 'kunji.pk',
     type: 'Society management and collaboration platform',
     role: 'React Native mobile development for a residential-community platform covering visitor access, complaints, billing, and community features',
     problem:
@@ -233,7 +255,12 @@ export const projects = [
     featured: false,
   },
   {
+    accent: 'rose',
     title: 'GoodFynd',
+    image: 'goodfynd',
+    brand: '#35b94d',
+    tagline: 'Grow your food truck.',
+    domain: 'goodfynd.com',
     type: 'POS and operations platform for food trucks and mobile vendors',
     role: 'Full-stack delivery across POS and order-management workflows, real-time order tracking, payment integrations, and server-state management',
     problem:
@@ -257,7 +284,12 @@ export const projects = [
     featured: false,
   },
   {
+    accent: 'indigo',
     title: 'VueCent',
+    image: 'vuecent',
+    brand: '#8083ff',
+    tagline: 'Point your phone at a receipt.',
+    domain: 'Google Play',
     type: 'Personal finance tracker and expense-logging app',
     role: 'React Native development on a self-directed personal project, including AI-powered invoice scanning and insights',
     problem:
