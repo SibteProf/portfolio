@@ -14,15 +14,15 @@
   --font-display: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
-  --color-bg: #13131b;
-  --color-deep: #0d0d15;
-  --color-surface: #1b1b23;
-  --color-surface-2: #1f1f27;
-  --color-surface-3: #292932;
+  --color-bg: #15141a;
+  --color-deep: #100f14;
+  --color-surface: #1d1b23;
+  --color-surface-2: #232029;
+  --color-surface-3: #2f2b36;
 
-  --color-ink: #e4e1ed;
-  --color-ink-2: #c7c4d7;
-  --color-ink-3: #908fa0;
+  --color-ink: #efebf3;
+  --color-ink-2: #cbc6d8;
+  --color-ink-3: #9b96a8;
 
   --color-indigo: #c0c1ff;
   --color-indigo-hot: #8083ff;
@@ -59,6 +59,12 @@
   --glow-soft: 0 20px 44px rgba(73, 75, 214, 0.12);
   --glow-primary: 0 24px 70px rgba(73, 75, 214, 0.24);
 
+  /* Per-item accent. Components set --accent from an authored value in the
+     content files; everything accent-aware reads it from here so a card only
+     has to declare its colour once. Default keeps the old indigo behaviour. */
+  --accent: var(--color-indigo);
+  --accent-deep: var(--color-indigo-deep);
+
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -86,6 +92,34 @@
   html {
     background: var(--color-bg);
     scroll-behavior: smooth;
+  }
+
+  /* Two very soft, very large colour washes fixed behind the whole page. This
+     is what stops a dark site from reading as an empty void. Fixed rather than
+     absolute so it costs one composited layer instead of repainting on scroll,
+     and pointer-events:none so it never eats a click. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        60rem 40rem at 78% -10%,
+        rgba(128, 131, 255, 0.13),
+        transparent 60%
+      ),
+      radial-gradient(
+        48rem 34rem at 8% 8%,
+        rgba(78, 222, 163, 0.07),
+        transparent 62%
+      ),
+      radial-gradient(
+        52rem 40rem at 50% 112%,
+        rgba(255, 183, 131, 0.06),
+        transparent 60%
+      );
   }
 
   body {
@@ -194,13 +228,57 @@
 
   /* Purely typographic: spacing is the layout container's job, which is what
      removes the need for the !mb-0 override the footer used to carry. */
+  /* -------------------------------------------------------------------------
+     Accent roles
+
+     indigo = interactive / primary   mint = live, status, success
+     amber  = the human, off-duty material    rose = rare emphasis
+
+     Set [data-accent] on any container and everything inside that reads
+     var(--accent) picks it up. Authored in the content files, never derived
+     from an index, so SSR and hydration agree.
+  ------------------------------------------------------------------------- */
+  [data-accent='indigo'] {
+    --accent: var(--color-indigo);
+    --accent-deep: var(--color-indigo-deep);
+  }
+
+  [data-accent='mint'] {
+    --accent: var(--color-mint);
+    --accent-deep: var(--color-mint-deep);
+  }
+
+  [data-accent='amber'] {
+    --accent: var(--color-amber);
+    --accent-deep: #d97721;
+  }
+
+  [data-accent='rose'] {
+    --accent: var(--color-rose);
+    --accent-deep: #93000a;
+  }
+
+  .accent-text {
+    color: var(--accent);
+  }
+
+  /* A short accent rule. Used as a section marker and as a card's top edge, so
+     a grid of cards reads as several distinct things rather than one texture. */
+  .accent-rule {
+    display: block;
+    width: 2.25rem;
+    height: 2px;
+    border-radius: 9999px;
+    background: var(--accent);
+  }
+
   .section-kicker {
     display: block;
-    color: var(--color-ink-3);
+    color: var(--accent);
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     line-height: 1;
     text-transform: uppercase;
   }
@@ -210,7 +288,7 @@
        1200px container and read as a ribbon. */
     max-width: 24ch;
     font-family: var(--font-display);
-    font-size: clamp(2.25rem, 4.4vw, 3.5rem);
+    font-size: clamp(2rem, 4.4vw, 3.5rem);
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.08;
@@ -266,8 +344,9 @@
   }
 
   .surface-card:hover {
-    border-color: var(--color-line-strong);
-    box-shadow: var(--glow-primary);
+    border-color: color-mix(in oklab, var(--accent) 42%, transparent);
+    box-shadow: 0 24px 70px
+      color-mix(in oklab, var(--accent-deep) 30%, transparent);
   }
 
   /* Faint technical grid, the same motif as the OG image, so shared links and
@@ -277,6 +356,56 @@
       linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
       linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
     background-size: 32px 32px;
+  }
+
+  /* The conversion point. This used to be another .line-panel, i.e. visually
+     identical to every other band; it should be the warmest block on the page. */
+  .warm-panel {
+    position: relative;
+    overflow: hidden;
+    border-block: 1px solid var(--color-line);
+    background:
+      radial-gradient(
+        44rem 22rem at 22% 0%,
+        rgba(128, 131, 255, 0.16),
+        transparent 66%
+      ),
+      radial-gradient(
+        36rem 20rem at 88% 100%,
+        rgba(255, 183, 131, 0.11),
+        transparent 66%
+      ),
+      rgba(16, 15, 20, 0.55);
+  }
+
+  /* The availability signal. Small enough that a static dot reads as a bullet,
+     so it gets a slow pulse to say "this is live". */
+  /* Availability signal. Deliberately not a pill with a green dot — that badge
+     is on every SaaS page and every generated portfolio. The chevron and caret
+     here are the same two shapes LogoMark draws, so this reads as part of the
+     site rather than as a borrowed component. */
+  .status-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    width: fit-content;
+    color: var(--color-ink-2);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+  }
+
+  .status-line-glyph {
+    color: var(--color-mint);
+    font-weight: 700;
+  }
+
+  /* Same blink as the logo and the hero terminal, so the three agree. */
+  .status-line-caret {
+    margin-left: -0.25rem;
+    color: var(--color-mint);
+    animation: caret-blink 1.4s steps(1) infinite;
   }
 
   .line-panel {
@@ -296,6 +425,170 @@
 
   .divided-list > *:last-child {
     padding-bottom: 0;
+  }
+
+  /* -------------------------------------------------------------------------
+     Portrait
+
+     A photo pinned to the page rather than dropped into a rectangle: slight
+     tilt, thick frame, accent glow behind it. The tilt is a fixed value, not
+     random, so it never differs between server and client.
+  ------------------------------------------------------------------------- */
+  .photo-frame {
+    position: relative;
+    display: block;
+    width: fit-content;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--r-panel);
+    background: var(--color-surface);
+    padding: 0.6rem;
+    rotate: -2deg;
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.03);
+    transition:
+      rotate 400ms var(--ease-out),
+      box-shadow 400ms var(--ease-out);
+  }
+
+  .photo-frame:hover {
+    rotate: 0deg;
+    box-shadow:
+      0 34px 90px rgba(0, 0, 0, 0.55),
+      0 0 60px color-mix(in oklab, var(--color-indigo-deep) 30%, transparent);
+  }
+
+  .photo-frame img {
+    display: block;
+    border-radius: calc(var(--r-panel) - 0.35rem);
+  }
+
+  /* Sits on the frame's corner, tilted the other way, so the pair reads as
+     something physically stuck to the page. */
+  .photo-tag {
+    position: absolute;
+    right: -0.9rem;
+    bottom: -0.8rem;
+    z-index: 2;
+  }
+
+  /* Both classes, because .sticker[data-tilt='N'] is later in this file and
+     higher specificity — a bare .photo-tag rotate would silently lose. Tilted
+     against the frame so the two read as separate physical things. */
+  .sticker.photo-tag {
+    rotate: 4deg;
+  }
+
+  .sticker.photo-tag:hover {
+    rotate: 0deg;
+  }
+
+  /* The particle portrait needs light behind it or the darker tones in the
+     ramp disappear into the page. */
+  .particle-stage {
+    position: relative;
+  }
+
+  .particle-stage::before {
+    content: '';
+    position: absolute;
+    inset: -12% -6% -6% -6%;
+    z-index: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--color-indigo-deep) 26%, transparent),
+      transparent 72%
+    );
+    pointer-events: none;
+  }
+
+  .particle-stage > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* -------------------------------------------------------------------------
+     Layout escapes
+
+     .bleed lets one section break the 1200px container so the page is not a
+     single unbroken column. Vertical rhythm variants stop every section from
+     being exactly --space-section tall.
+  ------------------------------------------------------------------------- */
+  .bleed {
+    width: min(1440px, calc(100% - 3rem));
+    margin-inline: auto;
+  }
+
+  .section-loose {
+    padding-block: calc(var(--space-section) * 1.5);
+  }
+
+  /* -------------------------------------------------------------------------
+     Numbered rows
+
+     Replaces a row of three identical cards. The index and the accent rule do
+     the separating, so the three read as three things.
+  ------------------------------------------------------------------------- */
+  .numbered-row {
+    display: grid;
+    gap: 1rem 2rem;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    border-top: 1px solid var(--color-line);
+    padding-block: 2rem;
+    transition: border-color 240ms var(--ease-out);
+  }
+
+  .numbered-row:hover {
+    border-color: color-mix(in oklab, var(--accent) 40%, transparent);
+  }
+
+  .numbered-row-index {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding-top: 0.4rem;
+  }
+
+  /* -------------------------------------------------------------------------
+     Timeline rail
+  ------------------------------------------------------------------------- */
+  .rail {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .rail::before {
+    content: '';
+    position: absolute;
+    inset-block: 0.5rem;
+    left: 0.32rem;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      var(--color-indigo-deep),
+      var(--color-mint-deep),
+      transparent
+    );
+  }
+
+  .rail-item {
+    position: relative;
+  }
+
+  .rail-item::before {
+    content: '';
+    position: absolute;
+    top: 0.55rem;
+    left: -2rem;
+    width: 0.7rem;
+    height: 0.7rem;
+    border: 2px solid var(--accent);
+    border-radius: 9999px;
+    background: var(--color-bg);
   }
 
   /* -------------------------------------------------------------------------
@@ -320,10 +613,14 @@
   .project-card:hover,
   .project-card:focus-within {
     transform: translateY(-4px);
-    border-color: var(--color-line-strong);
-    box-shadow: var(--glow-primary);
+    border-color: color-mix(in oklab, var(--accent) 45%, transparent);
+    box-shadow: 0 24px 70px color-mix(in oklab, var(--accent) 22%, transparent);
   }
 
+  /* place-items:center is what centres the fallback poster's text. It also
+     sizes grid items to their content, which left a real screenshot floating
+     inset inside the media box rather than filling it — hence the explicit
+     stretch on the picture below. */
   .project-card-media {
     position: relative;
     display: grid;
@@ -334,6 +631,54 @@
     aspect-ratio: 16 / 5;
   }
 
+  .project-card-media > picture {
+    grid-area: 1 / 1;
+    place-self: stretch;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Fallback media: the product's own colour and tagline rather than a file
+     path. Only used until a real capture is dropped into .assets-source/work/
+     and picked up by `npm run images`. */
+  .project-poster {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 100%;
+    height: 100%;
+    padding: 1.25rem 1.4rem;
+    background:
+      radial-gradient(
+        26rem 14rem at 82% 118%,
+        color-mix(in oklab, var(--accent) 32%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        18rem 10rem at 6% -18%,
+        color-mix(in oklab, var(--accent) 16%, transparent),
+        transparent 70%
+      );
+  }
+
+  .project-poster-tagline {
+    max-width: 22ch;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 1.6vw, 1.35rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .project-poster-domain {
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+
   .project-card-overlay {
     position: absolute;
     inset: auto 0 0 0;
@@ -341,10 +686,10 @@
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
-    border-top: 1px solid var(--color-line-strong);
-    background: rgba(19, 19, 27, 0.72);
+    border-top: 1px solid color-mix(in oklab, var(--accent) 40%, transparent);
+    background: rgba(16, 15, 20, 0.72);
     padding: 0.7rem 1rem;
-    color: var(--color-indigo);
+    color: var(--accent);
     font-family: var(--font-mono);
     font-size: 0.72rem;
     letter-spacing: 0.06em;
@@ -407,11 +752,19 @@
     border: 1px solid transparent;
     background: var(--color-indigo-deep);
     color: #ffffff;
+    box-shadow: 0 8px 24px rgba(73, 75, 214, 0.28);
   }
 
   .btn-primary:hover {
     background: var(--color-indigo-hot);
     color: #0d0096;
+    box-shadow: 0 14px 34px rgba(128, 131, 255, 0.4);
+  }
+
+  .btn-primary:active,
+  .btn-secondary:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 12px rgba(73, 75, 214, 0.24);
   }
 
   .btn-secondary {
@@ -423,6 +776,7 @@
   /* Ghost buttons glow on hover, per DESIGN.md. */
   .btn-secondary:hover {
     border-color: var(--color-line-strong);
+    background: rgba(192, 193, 255, 0.07);
     box-shadow: var(--glow-soft);
     color: var(--color-indigo);
   }
@@ -457,6 +811,11 @@
     color: var(--color-indigo);
   }
 
+  .nav-link:hover::after {
+    opacity: 0.45;
+    transform: scaleX(1);
+  }
+
   .nav-link.active::after {
     opacity: 1;
     transform: scaleX(1);
@@ -465,18 +824,6 @@
   /* -------------------------------------------------------------------------
      Chips, tags, stickers
   ------------------------------------------------------------------------- */
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    width: fit-content;
-    border: 1px solid var(--color-line);
-    border-radius: 9999px;
-    padding: 0.4rem 0.85rem;
-    color: var(--color-ink-2);
-    font-size: 0.8rem;
-  }
-
   .tag {
     display: inline-flex;
     align-items: center;
@@ -538,18 +885,36 @@
   /* -------------------------------------------------------------------------
      Hand-drawn underline, for key headline phrases (DESIGN.md)
   ------------------------------------------------------------------------- */
-  .sketch-underline {
+  .sketch-mark {
     position: relative;
     display: inline-block;
   }
 
-  .sketch-underline > svg {
+  .sketch-mark > svg {
     position: absolute;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  /* Underline hugs the baseline. */
+  .sketch-underline > svg {
     inset: auto 0 -0.02em 0;
     width: 100%;
     height: 0.2em;
-    overflow: visible;
-    pointer-events: none;
+  }
+
+  /* Circle and bracket surround the phrase rather than sitting under it, so
+     they need room around the text and a box that covers the whole span. */
+  .sketch-circle,
+  .sketch-bracket {
+    padding-inline: 0.3em;
+  }
+
+  .sketch-circle > svg,
+  .sketch-bracket > svg {
+    inset: -0.22em -0.1em;
+    width: calc(100% + 0.2em);
+    height: calc(100% + 0.44em);
   }
 
   /* -------------------------------------------------------------------------
@@ -724,6 +1089,10 @@
   @layer components {
     .page-container {
       width: min(100% - 1.5rem, 1200px);
+    }
+
+    .bleed {
+      width: min(100% - 1.5rem, 1440px);
     }
   }
 }

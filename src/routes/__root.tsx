@@ -31,7 +31,7 @@ const PERSON_JSON_LD = {
   jobTitle: profile.title,
   email: `mailto:${profile.email}`,
   url: SITE_URL,
-  image: `${SITE_URL}/og.jpg`,
+  image: `${SITE_URL}/portrait@880.jpg`,
   sameAs: [profile.github, profile.linkedin],
   address: {
     '@type': 'PostalAddress',
@@ -65,7 +65,7 @@ export const Route = createRootRoute({
         content:
           'Portfolio of Sibte Hussain, a full-stack engineer in Lahore building web and mobile apps with React, Next.js, Django, and React Native, and rooting phones for fun in his spare time.',
       },
-      { name: 'theme-color', content: '#13131b' },
+      { name: 'theme-color', content: '#15141a' },
       { name: 'author', content: SITE_NAME },
       {
         property: 'og:title',

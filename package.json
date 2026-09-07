@@ -13,7 +13,8 @@
     "test": "vitest run",
     "lint": "eslint",
     "format": "prettier --check .",
-    "check": "prettier --write . && eslint --fix"
+    "check": "prettier --write . && eslint --fix",
+    "images": "node scripts/generate-images.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

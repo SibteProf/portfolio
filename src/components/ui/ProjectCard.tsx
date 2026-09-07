@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react'
+import type { CSSProperties } from 'react'
 import { StickerRow } from './Sticker'
 
 interface Project {
@@ -9,6 +10,12 @@ interface Project {
   outcome: string
   stack: Array<string>
   link?: string
+  /** The product's own colour, read off its live site. Drives the whole card. */
+  brand?: string
+  tagline?: string
+  domain?: string
+  /** Slug under /work/ once a real capture exists. See scripts/generate-images.mjs. */
+  image?: string
 }
 
 const slugify = (value: string) =>
@@ -21,10 +28,14 @@ const slugify = (value: string) =>
  * Glass project card.
  *
  * DESIGN.md specifies a glassmorphic overlay blurring a project screenshot on
- * hover. There are no screenshots in the repo, so the card header is a small
- * IDE window instead — window dots, the grid motif, and the project's own path
- * — which keeps the terminal identity the rest of the site is built on. If
- * screenshots turn up, they drop into the same slot behind the overlay.
+ * hover. Where a capture exists it goes straight into that slot; where it does
+ * not, the media area falls back to a poster built from the project's own brand
+ * colour and tagline rather than a placeholder path. Five cards then read as
+ * five different products, which an identical grey rectangle repeated five
+ * times did not.
+ *
+ * The IDE window chrome stays either way, so the card still belongs to the same
+ * site as the hero terminal.
  */
 export default function ProjectCard({
   project,
@@ -33,19 +44,63 @@ export default function ProjectCard({
   project: Project
   detailed?: boolean
 }) {
-  const { title, type, problem, highlights, outcome, stack, link } = project
+  const {
+    title,
+    type,
+    problem,
+    highlights,
+    outcome,
+    stack,
+    link,
+    brand,
+    tagline,
+    domain,
+    image,
+  } = project
+
+  // The card wears the product's colour, not the site's. This is the deliberate
+  // exception to the accent role map in styles.css.
+  const style = brand
+    ? ({ '--accent': brand, '--accent-deep': brand } as CSSProperties)
+    : undefined
 
   return (
-    <article className="project-card glass-card h-full">
+    <article className="project-card glass-card h-full" style={style}>
       <div className="project-card-media grid-motif">
-        <div className="absolute top-3 left-3 flex gap-1.5">
+        <div className="absolute top-3 left-3 z-[2] flex gap-1.5">
           <span className="terminal-dot bg-rose/70" />
           <span className="terminal-dot bg-amber/70" />
           <span className="terminal-dot bg-mint/70" />
         </div>
-        <span className="font-code text-xs text-ink-3 sm:text-sm">
-          ~/work/{slugify(title)}
-        </span>
+
+        {image ? (
+          <picture>
+            <source
+              type="image/avif"
+              srcSet={`/work/${image}.avif 640w, /work/${image}@1280.avif 1280w`}
+              sizes="(min-width: 1024px) 40vw, 92vw"
+            />
+            <img
+              src={`/work/${image}.webp`}
+              srcSet={`/work/${image}.webp 640w, /work/${image}@1280.webp 1280w`}
+              sizes="(min-width: 1024px) 40vw, 92vw"
+              width={640}
+              height={200}
+              alt={`${title} — screenshot of the live product`}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover object-top"
+            />
+          </picture>
+        ) : (
+          <div className="project-poster">
+            <p className="project-poster-tagline">
+              {tagline ?? `~/work/${slugify(title)}`}
+            </p>
+            {domain ? <p className="project-poster-domain">{domain}</p> : null}
+          </div>
+        )}
+
         {link ? (
           <span className="project-card-overlay">
             Visit project
@@ -62,7 +117,7 @@ export default function ProjectCard({
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-indigo"
+                className="transition-colors hover:text-[var(--accent)]"
               >
                 {title}
                 <span className="sr-only"> (opens in a new tab)</span>
@@ -90,7 +145,7 @@ export default function ProjectCard({
                   >
                     <span
                       aria-hidden="true"
-                      className="mt-3 h-1 w-1 shrink-0 rounded-full bg-mint"
+                      className="mt-3 h-1 w-1 shrink-0 rounded-full bg-[var(--accent)]"
                     />
                     <span>{item}</span>
                   </li>

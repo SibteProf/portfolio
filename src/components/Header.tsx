@@ -57,7 +57,11 @@ export default function Header() {
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span
+              aria-hidden="true"
+              className="mr-1 hidden h-5 w-px bg-line lg:block"
+            />
             <GameModeToggle />
             <a
               href={profile.github}

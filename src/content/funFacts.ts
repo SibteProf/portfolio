@@ -8,16 +8,15 @@ const iconByKey: Record<string, typeof Gamepad2> = {
   music: Music,
 }
 
-const colorByKey: Record<string, string> = {
-  gaming: 'text-mint',
-  'pc-building': 'text-amber',
-  phones: 'text-indigo',
-  music: 'text-mint',
-}
-
+/**
+ * The accent now comes from the interest itself rather than a second lookup
+ * table here, so there is one place to change a colour. Cards set it as
+ * data-accent and read it back through var(--accent).
+ */
 export const funFacts = interests.map((item) => ({
   icon: iconByKey[item.key] ?? Gamepad2,
   label: item.label,
   value: item.value,
-  color: colorByKey[item.key] ?? 'text-mint',
+  short: item.short,
+  accent: item.accent,
 }))
