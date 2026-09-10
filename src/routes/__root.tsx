@@ -91,10 +91,18 @@ export const Route = createRootRoute({
       },
       { rel: 'stylesheet', href: GOOGLE_FONTS_HREF },
       { rel: 'stylesheet', href: appCss },
-      // Canonical minimal icon set. The .ico carries 16/32/48 for legacy and
-      // search crawlers; the SVG wins wherever it is supported.
-      { rel: 'icon', href: '/favicon.ico', sizes: '16x16 32x32 48x48' },
+      // Canonical minimal icon set. The .ico only actually embeds 16/32px
+      // rasters (legacy browser chrome); Google's favicon guidelines want a
+      // real >=48px raster too, since it does not reliably rasterise SVG
+      // favicons for search results, hence the explicit PNG below.
+      { rel: 'icon', href: '/favicon.ico', sizes: '16x16 32x32' },
       { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
+      {
+        rel: 'icon',
+        href: '/icon-192.png',
+        type: 'image/png',
+        sizes: '192x192',
+      },
       {
         rel: 'apple-touch-icon',
         href: '/apple-touch-icon.png',

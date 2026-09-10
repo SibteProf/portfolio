@@ -3,7 +3,7 @@ import ProjectCard from '../components/ui/ProjectCard'
 import Section from '../components/ui/Section'
 import SketchUnderline from '../components/ui/SketchUnderline'
 import { StaggerContainer, StaggerItem } from '../components/ui/ScrollReveal'
-import { projects } from '../content/portfolio'
+import { projects, sideProjects } from '../content/portfolio'
 import { seo } from '../lib/seo'
 
 export const Route = createFileRoute('/experience')({
@@ -36,6 +36,20 @@ function Experience() {
           {projects.map((project) => (
             <StaggerItem key={project.title} className="h-full">
               <ProjectCard project={project} detailed />
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+      </Section>
+
+      <Section
+        kicker="Side Quests"
+        title="Nobody paid me for these. I built them anyway."
+        subtitle="No client, no deadline, no problem statement. Just something that annoyed me enough to fix."
+      >
+        <StaggerContainer className="grid gap-6 lg:grid-cols-2">
+          {sideProjects.map((project) => (
+            <StaggerItem key={project.title} className="h-full">
+              <ProjectCard project={project} />
             </StaggerItem>
           ))}
         </StaggerContainer>
