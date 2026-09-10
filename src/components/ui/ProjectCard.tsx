@@ -96,7 +96,7 @@ export default function ProjectCard({
               sizes="(min-width: 1024px) 40vw, 92vw"
               width={640}
               height={200}
-              alt={`${title} — screenshot of the live product`}
+              alt={`${title}, screenshot of the live product`}
               loading="lazy"
               decoding="async"
               className="h-full w-full object-cover object-top"

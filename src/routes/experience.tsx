@@ -42,7 +42,6 @@ function Experience() {
       </Section>
 
       <Section
-        kicker="Side Quests"
         title="Nobody paid me for these. I built them anyway."
         subtitle="No client, no deadline, no problem statement. Just something that annoyed me enough to fix."
       >

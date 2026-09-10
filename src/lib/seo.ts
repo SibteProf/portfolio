@@ -64,7 +64,7 @@ export function seo(opts: SeoOptions): {
   const title = opts.titleOverride ?? `${opts.title} | ${SITE_NAME}`
   const url = absoluteUrl(opts.path)
   const image = absoluteUrl(opts.image ?? DEFAULT_OG_IMAGE)
-  const imageAlt = opts.imageAlt ?? `${SITE_NAME} — Full-Stack Engineer`
+  const imageAlt = opts.imageAlt ?? `${SITE_NAME}, Full-Stack Engineer`
 
   return {
     meta: [
