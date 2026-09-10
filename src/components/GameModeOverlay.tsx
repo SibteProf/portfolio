@@ -122,7 +122,7 @@ export default function GameModeOverlay() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.2 }}
-            className="glass-card fixed bottom-6 left-6 z-40 max-w-xs rounded-xl p-4 font-code text-xs leading-6 text-ink-2"
+            className="glass-card fixed bottom-24 left-6 z-40 max-w-xs rounded-xl p-4 font-code text-xs leading-6 text-ink-2"
           >
             Game mode: on. Also, yes, I game, and there is an actual game hiding
             in the corner now.

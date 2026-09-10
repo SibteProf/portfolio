@@ -169,11 +169,7 @@ function Home() {
 
       <div className="page-container">
         {/* Numbered rows rather than three identical grey cards. */}
-        <Section
-          id="services"
-          kicker="What I do"
-          title="What I actually get hired to do."
-        >
+        <Section id="services" title="What I actually get hired to do.">
           <StaggerContainer>
             {services.map((service, index) => (
               <StaggerItem
@@ -285,7 +281,7 @@ function Home() {
 
       <div className="warm-panel">
         <div className="page-container">
-          <Section kicker="Contact" title="Got something to build?">
+          <Section title="Got something to build?">
             <ScrollReveal>
               <p className="measure text-base leading-8 text-ink-2">
                 If it involves a web app, a mobile app, or something in between,
@@ -293,7 +289,7 @@ function Home() {
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link to="/contact" className="btn btn-primary group">
-                  Start a Conversation
+                  Let&apos;s Talk
                   <ArrowRight
                     size={17}
                     className="transition-transform duration-200 group-hover:translate-x-1"

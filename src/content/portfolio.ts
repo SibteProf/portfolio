@@ -97,11 +97,18 @@ export const services = [
 
 export const timeline = [
   {
-    period: 'Oct 2024 - Present',
+    period: 'Mar 2026 - Present',
+    role: 'Full-Stack Developer',
+    company: 'Visionixity',
+    summary:
+      'Remote full-stack work for a software house, building websites, web apps, and mobile apps for clients. Started part-time in March 2026, mostly living in NestJS, TanStack Start, and MongoDB, and picked up full-time once PlanLab wrapped.',
+  },
+  {
+    period: 'Oct 2024 - Jun 2026',
     role: 'Software Engineer',
     company: 'PlanLab Solutions',
     summary:
-      'Building and maintaining the core product across web and mobile, mostly Next.js and React Native, with Django doing the heavy lifting on the backend.',
+      'Built and maintained the core product across web and mobile, mostly Next.js and React Native, with Django doing the heavy lifting on the backend.',
   },
   {
     period: 'Sep 2023 - Oct 2024',

@@ -135,7 +135,7 @@ export default function Header() {
                 Resume
               </a>
               <Link to="/contact" className="btn btn-primary btn-block mt-2">
-                Start a Conversation
+                Let&apos;s Talk
               </Link>
             </nav>
           </motion.div>

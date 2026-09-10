@@ -71,7 +71,6 @@ function About() {
           <div className="space-y-12">
             <ScrollReveal className="space-y-6">
               <div>
-                <p className="section-kicker mb-3.5">Working With Me</p>
                 <h2 className="section-title-sm">
                   How I actually work, not the LinkedIn version.
                 </h2>
@@ -112,7 +111,7 @@ function About() {
         </div>
       </Section>
 
-      <Section kicker="Off Duty" title="What I do when nothing is compiling.">
+      <Section title="What I do when nothing is compiling.">
         <StaggerContainer className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {funFacts.map((item) => {
             const Icon = item.icon

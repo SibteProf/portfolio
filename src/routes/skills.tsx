@@ -49,10 +49,7 @@ function Skills() {
         </StaggerContainer>
       </Section>
 
-      <Section
-        kicker="Also Comfortable With"
-        title="Supporting tools I can slot into an existing setup."
-      >
+      <Section title="Supporting tools I can slot into an existing setup.">
         <ScrollReveal>
           <div className="flex flex-wrap items-center gap-2.5">
             {comfortStack.map((item, i) => (
