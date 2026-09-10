@@ -5,8 +5,8 @@ import { StickerRow } from './Sticker'
 interface Project {
   title: string
   type: string
-  problem: string
-  highlights: Array<string>
+  problem?: string
+  highlights?: Array<string>
   outcome: string
   stack: Array<string>
   link?: string
@@ -64,9 +64,19 @@ export default function ProjectCard({
     ? ({ '--accent': brand, '--accent-deep': brand } as CSSProperties)
     : undefined
 
+  const MediaTag = link ? 'a' : 'div'
+  const mediaLinkProps = link
+    ? {
+        href: link,
+        target: '_blank',
+        rel: 'noopener noreferrer',
+        'aria-label': `${title} (opens in a new tab)`,
+      }
+    : {}
+
   return (
     <article className="project-card glass-card h-full" style={style}>
-      <div className="project-card-media grid-motif">
+      <MediaTag className="project-card-media grid-motif" {...mediaLinkProps}>
         <div className="absolute top-3 left-3 z-[2] flex gap-1.5">
           <span className="terminal-dot bg-rose/70" />
           <span className="terminal-dot bg-amber/70" />
@@ -107,7 +117,7 @@ export default function ProjectCard({
             <ArrowUpRight size={14} aria-hidden="true" />
           </span>
         ) : null}
-      </div>
+      </MediaTag>
 
       <div className="flex flex-1 flex-col gap-4 p-6">
         <div>
@@ -129,7 +139,7 @@ export default function ProjectCard({
           <p className="mt-1.5 text-sm leading-6 text-ink-3">{type}</p>
         </div>
 
-        {detailed ? (
+        {detailed && problem && highlights ? (
           <>
             <div>
               <p className="section-kicker mb-1.5">The problem</p>

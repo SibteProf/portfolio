@@ -316,6 +316,23 @@ export const projects = [
 /** The three the home page leads with. Order follows the list above. */
 export const featuredProjects = projects.filter((project) => project.featured)
 
+// Unpaid, unasked-for, built anyway. Kept separate from `projects` on
+// purpose: no client, no "problem/outcome" pitch, just what happened.
+export const sideProjects = [
+  {
+    accent: 'rose',
+    title: 'Keylux',
+    brand: '#ff3d81',
+    tagline: 'Your keyboard. Your rules. No vendor app required.',
+    domain: 'github.com/SibteProf/keylux',
+    type: 'Reverse-engineered RGB driver for a keyboard with no open-source support, in Rust',
+    outcome:
+      "My AULA F75 wanted a clunky vendor app just to turn the per-key lighting on, so I sniffed its USB traffic, reverse-engineered the whole protocol byte by byte, and wrote a Rust app to drive it instead. No firmware flashing, no bundled bloatware, and effects you write as small hot-reloading scripts instead of begging a settings panel for one more option.",
+    stack: ['Rust', 'egui', 'HID', 'Rhai'],
+    link: 'https://github.com/SibteProf/keylux',
+  },
+]
+
 const stackBreadthCount =
   stackGroups.reduce((total, group) => total + group.items.length, 0) +
   comfortStack.length
