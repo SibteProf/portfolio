@@ -338,6 +338,18 @@ export const sideProjects = [
     stack: ['Rust', 'egui', 'HID', 'Rhai'],
     link: 'https://github.com/SibteProf/keylux',
   },
+  {
+    accent: 'amber',
+    title: 'Framely',
+    brand: '#ff6b5b',
+    tagline: 'Crop it once. It fits everywhere.',
+    domain: 'github.com/SibteProf/Framely',
+    type: 'Expo photo cropping app that fits an image to the exact frame every social platform wants',
+    outcome:
+      "I kept resizing the same photo five different ways for five different apps before posting it, so I built an Expo app that shows the real crop frame for Instagram, TikTok, X, YouTube, Facebook, LinkedIn, and WhatsApp, lets you pinch and drag to fit it (or keep the full photo with a blurred fill instead of cropping it), and exports at the actual target resolution instead of a screenshot of the preview.",
+    stack: ['React Native', 'Expo', 'TypeScript', 'Skia'],
+    link: 'https://github.com/SibteProf/Framely',
+  },
 ]
 
 const stackBreadthCount =
